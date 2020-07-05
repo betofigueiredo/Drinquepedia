@@ -1,0 +1,12 @@
+# api
+/api/*.log*
+/api/node_modules
+/api/src/generated/
+/api/.env
+
+# web
+/web/*.log*
+/web/node_modules
+/web/build
+/web/.DS_Store
+/web/.env
