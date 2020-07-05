@@ -1,0 +1,14 @@
+{
+  "name": "drinquepedia",
+  "version": "3.0.0",
+  "description": "Drinquepedia | Things go better with a cocktail!",
+  "homepage": "http://www.drinquepedia.com",
+  "author": "Beto Figueiredo <herberto_f@yahoo.com.br>",
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/betofigueiredo/Drinquepedia"
+  }
+}
