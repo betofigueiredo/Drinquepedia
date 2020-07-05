@@ -1,0 +1,56 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url = "file:./dev.db"
+}
+
+model Drinque {
+  id Int @default(autoincrement()) @id
+  nome String
+  imagem String
+  categorias Categoria[]
+  ingredientes Ingrediente[]
+  // preparo String
+  calorias Int
+  teorAlcoolico String
+  dificuldade String
+  sobre String
+  dicas Dica[]
+}
+
+model Ingrediente {
+  id Int @default(autoincrement()) @id
+  drinqueId Int
+  Drinque Drinque @relation(fields: [drinqueId], references: [id])
+  tipoIngredienteNome String
+  TipoIngrediente TipoIngrediente @relation(fields: [tipoIngredienteNome], references: [nome])
+  quantidade Int
+  medida String
+}
+
+model TipoIngrediente {
+  nome String @id
+}
+
+model Categoria {
+  id Int @default(autoincrement()) @id
+  drinqueId Int
+  Drinque Drinque @relation(fields: [drinqueId], references: [id])
+  nome String
+  tipoCategoriaNome String
+  TipoCategoria TipoCategoria @relation(fields: [tipoCategoriaNome], references: [nome])
+}
+
+model TipoCategoria {
+  nome String @id
+}
+
+model Dica {
+  id Int @default(autoincrement()) @id
+  drinqueId Int
+  Drinque Drinque @relation(fields: [drinqueId], references: [id])
+  dica String
+}
