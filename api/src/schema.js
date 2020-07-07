@@ -89,6 +89,26 @@ const Query = objectType({
 			),
 		});
 
+		t.list.field('drinques_por_categorias', {
+			type: 'Drinque',
+			args: {
+				categoria: stringArg(),
+			},
+			resolve: (_, { categoria }, ctx) => (
+				ctx.prisma.drinque.findMany({
+					where: {
+						categorias: {
+							some: {
+								nome: {
+									equals: categoria,
+								},
+							},
+						},
+					},
+				})
+			),
+		});
+
 		// t.list.field('feed', {
 		//   type: 'Post',
 		//   resolve: (_, args, ctx) => {
