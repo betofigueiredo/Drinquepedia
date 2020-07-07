@@ -48,6 +48,13 @@ const Categoria = objectType({
 	},
 });
 
+const TipoCategoria = objectType({
+	name: 'TipoCategoria',
+	definition(t) {
+		t.model.nome();
+	},
+});
+
 const Dica = objectType({
 	name: 'Dica',
 	definition(t) {
@@ -184,6 +191,7 @@ const schema = makeSchema({
 		Ingrediente,
 		TipoIngrediente,
 		Categoria,
+		TipoCategoria,
 		Dica,
 	],
 	plugins: [nexusSchemaPrisma()],

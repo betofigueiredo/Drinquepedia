@@ -40,8 +40,7 @@ model Categoria {
   drinqueId Int
   Drinque Drinque @relation(fields: [drinqueId], references: [id])
   nome String
-  tipoCategoriaNome String
-  TipoCategoria TipoCategoria @relation(fields: [tipoCategoriaNome], references: [nome])
+  TipoCategoria TipoCategoria @relation(fields: [nome], references: [nome])
 }
 
 model TipoCategoria {
