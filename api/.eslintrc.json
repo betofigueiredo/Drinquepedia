@@ -11,7 +11,7 @@
         "ecmaVersion": 11
     },
     "rules": {
-        "no-tabs": ["error", { "allowIndentationTabs": true }],
+        "no-tabs": [0],
         "indent": ["error", "tab"],
         "object-curly-newline": [0]
     }
