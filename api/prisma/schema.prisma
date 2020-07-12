@@ -36,15 +36,9 @@ model TipoIngrediente {
 }
 
 model Categoria {
-  id Int @default(autoincrement()) @id
-  drinqueId Int
-  Drinque Drinque @relation(fields: [drinqueId], references: [id])
+  id Int @id @default(autoincrement())
   nome String
-  TipoCategoria TipoCategoria @relation(fields: [nome], references: [nome])
-}
-
-model TipoCategoria {
-  nome String @id
+  drinques Drinque[] @relation(references: [id])
 }
 
 model Dica {
