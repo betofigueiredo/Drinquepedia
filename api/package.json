@@ -8,7 +8,10 @@
     "node": ">=10.0.0"
   },
   "scripts": {
-    "start": "node ./src/server.js"
+    "start": "node ./src/server.js",
+    "gen": "npx prisma generate",
+    "msave": "prisma migrate save --experimental",
+    "mup": "prisma migrate up --experimental"
   },
   "dependencies": {
     "@nexus/schema": "^0.14.0",
