@@ -6,20 +6,23 @@ const IngredienteMutation = extendType({
 		t.field('criaIngrediente', {
 			type: 'Ingrediente',
 			args: {
-				drinqueId: idArg(),
-				tipoIngredienteid: idArg(),
+				ordem: intArg(),
 				quantidade: intArg(),
 				medida: stringArg(),
+				drinqueId: idArg(),
+				tipoIngredienteid: idArg(),
 			},
 			resolve: (_, args, ctx) => {
 				const {
-					drinqueId,
-					tipoIngredienteid,
+					ordem,
 					quantidade,
 					medida,
+					drinqueId,
+					tipoIngredienteid,
 				} = args;
 				return ctx.prisma.ingrediente.create({
 					data: {
+						ordem,
 						quantidade,
 						medida,
 						drinque: {

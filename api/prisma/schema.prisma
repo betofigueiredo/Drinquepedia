@@ -23,12 +23,13 @@ model Drinque {
 
 model Ingrediente {
   id Int @default(autoincrement()) @id
+  ordem Int
+  quantidade Int
+  medida String
   drinqueId Int
   drinque Drinque @relation(fields: [drinqueId], references: [id])
   tipoIngredienteid Int
   tipoIngrediente TipoIngrediente @relation(fields: [tipoIngredienteid], references: [id])
-  quantidade Int
-  medida String
 }
 
 model TipoIngrediente {
