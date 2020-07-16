@@ -4,6 +4,7 @@ const { makeSchema, objectType } = require('@nexus/schema');
 const { Drinque, DrinqueQuery, DrinqueMutation } = require('./Drinque');
 const { Categoria, CategoriaMutation } = require('./Categoria');
 const { Ingrediente, TipoIngrediente, IngredienteMutation } = require('./Ingrediente');
+const { Preparo, PreparoMutation } = require('./Preparo');
 
 const Dica = objectType({
 	name: 'Dica',
@@ -48,12 +49,14 @@ const Dica = objectType({
 const DrinqueType = [Drinque, DrinqueQuery, DrinqueMutation];
 const CategoriaType = [Categoria, CategoriaMutation];
 const IngredienteType = [Ingrediente, TipoIngrediente, IngredienteMutation];
+const PreparoType = [Preparo, PreparoMutation];
 
 const schema = makeSchema({
 	types: [
 		...DrinqueType,
 		...CategoriaType,
 		...IngredienteType,
+		...PreparoType,
 		Dica,
 	],
 	plugins: [nexusSchemaPrisma()],

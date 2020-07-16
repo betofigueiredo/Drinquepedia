@@ -8,7 +8,7 @@ const Drinque = objectType({
 		t.model.imagem();
 		t.model.categorias();
 		t.model.ingredientes();
-		// t.model.preparo()
+		t.model.preparo();
 		t.model.calorias();
 		t.model.teorAlcoolico();
 		t.model.dificuldade();

@@ -13,7 +13,7 @@ model Drinque {
   imagem String
   categorias Categoria[]
   ingredientes Ingrediente[]
-  // preparo String
+  preparo Preparo[]
   calorias Int
   teorAlcoolico String
   dificuldade String
@@ -40,6 +40,14 @@ model Categoria {
   id Int @id @default(autoincrement())
   nome String
   drinques Drinque[] @relation(references: [id])
+}
+
+model Preparo {
+  id Int @default(autoincrement()) @id
+  ordem Int
+  metodo String
+  drinqueId Int
+  drinque Drinque @relation(fields: [drinqueId], references: [id])
 }
 
 model Dica {
