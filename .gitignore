@@ -10,3 +10,5 @@
 /web/build
 /web/.DS_Store
 /web/.env
+/web/.next/
+/web/out/
