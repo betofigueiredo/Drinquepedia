@@ -1,6 +1,9 @@
 {
-  "name": "aaa",
-  "version": "0.1.0",
+  "name": "drinquepedia",
+  "version": "3.0.0",
+  "description": "Drinquepedia | Things go better with a cocktail!",
+  "homepage": "http://www.drinquepedia.com",
+  "author": "Beto Figueiredo <herberto_f@yahoo.com.br>",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -10,6 +13,11 @@
   "dependencies": {
     "next": "9.4.4",
     "react": "16.13.1",
-    "react-dom": "16.13.1"
+    "react-dom": "16.13.1",
+    "styled-components": "^5.1.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/betofigueiredo/Drinquepedia"
   }
 }
