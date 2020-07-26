@@ -1,5 +1,5 @@
 <div align="center">
-  <div>![Website](http://www.drinquepedia.com/img/logo.jpg)</div>
+  <div><a href="http://www.drinquepedia.com/"><img src="http://www.drinquepedia.com/img/logo.jpg" alt="Drinquepedia"></a></div>
   <h3 align="center">Desenvolvimento da nova versão do site</h3>
   <p><a href="http://www.drinquepedia.com/">Acessar drinquepedia.com</a></p>
 </div>
