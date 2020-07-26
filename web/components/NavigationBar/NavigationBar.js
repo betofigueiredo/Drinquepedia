@@ -3,16 +3,24 @@ import React from 'react';
 // CSS
 import * as s from './NavigationBar.style';
 
-// UI
-import { Container, Row, Column } from '../../ui-components';
+// Utils
+import config from '../../utils/config';
 
 const NavigationBar = () => (
 	<s.NavigationBar>
-		<Container>
-			<Row>
-				<Column>a</Column>
-			</Row>
-		</Container>
+		<s.NavigationWrapper>
+			<s.Logo>
+				<img src={`${config.storage_path}/drinquepedia-logo.png`} />
+			</s.Logo>
+			<s.Menu>
+				<ul>
+					<li><a>Drinques</a></li>
+					<li><a>Destaques</a></li>
+					<li><a>Tudo sobre bar</a></li>
+					<li><a>Dicas</a></li>
+				</ul>
+			</s.Menu>
+		</s.NavigationWrapper>
 	</s.NavigationBar>
 );
 
