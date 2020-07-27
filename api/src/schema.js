@@ -2,7 +2,7 @@ const { nexusSchemaPrisma } = require('nexus-plugin-prisma/schema');
 const { makeSchema, objectType } = require('@nexus/schema');
 
 const { Drinque, DrinqueQuery, DrinqueMutation } = require('./Drinque');
-const { Categoria, CategoriaMutation } = require('./Categoria');
+const { Categoria, CategoriaQuery, CategoriaMutation } = require('./Categoria');
 const { Ingrediente, TipoIngrediente, IngredienteMutation } = require('./Ingrediente');
 const { Preparo, PreparoMutation } = require('./Preparo');
 
@@ -47,7 +47,7 @@ const Dica = objectType({
 // });
 
 const DrinqueType = [Drinque, DrinqueQuery, DrinqueMutation];
-const CategoriaType = [Categoria, CategoriaMutation];
+const CategoriaType = [Categoria, CategoriaQuery, CategoriaMutation];
 const IngredienteType = [Ingrediente, TipoIngrediente, IngredienteMutation];
 const PreparoType = [Preparo, PreparoMutation];
 
