@@ -9,9 +9,9 @@
   },
   "scripts": {
     "start": "node ./src/server.js",
-    "gen": "npx prisma generate",
     "msave": "prisma migrate save --experimental",
-    "mup": "prisma migrate up --experimental"
+    "mup": "prisma migrate up --experimental",
+    "gen": "npx prisma generate"
   },
   "dependencies": {
     "@nexus/schema": "^0.14.0",
