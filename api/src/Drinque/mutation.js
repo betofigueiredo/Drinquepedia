@@ -8,40 +8,38 @@ const DrinqueMutation = extendType({
 			args: {
 				nome: stringArg({ nullable: false }),
 				imagem: stringArg(),
-				categorias: stringArg(), // TODO
-				ingredientes: stringArg(), // TODO
+				categoriaId: idArg(),
+				// ingredientes: stringArg(), // TODO
 				calorias: intArg(),
 				teorAlcoolico: stringArg(),
 				dificuldade: stringArg(),
 				sobre: stringArg(),
-				dicas: stringArg(), // TODO
 			},
 			resolve: (_, args, ctx) => {
 				const {
 					nome,
 					imagem,
-					categorias,
-					ingredienteId,
+					categoriaId,
+					// ingredienteId,
 					calorias,
 					teorAlcoolico,
 					dificuldade,
 					sobre,
-					dicas,
 				} = args;
 				return ctx.prisma.drinque.create({
 					data: {
 						nome,
 						imagem,
-						categorias,
+						categorias: {
+							connect: { id: Number(categoriaId) },
+						},
 						calorias,
 						teorAlcoolico,
 						dificuldade,
 						sobre,
-						dicas,
-						published: false,
-						ingredientes: {
-							connect: { id: ingredienteId },
-						},
+						// ingredientes: {
+						// 	connect: { id: ingredienteId },
+						// },
 					},
 				});
 			},

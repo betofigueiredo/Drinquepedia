@@ -24,7 +24,7 @@ model Drinque {
 model Ingrediente {
   id Int @default(autoincrement()) @id
   ordem Int
-  quantidade Int
+  quantidade Float
   medida String
   drinqueId Int
   drinque Drinque @relation(fields: [drinqueId], references: [id])

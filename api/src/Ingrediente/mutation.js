@@ -1,4 +1,4 @@
-const { extendType, idArg, intArg, stringArg } = require('@nexus/schema');
+const { extendType, idArg, intArg, stringArg, floatArg } = require('@nexus/schema');
 
 const IngredienteMutation = extendType({
 	type: 'Mutation',
@@ -7,7 +7,7 @@ const IngredienteMutation = extendType({
 			type: 'Ingrediente',
 			args: {
 				ordem: intArg(),
-				quantidade: intArg(),
+				quantidade: floatArg(),
 				medida: stringArg(),
 				drinqueId: idArg(),
 				tipoIngredienteid: idArg(),
