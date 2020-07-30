@@ -3,18 +3,18 @@ import NavigationBar from '../components/NavigationBar';
 import Categoria from '../components/Categoria';
 
 const Drinques = () => (
-	<>
-		<NavigationBar />
-		<Container>
-			<Row>
-				<Column>aaa</Column>
-				<Column>aaa</Column>
-				<Column>aaa</Column>
-			</Row>
+    <>
+        <NavigationBar />
+        <Container>
+            <Row>
+                <Column>aaa</Column>
+                <Column>aaa</Column>
+                <Column>aaa</Column>
+            </Row>
 
-			<Categoria />
-		</Container>
-	</>
+            <Categoria />
+        </Container>
+    </>
 );
 
 export default Drinques;

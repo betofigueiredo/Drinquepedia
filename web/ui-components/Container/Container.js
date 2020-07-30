@@ -5,16 +5,16 @@ import PropTypes from 'prop-types';
 import * as s from './Container.style';
 
 const Container = ({ children }) => (
-	<s.Container>
-		{React.Children.map(children, (child) => <>{child}</>)}
-	</s.Container>
+    <s.Container>
+        {React.Children.map(children, (child) => <>{child}</>)}
+    </s.Container>
 );
 
 Container.propTypes = {
-	children: PropTypes.oneOfType([
-		PropTypes.arrayOf(PropTypes.node),
-		PropTypes.node,
-	]).isRequired,
+    children: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.node),
+        PropTypes.node,
+    ]).isRequired,
 };
 
 export default Container;
