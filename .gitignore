@@ -12,3 +12,6 @@
 /web/.env
 /web/.next/
 /web/out/
+
+# design
+/design/
