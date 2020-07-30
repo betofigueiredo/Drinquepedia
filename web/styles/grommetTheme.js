@@ -17,7 +17,7 @@ const grommetTheme = {
             light: '#323232',
         },
         hover: {
-            textDecoration: 'underline',
+            textDecoration: 'none',
         },
     },
 };

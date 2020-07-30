@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import theme from '../../styles/theme';
 import { Anchor } from 'grommet';
 
@@ -29,19 +29,70 @@ export const Menu = styled.div`
 
 		> li {
 			display: inline-block;
+			position: relative;
 			width: auto;
+			margin: 0 20px;
 
 			> a {
 				display: block;
-				padding: 28px 20px 23px;
+				padding: 28px 10px 23px;
 			}
 		}
 	}
 `;
 
+const border_in = keyframes`
+	0% {
+		width: 0;
+	}
+	100% {
+		width: 28px;
+	}
+`;
+
+const border_out = keyframes`
+	0% {
+		width: 28px;
+	}
+	100% {
+		width: 0;
+	}
+`;
+
 export const MenuLink = styled(Anchor)`
+	:after {
+		content: ' ';
+		position: absolute;
+		top: 52px;
+		left: 10px;
+		width: 0;
+		height: 4px;
+		background: #FFE29A;
+		animation: ${border_out} 0.3s forwards;
+	}
+
+	:hover {
+		color: #000;
+
+		:after {
+			animation: ${border_in} 0.3s forwards;
+		}
+	}
+
 	${props => props.active && css`
 		color: #000;
+		font-weight: bold;
+
+		:after {
+			width: 28px;
+			animation: none;
+		}
+
+		:hover {
+			:after {
+				animation: none;
+			}
+		}
 	`}
 `;
 
