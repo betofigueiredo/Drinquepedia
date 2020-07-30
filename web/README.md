@@ -1,6 +1,6 @@
 # Drinquepedia
 
-## Tecnologias usada no front-end
+## Tecnologias utilizadas no front-end
 
 - Apollo Client
 - Graphql
