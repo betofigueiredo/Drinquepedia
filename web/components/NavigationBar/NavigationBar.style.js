@@ -1,5 +1,6 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import theme from '../../styles/theme';
+import { Anchor } from 'grommet';
 
 export const NavigationBar = styled.div`
 	height: 81px;
@@ -37,3 +38,10 @@ export const Menu = styled.div`
 		}
 	}
 `;
+
+export const MenuLink = styled(Anchor)`
+	${props => props.active && css`
+		color: #000;
+	`}
+`;
+
