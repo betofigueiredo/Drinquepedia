@@ -3,7 +3,7 @@ const CategoriaQuery = require('./query.js');
 const CategoriaMutation = require('./mutation.js');
 
 module.exports = {
-	Categoria,
-	CategoriaQuery,
-	CategoriaMutation,
+    Categoria,
+    CategoriaQuery,
+    CategoriaMutation,
 };

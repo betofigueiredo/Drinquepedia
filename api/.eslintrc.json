@@ -12,7 +12,7 @@
     },
     "rules": {
         "no-tabs": [0],
-        "indent": ["error", "tab"],
+        "indent": ["error", 4],
         "object-curly-newline": [0]
     }
 }
