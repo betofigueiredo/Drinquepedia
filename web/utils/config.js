@@ -1,5 +1,6 @@
 const config = {
-    storage_path: 'http://s3.drinquepedia.com',
+    BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
+    STORAGE_PATH: process.env.NEXT_PUBLIC_STORAGE_PATH,
 };
 
 export default config;
