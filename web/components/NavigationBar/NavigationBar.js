@@ -1,6 +1,5 @@
 import React from 'react';
 import Link from 'next/link';
-import { Anchor } from 'grommet';
 
 // CSS
 import * as s from './NavigationBar.style';
