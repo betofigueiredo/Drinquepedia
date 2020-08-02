@@ -10,6 +10,7 @@
 /web/build
 /web/.DS_Store
 /web/.env
+/web/.env.local
 /web/.next/
 /web/out/
 
