@@ -13,7 +13,7 @@ model Drinque {
     imagem String
     categorias Categoria[]
     ingredientes Ingrediente[]
-    // decoracao String
+    decoracao String
     preparo Preparo[]
     calorias Int
     teorAlcoolico String

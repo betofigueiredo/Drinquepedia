@@ -10,6 +10,7 @@ const DrinqueMutation = extendType({
                 imagem: stringArg(),
                 categoriaId: idArg(),
                 // ingredientes: stringArg(), // TODO
+                decoracao: stringArg(),
                 calorias: intArg(),
                 teorAlcoolico: stringArg(),
                 dificuldade: stringArg(),
@@ -21,6 +22,7 @@ const DrinqueMutation = extendType({
                     imagem,
                     categoriaId,
                     // ingredienteId,
+                    decoracao,
                     calorias,
                     teorAlcoolico,
                     dificuldade,
@@ -33,6 +35,7 @@ const DrinqueMutation = extendType({
                         categorias: {
                             connect: { id: Number(categoriaId) },
                         },
+                        decoracao,
                         calorias,
                         teorAlcoolico,
                         dificuldade,
