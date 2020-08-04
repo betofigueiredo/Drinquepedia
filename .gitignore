@@ -3,6 +3,7 @@
 /api/node_modules
 /api/src/generated/
 /api/.env
+/api/prisma/.env
 
 # web
 /web/*.log*
