@@ -54,7 +54,8 @@ model Preparo {
 
 model Dica {
     id Int @default(autoincrement()) @id
-    drinqueId Int
-    Drinque Drinque @relation(fields: [drinqueId], references: [id])
-    dica String
+    titulo String
+    imagem String
+    texto String
+    drinques Drinque[] @relation(references: [id])
 }
