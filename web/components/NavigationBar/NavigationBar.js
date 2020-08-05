@@ -11,7 +11,7 @@ const NavigationBar = () => (
     <s.NavigationBar>
         <s.NavigationWrapper>
             <s.Logo>
-                <Link href="/"><a><img src={`${config.STORAGE_PATH}/drinquepedia-logo.png`} /></a></Link>
+                <Link href="/"><a><img src={`${config.STORAGE_PATH}/drinquepedia-logo.png`} alt="Home" /></a></Link>
             </s.Logo>
             <s.Menu>
                 <ul>

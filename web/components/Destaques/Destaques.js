@@ -16,21 +16,36 @@ const Destaques = () => {
         {
             numero: 1,
             titulo: <>Caipirinhas especiais <br /> para este verão</>,
-            descricao: <>Com certeza a melhor opção para os dias quentes! Confira receitas <br /> com blueberrys, amoras, kiwis, morangos e muito mais</>,
+            descricao: (
+                <>
+                    Com certeza a melhor opção para os dias quentes! Confira receitas
+                    <br /> com blueberrys, amoras, kiwis, morangos e muito mais
+                </>
+            ),
             imagem: `${config.STORAGE_PATH}/destaques/caipirinhas-large.jpg`,
             link: '',
         },
         {
             numero: 2,
             titulo: <>Smoothies naturais e <br /> saudáveis</>,
-            descricao: <>Smoothies são bebidas saudáveis feitas com frutas, iogurtes e <br /> outros ingredientes naturais. Perfeitos para o verão</>,
+            descricao: (
+                <>
+                    Smoothies são bebidas saudáveis feitas com frutas, iogurtes e
+                    <br /> outros ingredientes naturais. Perfeitos para o verão
+                </>
+            ),
             imagem: `${config.STORAGE_PATH}/destaques/smoothies-large.jpg`,
             link: '',
         },
         {
             numero: 3,
             titulo: <>Drinques quentes para <br /> os dias frios</>,
-            descricao: <>Separamos nossos melhores coquetéis para te esquentar nos dias <br /> mais frios, apreciando também aquele bom chocolate quente</>,
+            descricao: (
+                <>
+                    Separamos nossos melhores coquetéis para te esquentar nos dias
+                    <br /> mais frios, apreciando também aquele bom chocolate quente
+                </>
+            ),
             imagem: `${config.STORAGE_PATH}/destaques/hot-drink-large.jpg`,
             link: '',
         },
@@ -48,9 +63,9 @@ const Destaques = () => {
             {destaque_selecionado !== null && (
                 <Destaque destaque={des} />
             )}
-            <button onClick={() => alterarDestaque(1)}>1</button>
-            <button onClick={() => alterarDestaque(2)}>2</button>
-            <button onClick={() => alterarDestaque(3)}>3</button>
+            <button type="button" onClick={() => alterarDestaque(1)}>1</button>
+            <button type="button" onClick={() => alterarDestaque(2)}>2</button>
+            <button type="button" onClick={() => alterarDestaque(3)}>3</button>
         </s.Destaques>
     );
 };

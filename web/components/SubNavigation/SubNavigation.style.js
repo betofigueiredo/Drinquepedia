@@ -1,6 +1,6 @@
 import styled, { css, keyframes } from 'styled-components';
-import theme from '../../styles/theme';
 import { Anchor } from 'grommet';
+import theme from '../../styles/theme';
 
 export const SubNavigation = styled.div`
     height: 52px;

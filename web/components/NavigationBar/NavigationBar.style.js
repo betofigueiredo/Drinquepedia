@@ -1,6 +1,6 @@
 import styled, { css, keyframes } from 'styled-components';
-import theme from '../../styles/theme';
 import { Anchor } from 'grommet';
+import theme from '../../styles/theme';
 
 export const NavigationBar = styled.div`
     height: 81px;
@@ -95,4 +95,3 @@ export const MenuLink = styled(Anchor)`
         }
     `}
 `;
-

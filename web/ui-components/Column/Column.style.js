@@ -5,7 +5,7 @@ export const Column = styled.div`
     padding: 15px;
 
     ${props => props.percent && css`
-        flex: ${percent / 10};
+        flex: ${props.percent / 10};
     `}
 
     @media screen and (min-width: 800px) {

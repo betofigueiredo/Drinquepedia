@@ -1,4 +1,5 @@
-import React from 'react'
+/* eslint-disable react/jsx-props-no-spreading */
+import React from 'react';
 import { Grommet } from 'grommet';
 // import Router from 'next/router'
 import App from 'next/app';
@@ -34,4 +35,4 @@ class MyApp extends App {
     }
 }
 
-export default MyApp
+export default MyApp;
