@@ -1,6 +1,7 @@
-import styled, { css, keyframes } from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Anchor } from 'grommet';
 import theme from '../../styles/theme';
+import { transition } from '../../styles/mixins';
 
 export const SubNavigation = styled.div`
     height: 52px;
@@ -13,6 +14,7 @@ export const SubNavigationWrapper = styled.div`
     flex-direction: row;
     max-width: ${theme.max_width}px;
     margin: 0 auto;
+    padding: 0 15px;
 `;
 
 export const Submenu = styled.div`
@@ -44,24 +46,6 @@ export const Submenu = styled.div`
     }
 `;
 
-const border_in = keyframes`
-    0% {
-        width: 0;
-    }
-    100% {
-        width: 28px;
-    }
-`;
-
-const border_out = keyframes`
-    0% {
-        width: 28px;
-    }
-    100% {
-        width: 0;
-    }
-`;
-
 export const SubmenuLink = styled(Anchor)`
     :after {
         content: ' ';
@@ -71,14 +55,14 @@ export const SubmenuLink = styled(Anchor)`
         width: 0;
         height: 3px;
         background: #FFE29A;
-        animation: ${border_out} 0.3s forwards;
+        ${transition('all 0.25s')}
     }
 
     :hover {
         color: #000;
 
         :after {
-            animation: ${border_in} 0.3s forwards;
+            width: 28px;
         }
     }
 
