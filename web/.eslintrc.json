@@ -24,6 +24,7 @@
         "react/jsx-filename-extension": [0],
         "react/react-in-jsx-scope": [0],
         "react/jsx-one-expression-per-line": [0],
+        "react/jsx-indent-props": [1, 4],
         "arrow-parens": [0],
         "camelcase": [0],
         "jsx-a11y/anchor-is-valid": [0],
