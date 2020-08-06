@@ -1,7 +1,6 @@
 import { Container, Row, Column } from '../ui-components';
 import NavigationBar from '../components/NavigationBar';
 import Destaques from '../components/Destaques';
-import Categoria from '../components/Categoria';
 
 const Home = () => (
     <>
@@ -18,8 +17,6 @@ const Home = () => (
                 <Column>aaa</Column>
                 <Column>aaa</Column>
             </Row>
-
-            <Categoria />
         </Container>
     </>
 );

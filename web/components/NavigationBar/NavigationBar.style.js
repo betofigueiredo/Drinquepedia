@@ -17,6 +17,7 @@ export const NavigationWrapper = styled.div`
 `;
 
 export const Logo = styled.div`
+    min-width: 281px;
     padding: 27px 60px 0 0;
 `;
 
