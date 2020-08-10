@@ -18,6 +18,13 @@
     "plugins": [
         "react"
     ],
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "moduleDirectory": ["node_modules", "."]
+            }
+        }
+    },
     "rules": {
         "indent": ["error", 4],
         "react/jsx-indent": [0],
@@ -30,6 +37,7 @@
         "jsx-a11y/anchor-is-valid": [0],
         "import/prefer-default-export": [0],
         "max-nested-callbacks": ["error", 3],
-        "max-params": ["error", 3]
+        "max-params": ["error", 3],
+        "import/no-absolute-path": [0]
     }
 }
