@@ -17,7 +17,7 @@ const Drinque = ({ drinque_full_id }) => {
         variables: { drinque_id: Number(drinque_id) },
     });
 
-    console.log('data', data);
+    console.log('data', data.drinques);
 
     return (
         <Container>

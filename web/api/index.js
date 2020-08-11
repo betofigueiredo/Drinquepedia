@@ -8,3 +8,30 @@ export const GET_DRINQUE = gql`
         }
     }
 `;
+
+export const GET_DRINQUES_LIST = gql`
+    query getDrinquesList {
+        drinques {
+            id
+            nome
+            categorias {
+                nome
+            }
+            ingredientes {
+                ordem
+                quantidade
+                medida
+                tipoIngrediente {
+                    nome
+                }
+            }
+            decoracao
+            calorias
+            preparo {
+                ordem
+                metodo
+            }
+            sobre
+        }
+    }
+`;
