@@ -30,8 +30,8 @@ export const Imagem = styled.div`
     position: absolute;
     top: 8px;
     left: 8px;
-    width: 76px;
-    height: 76px;
+    width: 70px;
+    height: 70px;
     border-radius: 100%;
     background: #F3F3F5;
     background-image: url(${props => props.imagem});
@@ -53,8 +53,8 @@ export const BorderBack = styled.div`
     position: absolute;
     top: 0;
     left: 0;
-    width: 92px;
-    height: 92px;
+    width: 86px;
+    height: 86px;
     border-radius: 100%;
     border: 2px solid #FFC107;
     z-index: -3;
