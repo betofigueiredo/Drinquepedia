@@ -1,10 +1,8 @@
-import { Container, Row, Column } from '../ui-components';
-import NavigationBar from '../components/NavigationBar';
-import Destaques from '../components/Destaques';
+import Destaques from 'components/Destaques';
+import { Container, Row, Column } from 'ui-components';
 
 const Home = () => (
     <>
-        <NavigationBar />
         <Container>
             <Row>
                 <Column>
