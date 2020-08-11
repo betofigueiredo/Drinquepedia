@@ -1,10 +1,11 @@
 import React from 'react';
 import Link from 'next/link';
-
 // Utils
 import config from 'utils/config';
-// CSS
+// Css
 import * as s from './NavigationBar.style';
+// Components
+import MenuItem from './MenuItem';
 
 const NavigationBar = () => (
     <s.NavigationBar>
@@ -14,10 +15,10 @@ const NavigationBar = () => (
             </s.Logo>
             <s.Menu>
                 <ul>
-                    <li><Link href="/drinques" passHref><s.MenuLink label="Drinques" active /></Link></li>
-                    <li><Link href="/destaques" passHref><s.MenuLink label="Destaques" /></Link></li>
-                    <li><Link href="/tudosobrebar" passHref><s.MenuLink label="Tudo sobre bar" /></Link></li>
-                    <li><Link href="/dicas" passHref><s.MenuLink label="Dicas" /></Link></li>
+                    <MenuItem href="/drinques" label="Drinques" />
+                    <MenuItem href="/destaques" label="Destaques" />
+                    <MenuItem href="/tudosobrebar" label="Tudo sobre bar" />
+                    <MenuItem href="/dicas" label="Dicas" />
                 </ul>
             </s.Menu>
         </s.NavigationWrapper>
