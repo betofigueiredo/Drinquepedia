@@ -1,4 +1,4 @@
-import { Container, Row, Column } from '../../ui-components';
+import { Container, Row, Column } from 'ui-components';
 
 const Dicas = () => (
     <>

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Heading } from 'grommet';
-import theme from '../../styles/theme';
+import theme from 'styles/theme';
 
 export const DrinqueRow = styled.div`
     display: block;

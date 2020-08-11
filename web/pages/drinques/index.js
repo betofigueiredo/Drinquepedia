@@ -1,6 +1,6 @@
 // Components
-import SubNavigation from '../../components/SubNavigation';
-import DrinquesList from '../../components/DrinquesList';
+import SubNavigation from 'components/SubNavigation';
+import DrinquesList from 'components/DrinquesList';
 
 const Drinques = () => (
     <>

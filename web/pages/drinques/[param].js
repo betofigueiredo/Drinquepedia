@@ -1,10 +1,10 @@
 import { useRouter } from 'next/router';
 // Components
-import SubNavigation from '../../components/SubNavigation';
-import DrinquesList from '../../components/DrinquesList';
-import Drinque from '../../components/Drinque';
+import SubNavigation from 'components/SubNavigation';
+import DrinquesList from 'components/DrinquesList';
+import Drinque from 'components/Drinque';
 // Utils
-import { categorias_urls } from '../../utils/categorias';
+import { categorias_urls } from 'utils/categorias';
 
 const Param = () => {
     const router = useRouter();

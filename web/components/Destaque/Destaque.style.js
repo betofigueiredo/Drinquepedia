@@ -1,6 +1,6 @@
 import styled, { keyframes } from 'styled-components';
 import { Heading } from 'grommet';
-import theme from '../../styles/theme';
+import theme from 'styles/theme';
 
 export const Destaque = styled.div`
     display: block;

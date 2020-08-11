@@ -4,8 +4,8 @@ import { Grommet } from 'grommet';
 import { ApolloProvider } from '@apollo/client';
 // import Router from 'next/router'
 import App from 'next/app';
-import NavigationBar from '../components/NavigationBar';
-import client from '../services';
+import NavigationBar from 'components/NavigationBar';
+import client from 'services';
 // import nprogress from 'nprogress'
 // import debounce from 'lodash.debounce'
 
@@ -22,9 +22,9 @@ import client from '../services';
 //   nprogress.done()
 // })
 
-import '../styles/normalize.css';
-import '../styles/fonts.css';
-import grommetTheme from '../styles/grommetTheme';
+import 'styles/normalize.css';
+import 'styles/fonts.css';
+import grommetTheme from 'styles/grommetTheme';
 
 class MyApp extends App {
     render() {

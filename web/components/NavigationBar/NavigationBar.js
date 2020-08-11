@@ -1,11 +1,10 @@
 import React from 'react';
 import Link from 'next/link';
 
+// Utils
+import config from 'utils/config';
 // CSS
 import * as s from './NavigationBar.style';
-
-// Utils
-import config from '../../utils/config';
 
 const NavigationBar = () => (
     <s.NavigationBar>

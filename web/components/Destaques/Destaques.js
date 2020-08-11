@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
-
+// Utils
+import config from 'utils/config';
 // CSS
 import * as s from './Destaques.style';
-
 // Components
 import Destaque from '../Destaque';
-
-// Utils
-import config from '../../utils/config';
 
 const Destaques = () => {
     const [destaque_selecionado, setDestaque] = useState(1);

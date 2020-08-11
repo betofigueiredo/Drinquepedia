@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import { Anchor } from 'grommet';
-import theme from '../../styles/theme';
-import { transition } from '../../styles/mixins';
+import theme from 'styles/theme';
+import { transition } from 'styles/mixins';
 
 export const NavigationBar = styled.div`
     height: 81px;

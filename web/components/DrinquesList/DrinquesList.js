@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Heading } from 'grommet';
 
-import { Container, Row, Column } from '../../ui-components';
+import { Container, Row, Column } from 'ui-components';
 import DrinqueRow from '../DrinqueRow';
 
 // CSS
