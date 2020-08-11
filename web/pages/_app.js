@@ -1,8 +1,11 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import { Grommet } from 'grommet';
+import { ApolloProvider } from '@apollo/client';
 // import Router from 'next/router'
 import App from 'next/app';
+import NavigationBar from '../components/NavigationBar';
+import client from '../services';
 // import nprogress from 'nprogress'
 // import debounce from 'lodash.debounce'
 
@@ -28,9 +31,12 @@ class MyApp extends App {
         const { Component, pageProps } = this.props;
 
         return (
-            <Grommet theme={grommetTheme}>
-                <Component {...pageProps} />
-            </Grommet>
+            <ApolloProvider client={client}>
+                <Grommet theme={grommetTheme}>
+                    <NavigationBar />
+                    <Component {...pageProps} />
+                </Grommet>
+            </ApolloProvider>
         );
     }
 }
