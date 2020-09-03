@@ -14,7 +14,11 @@ import DrinqueRow from '../DrinqueRow';
 import * as s from './DrinquesList.style';
 
 const DrinquesList = ({ categoria }) => {
-    const { loading, error, data } = useQuery(GET_DRINQUES_LIST);
+    const show_all_drinks = categoria === '';
+    const query = show_all_drinks
+        ? GET_DRINQUES_LIST
+        : GET_DRINQUES_LIST;
+    const { loading, error, data } = useQuery(query);
 
     console.log('data', data);
 
@@ -59,7 +63,7 @@ DrinquesList.propTypes = {
 };
 
 DrinquesList.defaultProps = {
-    categoria: null,
+    categoria: '',
 };
 
 export default DrinquesList;

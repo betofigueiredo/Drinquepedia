@@ -6,27 +6,28 @@ import Drinque from 'components/Drinque';
 // Utils
 import { categorias_urls } from 'utils/categorias';
 
-const Param = () => {
+const Slug = () => {
     const router = useRouter();
-    const param = router.query.param || '';
+    const slug = router.query.slug || '';
     const isCategoria = categorias_urls
-        .some(categoria => categoria === param.toLowerCase());
+        .some(categoria => categoria === slug.toLowerCase());
 
     if (isCategoria) {
         return (
             <>
                 <SubNavigation />
-                <DrinquesList categoria={param} />
+                <DrinquesList categoria={slug} />
             </>
         );
     }
 
+    const drinque_full_id = slug;
     return (
         <>
             <SubNavigation />
-            <Drinque drinque_full_id={param} />
+            <Drinque drinque_full_id={drinque_full_id} />
         </>
     );
 };
 
-export default Param;
+export default Slug;
