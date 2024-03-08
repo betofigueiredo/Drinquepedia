@@ -22,7 +22,11 @@ def create_app():
 
 
 def register_cors(app):
-    origins = ["http://localhost:5050", "https://drinquepedia.com"]
+    origins = (
+        ["https://drinquepedia.com"]
+        if settings.ENV == "production"
+        else ["http://localhost:5050", "https://drinquepedia.com"]
+    )
     cors = CORS(
         app,
         resources={r"/*": {"origins": origins}},
