@@ -1,12 +1,11 @@
 from typing import List
 
 from flask_sqlalchemy import SQLAlchemy
-from models import Drink
-
-from .queries import (
+from infrastructure.repositories.drinks.queries import (
     find_all_drinks,
     find_drink_by_id,
 )
+from models import Drink
 
 
 class DrinksRepository:

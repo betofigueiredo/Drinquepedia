@@ -1,3 +1,5 @@
+from typing import Tuple
+
 from flask import Flask
 from flask_cors import CORS
 from flask_restful import Api, Resource
@@ -11,7 +13,7 @@ from models import Drink
 from schemas.drink import DrinkSchema
 
 
-def create_app():
+def create_app() -> Flask:
     app = Flask(__name__)
     app.config["SQLALCHEMY_DATABASE_URI"] = settings.DB_URL
     register_cors(app)
@@ -22,7 +24,7 @@ def create_app():
     return app
 
 
-def register_cors(app):
+def register_cors(app: Flask) -> CORS:
     origins = (
         ["https://drinquepedia.com"]
         if settings.ENV == "production"
@@ -35,13 +37,13 @@ def register_cors(app):
     return cors
 
 
-def register_routes(app):
+def register_routes(app: Flask) -> None:
     # api = Api(app, prefix=settings.API_V1_PREFIX)
     health_api = Api(app)
     # setup_routes(api)
 
     class Health(Resource):
-        def get(self):
+        def get(self) -> tuple[dict[str, DrinkSchema], int]:
             query = db.select(Drink).where(
                 Drink.id == "87ecda1c-433a-4aab-aa76-e38858fd9bc1"
             )
@@ -52,9 +54,9 @@ def register_routes(app):
     health_api.add_resource(Health, "/health")
 
 
-def register_errorhandlers(app):
+def register_errorhandlers(app: Flask) -> None:
     @app.errorhandler(Exception)
-    def handle_exception(error):
+    def handle_exception(error: Exception) -> Tuple[str, int]:
         return unhandled_exception_handler(error)
 
 
@@ -64,7 +66,7 @@ def register_errorhandlers(app):
 #         send_log()
 
 
-def register_extensions(app):
+def register_extensions(app: Flask) -> None:
     db.init_app(app)
     ma.init_app(app)
     return None

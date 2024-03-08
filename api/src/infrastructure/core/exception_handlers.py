@@ -1,4 +1,7 @@
-async def unhandled_exception_handler(error: Exception):
+from typing import Tuple
+
+
+async def unhandled_exception_handler(error: Exception) -> Tuple[str, int]:
     """
     This middleware will log all unhandled exceptions.
     Unhandled exceptions are all exceptions that are not HTTPExceptions or RequestValidationErrors.
