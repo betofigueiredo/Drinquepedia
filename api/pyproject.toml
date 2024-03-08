@@ -29,7 +29,7 @@ mypy = "^1.8.0"
 
 [tool.mypy]
 # mypy_path = "src"
-# exclude =
+exclude = "src/migrations"
 ignore_missing_imports = true
 # show_error_codes = true
 # show_column_numbers = true

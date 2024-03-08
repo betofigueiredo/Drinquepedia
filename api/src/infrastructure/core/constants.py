@@ -1,33 +1,22 @@
-class Difficulties(dict):
-    BEGINNER = "BEGINNER"
-    EASY = "EASY"
-    MEDIUM = "MEDIUM"
-    HARD = "HARD"
-    VERY_HARD = "VERY_HARD"
+difficulties = {
+    "BEGINNER": "BEGINNER",
+    "EASY": "EASY",
+    "MEDIUM": "MEDIUM",
+    "HARD": "HARD",
+    "VERY_HARD": "VERY_HARD",
+}
 
-    def __getattr__(self, attr):
-        try:
-            return self[attr]
-        except KeyError:
-            return None
-
-
-class AlcoholicContents(dict):
-    LOW = "LOW"
-    MEDIUM = "MEDIUM"
-    HIGH = "HIGH"
-
-    def __getattr__(self, attr):
-        try:
-            return self[attr]
-        except KeyError:
-            return None
+alcoholic_contents = {
+    "LOW": "LOW",
+    "MEDIUM": "MEDIUM",
+    "HIGH": "HIGH",
+}
 
 
 class Constants:
-    def __init__(self):
-        self.difficulties = Difficulties()
-        self.alcoholic_contents = AlcoholicContents()
+    def __init__(self) -> None:
+        self.difficulties = difficulties
+        self.alcoholic_contents = alcoholic_contents
 
 
 constants = Constants()

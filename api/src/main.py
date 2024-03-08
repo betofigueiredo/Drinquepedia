@@ -56,7 +56,7 @@ def register_routes(app: Flask) -> None:
 
 def register_errorhandlers(app: Flask) -> None:
     @app.errorhandler(Exception)
-    def handle_exception(error: Exception) -> Tuple[str, int]:
+    def handle_exception(error: Exception) -> Tuple[dict[str, str], int]:
         return unhandled_exception_handler(error)
 
 

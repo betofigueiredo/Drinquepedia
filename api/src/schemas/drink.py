@@ -1,9 +1,7 @@
-# from datetime import datetime
 from infrastructure.core.database import ma
 from marshmallow import fields, post_dump
 from marshmallow_sqlalchemy import auto_field
 from models import Category, Drink, DrinkCategory, Ingredient, IngredientType
-from pydantic import model_serializer  # noqa: F401
 
 
 class DrinkSchema(ma.SQLAlchemySchema):
@@ -36,7 +34,7 @@ class IngredientTypeSchema(ma.SQLAlchemySchema):
     name = auto_field()
 
     @post_dump()
-    def make_object(self, data, **kwargs):
+    def make_object(self, data: dict[str, str]) -> str:
         return data["name"]
 
     class Meta:
@@ -54,7 +52,7 @@ class DrinkCategorySchema(ma.SQLAlchemySchema):
     category = fields.Nested(CategorySchema)
 
     @post_dump()
-    def make_object(self, data, **kwargs):
+    def make_object(self, data: dict[str, CategorySchema]) -> dict[str, str]:
         return {**data["category"]}
 
     class Meta:

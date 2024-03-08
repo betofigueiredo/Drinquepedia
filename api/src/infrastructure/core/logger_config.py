@@ -29,8 +29,8 @@
 #     return {}
 
 
-def send_log():
-    return True
+def send_log() -> None:
+    pass
     # headers = request.headers
     # user_id = get_token_user_id(headers=headers)
     # path = request.path
