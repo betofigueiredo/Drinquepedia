@@ -1,16 +1,17 @@
 from typing import Tuple
 
 from flask import Flask
-from flask_cors import CORS
-from flask_restful import Api, Resource
+from flask_restful import Api
+from infrastructure.core.cors import cors_config
 from infrastructure.core.database import db, ma
-from infrastructure.core.exception_handlers import unhandled_exception_handler
+from infrastructure.core.exception_handlers import (
+    not_found_handler,
+    unhandled_exception_handler,
+)
 
-# from infrastructure.routes.v1.routes import setup_routes
 # from infrastructure.core.logger_config import send_log
 from infrastructure.core.settings import settings
-from models import Drink
-from schemas.drink import DrinkSchema
+from infrastructure.routes.v1.routes import setup_routes
 
 
 def create_app() -> Flask:
@@ -24,40 +25,23 @@ def create_app() -> Flask:
     return app
 
 
-def register_cors(app: Flask) -> CORS:
-    origins = (
-        ["https://drinquepedia.com"]
-        if settings.ENV == "production"
-        else ["http://localhost:5050", "https://drinquepedia.com"]
-    )
-    cors = CORS(
-        app,
-        resources={r"/*": {"origins": origins}},
-    )
-    return cors
+def register_cors(app: Flask) -> None:
+    cors_config(app)
 
 
 def register_routes(app: Flask) -> None:
-    # api = Api(app, prefix=settings.API_V1_PREFIX)
-    health_api = Api(app)
-    # setup_routes(api)
-
-    class Health(Resource):
-        def get(self) -> tuple[dict[str, DrinkSchema], int]:
-            query = db.select(Drink).where(
-                Drink.id == "87ecda1c-433a-4aab-aa76-e38858fd9bc1"
-            )
-            drink = db.session.scalar(query)
-            return {"drink": DrinkSchema().dump(drink)}, 200
-            # return {"health": "drinquepedia2 "}, 200
-
-    health_api.add_resource(Health, "/health")
+    api = Api(app, prefix=settings.API_V1_PREFIX)
+    setup_routes(api)
 
 
 def register_errorhandlers(app: Flask) -> None:
     @app.errorhandler(Exception)
     def handle_exception(error: Exception) -> Tuple[dict[str, str], int]:
         return unhandled_exception_handler(error)
+
+    @app.errorhandler(404)
+    def handle_not_found(error: Exception) -> Tuple[dict[str, str], int]:
+        return not_found_handler(error)
 
 
 # def register_loggers(app):

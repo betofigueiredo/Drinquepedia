@@ -1,0 +1,44 @@
+{
+  "name": "drinquepedia",
+  "version": "3.0.0",
+  "description": "Drinquepedia | Things go better with a cocktail!",
+  "homepage": "http://www.drinquepedia.com",
+  "author": "Beto Figueiredo <herberto_f@yahoo.com.br>",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "test": "jest",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@apollo/client": "^3.0.2",
+    "babel-plugin-styled-components": "^1.10.7",
+    "graphql": "^15.3.0",
+    "grommet": "^2.14.0",
+    "next": "9.4.4",
+    "prop-types": "^15.7.2",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "styled-components": "^5.1.1"
+  },
+  "devDependencies": {
+    "@testing-library/dom": "^7.22.0",
+    "@testing-library/jest-dom": "^5.11.2",
+    "@testing-library/react": "^10.4.8",
+    "babel-jest": "^26.3.0",
+    "eslint": "^7.6.0",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-react": "^7.20.5",
+    "eslint-plugin-react-hooks": "^4.0.8",
+    "jest": "^26.3.0",
+    "jest-dom": "^4.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/betofigueiredo/Drinquepedia"
+  }
+}

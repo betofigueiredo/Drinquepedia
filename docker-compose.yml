@@ -1,6 +1,20 @@
 version: "3.8"
 
 services:
+  drinquepedia_web:
+    container_name: "drinquepedia_web"
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    env_file:
+      - ./web/.env.development.local
+    command: npm run dev
+    ports:
+      - "5050:5050"
+    volumes:
+      - ./web/src:/app/src
+      - /app/node_modules/
+
   drinquepedia_api:
     container_name: "drinquepedia_api"
     build:

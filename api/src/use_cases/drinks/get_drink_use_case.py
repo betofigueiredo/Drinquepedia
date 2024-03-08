@@ -5,7 +5,7 @@ from schemas.drink import DrinkSchema
 from utils import Utils
 
 
-def get_song_use_case(
+def get_drink_use_case(
     drink_id: str | None,
     utils: Utils,
     repository: Repository,

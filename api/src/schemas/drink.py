@@ -34,7 +34,7 @@ class IngredientTypeSchema(ma.SQLAlchemySchema):
     name = auto_field()
 
     @post_dump()
-    def make_object(self, data: dict[str, str]) -> str:
+    def make_object(self, data: dict[str, str], **kwargs) -> str:
         return data["name"]
 
     class Meta:
@@ -52,7 +52,7 @@ class DrinkCategorySchema(ma.SQLAlchemySchema):
     category = fields.Nested(CategorySchema)
 
     @post_dump()
-    def make_object(self, data: dict[str, CategorySchema]) -> dict[str, str]:
+    def make_object(self, data: dict[str, CategorySchema], **kwargs) -> dict[str, str]:
         return {**data["category"]}
 
     class Meta:
