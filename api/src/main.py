@@ -2,6 +2,7 @@ from flask import Flask
 from flask_cors import CORS
 from flask_restful import Api, Resource
 from infrastructure.core.database import db, ma
+from infrastructure.core.exception_handlers import unhandled_exception_handler
 
 # from infrastructure.routes.v1.routes import setup_routes
 # from infrastructure.core.logger_config import send_log
@@ -54,10 +55,7 @@ def register_routes(app):
 def register_errorhandlers(app):
     @app.errorhandler(Exception)
     def handle_exception(error):
-        error_message = (
-            "Unhandled error" if str(error).__contains__("sqlalchemy") else str(error)
-        )
-        return {"code": "UNHANDLED_ERROR", "message": error_message}, 500
+        return unhandled_exception_handler(error)
 
 
 # def register_loggers(app):
