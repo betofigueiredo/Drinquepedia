@@ -1,0 +1,40 @@
+[tool.poetry]
+name = "Drinquepedia"
+version = "1.0.0"
+description = ""
+authors = ["Beto Figueiredo"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12.2"
+alembic = "^1.13.1"
+flask = "^3.0.2"
+flask-cors = "^4.0.0"
+flask-restful = "^0.3.10"
+flask-sqlalchemy = "^3.1.1"
+pydantic = { extras = ["email"], version = "^2.6.3" }
+pendulum = "^3.0.0"
+python-dotenv = "^1.0.1"
+mysqlclient = "^2.2.4"
+pymysql = "^1.1.0"
+flask-marshmallow = "^1.2.0"
+marshmallow-sqlalchemy = "^1.0.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0.2"
+taskipy = "^1.12.2"
+pylint = "^3.1.0"
+ruff = "^0.3.1"
+
+[tool.ruff]
+ignore-init-module-imports = true
+indent-width = 4
+
+[tool.taskipy.tasks]
+test = { cmd = "python -m pytest -vv", help = "runs all unit tests" }
+create_migration = { cmd = "docker compose exec drinquepedia_api alembic revision --autogenerate -m", help = "create new migration" }
+run_migrations = { cmd = "docker compose exec drinquepedia_api alembic upgrade head", help = "run migrations" }
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

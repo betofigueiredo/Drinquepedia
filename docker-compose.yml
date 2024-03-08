@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+  drinquepedia_api:
+    container_name: "drinquepedia_api"
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    env_file:
+      - ./api/.env
+    ports:
+      - "3000:3000"
+    restart: on-failure
+    volumes:
+      - ./api:/app
+    depends_on:
+      - drinquepedia_db
+
+  drinquepedia_db:
+    image: mysql:8.0
+    cap_add:
+      - SYS_NICE
+    restart: always
+    env_file:
+      - ./api/.env
+    ports:
+      - "3306:3306"
+    volumes:
+      - drinquepedia_db:/var/lib/mysql
+
+volumes:
+  drinquepedia_db: ~
