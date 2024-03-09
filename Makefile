@@ -11,6 +11,12 @@ build:
 rebuild:
 	docker compose build --no-cache
 
+rb_web:
+	docker compose build drinquepedia_web --no-cache
+
+rb_api:
+	docker compose build drinquepedia_api --no-cache
+
 up:
 	docker compose up
 

@@ -10,8 +10,8 @@ class General:
         params: dict[str, str | int | float | bool | None],
     ) -> dict[str, str | int | None]:
         try:
-            schema(**params)
-            return {"error": None}
+            parsed_fields = schema(**params)
+            return {"error": None, "fields": parsed_fields}
         except ValidationError as exc:
             error = exc.errors()[0]
             error_msg = error.get("msg", "")

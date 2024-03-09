@@ -55,8 +55,11 @@ disallow_subclassing_any = false
 ignore-init-module-imports = true
 indent-width = 4
 
+[tool.pytest.ini_options]
+pythonpath = "src"
+
 [tool.taskipy.tasks]
-test = { cmd = "python -m pytest -vv", help = "runs all unit tests" }
+test = { cmd = "docker compose exec drinquepedia_api python -m pytest -vv", help = "runs all unit tests" }
 mypy = { cmd = "mypy src", help = "runs mypy" }
 create_migration = { cmd = "docker compose exec drinquepedia_api alembic revision --autogenerate -m", help = "create new migration" }
 run_migrations = { cmd = "docker compose exec drinquepedia_api alembic upgrade head", help = "run migrations" }
