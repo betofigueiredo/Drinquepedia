@@ -8,8 +8,7 @@ from infrastructure.core.exception_handlers import (
     not_found_handler,
     unhandled_exception_handler,
 )
-
-# from infrastructure.core.logger_config import send_log
+from infrastructure.core.logger_config import send_log
 from infrastructure.core.settings import settings
 from infrastructure.routes.v1.routes import setup_routes
 
@@ -20,7 +19,7 @@ def create_app() -> Flask:
     register_cors(app)
     register_routes(app)
     register_errorhandlers(app)
-    # register_loggers(app)
+    register_loggers(app)
     register_extensions(app)
     return app
 
@@ -44,10 +43,10 @@ def register_errorhandlers(app: Flask) -> None:
         return not_found_handler(error)
 
 
-# def register_loggers(app):
-#     @app.before_request
-#     def before_request():
-#         send_log()
+def register_loggers(app: Flask) -> None:
+    @app.before_request
+    def before_request() -> None:
+        send_log()
 
 
 def register_extensions(app: Flask) -> None:

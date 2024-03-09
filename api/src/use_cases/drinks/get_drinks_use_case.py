@@ -1,7 +1,7 @@
 from typing import List, Tuple
 
 from infrastructure.repositories.repository import Repository
-from schemas.drink import DrinkSchema
+from schemas import DrinkSchema
 from utils import Utils
 
 

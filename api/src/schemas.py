@@ -21,7 +21,7 @@ class DrinkSchema(ma.SQLAlchemySchema):
     description = auto_field()
     decoration = auto_field()
     ingredients = fields.Nested("IngredientSchema", many=True)
-    preparation_steps = fields.Nested("PreparationStep", many=True)
+    preparation_steps = fields.Nested("PreparationStepSchema", many=True)
     categories = fields.Nested("DrinkCategorySchema", many=True)
 
     class Meta:
@@ -42,7 +42,7 @@ class IngredientTypeSchema(ma.SQLAlchemySchema):
     name = auto_field()
 
     @post_dump()
-    def make_object(self, data: dict[str, str], **kwargs) -> str:
+    def make_object(self, data: dict[str, str], **kwargs: str) -> str:
         return data["name"]
 
     class Meta:
@@ -60,14 +60,16 @@ class DrinkCategorySchema(ma.SQLAlchemySchema):
     category = fields.Nested(CategorySchema)
 
     @post_dump()
-    def make_object(self, data: dict[str, CategorySchema], **kwargs) -> dict[str, str]:
+    def make_object(
+        self, data: dict[str, CategorySchema], **kwargs: CategorySchema
+    ) -> dict[str, str]:
         return {**data["category"]}
 
     class Meta:
         model = DrinkCategory
 
 
-class PreparationStep(ma.SQLAlchemySchema):
+class PreparationStepSchema(ma.SQLAlchemySchema):
     order = auto_field()
     description = auto_field()
 

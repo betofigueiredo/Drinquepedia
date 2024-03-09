@@ -3,7 +3,7 @@ from typing import List, Tuple
 from flask_restful import Api, Resource
 from infrastructure.core.database import db
 from infrastructure.repositories.repository import Repository
-from schemas.drink import DrinkSchema
+from schemas import DrinkSchema
 from use_cases.drinks import get_drink_use_case, get_drinks_use_case
 from utils import Utils
 
