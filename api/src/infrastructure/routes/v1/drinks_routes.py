@@ -12,8 +12,7 @@ class DrinksList(Resource):
     def get(self) -> Tuple[dict[str, List[DrinkSchema]], int]:
         args = request.args
         return get_drinks_use_case(
-            page=args.get("page"),
-            per_page=args.get("per_page"),
+            query_params=args,
             utils=Utils(),
             repository=Repository(db),
         )

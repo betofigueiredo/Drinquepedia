@@ -7,7 +7,7 @@ from sqlalchemy.orm import relationship
 
 class Drink(db.Model):
     id = db.Column(db.String(36), primary_key=True, index=True, default=uuid.uuid4)
-    old_id = db.Column(SMALLINT, nullable=False)
+    old_id = db.Column(SMALLINT, nullable=False, index=True)
     name = db.Column(db.String(100), nullable=False)
     calories = db.Column(SMALLINT)
     alcoholic_content = db.Column(db.String(10))
