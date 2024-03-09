@@ -17,7 +17,7 @@ const Drink = () => {
     <div className="container leading-relaxed text-gray-700 pt-3">
       <div className="grid grid-cols-[max-content_1fr] gap-4">
         <div className="pr-36 pt-4">
-          <img src="https://www.drinquepedia.com/drinques/fotos/1/1g.jpg" />
+          <img src="https://www.drinquepedia.com/drinques/fotos/392/392g.jpg" />
         </div>
         <div>
           <h1 className="font-serif font-bold text-4xl text-amber-500 mt-10 mb-7">

@@ -3,7 +3,7 @@ import NavigationBar from "@/components/NavigationBar";
 
 const Layout = () => {
   return (
-    <div className="pt-36">
+    <div className="pb-60">
       <NavigationBar />
       <Outlet />
     </div>
