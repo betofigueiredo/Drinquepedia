@@ -5,6 +5,7 @@ import Layout from "@/components/Layout";
 import Home from "@/pages/Home";
 import Drinks from "@/pages/Drinks";
 import Drink from "./pages/Drink";
+import NotFound404 from "./pages/NotFound404";
 
 const allRoutes = createBrowserRouter([
   {
@@ -13,6 +14,7 @@ const allRoutes = createBrowserRouter([
       { path: "/", element: <Home /> },
       { path: "/drinques", element: <Drinks /> },
       { path: "/drinques/:drinkId", element: <Drink /> },
+      { path: "*", element: <NotFound404 /> },
     ],
   },
 ]);

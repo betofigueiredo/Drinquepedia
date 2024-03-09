@@ -12,14 +12,14 @@ const NavigationItem = ({ to, label }: Props) => {
 
   function getLabelCss() {
     return isActive
-      ? "relative w-full text-base font-medium z-10"
-      : "w-full text-base text-gray-700";
+      ? "h-12 uppercase pt-3 w-full text-base font-medium"
+      : "h-12 uppercase pt-3 w-full text-base text-gray-700 hover:text-amber-500 transition-all";
   }
 
   return (
     <li className="relative flex items-center align-middle h-20 ml-4 mr-4">
-      <Link to={to} className="h-12 uppercase pt-3">
-        <span className={getLabelCss()}>{label}</span>
+      <Link to={to} className={getLabelCss()}>
+        <span className=" relative z-10">{label}</span>
         {isActive && (
           <div className="absolute w-[110%] h-1 left-[-5%] bg-amber-400 bottom-8 z-0" />
         )}
