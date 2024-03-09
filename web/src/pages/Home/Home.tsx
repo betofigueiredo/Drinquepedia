@@ -1,4 +1,4 @@
-import Highlights from "@/components/shared/Highlights";
+import Highlights from "@/components/Highlights";
 
 const Home = () => {
   return (

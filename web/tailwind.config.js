@@ -36,8 +36,12 @@ module.exports = {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
       colors: {
+        slate: {
+          950: "#2F3138",
+        },
         amber: {
           400: "#FFD877",
+          500: "#EFC04C",
         },
       },
     },

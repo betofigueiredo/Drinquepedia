@@ -1,5 +1,5 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Layout from "@/components/shared/Layout";
+import Layout from "@/components/Layout";
 
 // pages
 import Home from "@/pages/Home";

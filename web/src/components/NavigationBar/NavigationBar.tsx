@@ -1,6 +1,7 @@
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faChartSimple } from "@fortawesome/free-solid-svg-icons";
-import NavigationItem from "./NavigationItem";
+import Navigation from "./components/Navigation";
+import SubNavigation from "./components/SubNavigation";
 
 const NavigationBar = () => {
   return (
@@ -11,15 +12,8 @@ const NavigationBar = () => {
       <div className="absolute w-24 pt-7 text-center text-2xl font-medium">
         DRINQUE<span className="text-[#f3c73f]">PEDIA</span>
       </div>
-      <ul className="relative container m-0 ml-auto mr-auto flex list-none flex-row justify-center gap-4">
-        <NavigationItem to="/drinques" label="Drinques" />
-        <NavigationItem to="/buy-me-a-coffee" label="Destaques" />
-        <NavigationItem to="/songs" label="Tudo sobre bar" />
-        <NavigationItem to="/dicas" label="Dicas" />
-      </ul>
-      <div className="w-full h-12 bg-gray-100 border-slate-200 border-b">
-        asd
-      </div>
+      <Navigation />
+      <SubNavigation />
     </div>
   );
 };

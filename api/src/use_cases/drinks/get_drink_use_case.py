@@ -18,4 +18,10 @@ def get_drink_use_case(
             "message": "Drink not found.",
         }, 404
 
+    sorted_ingredients = sorted(drink.ingredients, key=lambda x: x.order)
+    drink.ingredients = sorted_ingredients
+
+    sorted_preparation_steps = sorted(drink.preparation_steps, key=lambda x: x.order)
+    drink.preparation_steps = sorted_preparation_steps
+
     return {"drink": DrinkSchema().dump(drink)}, 200

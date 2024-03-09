@@ -23,7 +23,8 @@ class Drink(db.Model):
 class Ingredient(db.Model):
     id = db.Column(db.String(36), primary_key=True, index=True, default=uuid.uuid4)
     order = db.Column(TINYINT, nullable=False)
-    quantity = db.Column(SMALLINT, nullable=False)
+    quantity = db.Column(SMALLINT)
+    unit_of_measurement = db.Column(db.String(36))
     ingredient_type_id = db.Column(db.String(36), db.ForeignKey("ingredient_type.id"))
     ingredient_type = relationship("IngredientType", back_populates="ingredients")
     drink_id = db.Column(db.String(36), db.ForeignKey("drink.id"))
