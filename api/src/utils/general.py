@@ -8,7 +8,7 @@ class General:
         self,
         schema: Type[BaseModel],
         params: dict[str, str | int | float | bool | None],
-    ) -> dict[str, str | int | None]:
+    ) -> dict[str, str | int | BaseModel | None]:
         try:
             parsed_fields = schema(**params)
             return {"error": None, "fields": parsed_fields}

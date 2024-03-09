@@ -1,7 +1,15 @@
 import useGetDrinks from "@/api/useGetDrinks";
+import SearchBar from "@/components/SearchBar";
 
 const Drinks = () => {
-  const { isPending, error, data: drinks } = useGetDrinks();
+  const {
+    isPending,
+    error,
+    data: drinks,
+  } = useGetDrinks({
+    page: 1,
+    perPage: 10,
+  });
 
   if (isPending) {
     return <div>Loading...</div>;
@@ -13,7 +21,11 @@ const Drinks = () => {
 
   console.log(drinks);
 
-  return <div className="container">asdasdasdasd drinks w</div>;
+  return (
+    <div className="container">
+      <SearchBar />
+    </div>
+  );
 };
 
 export default Drinks;

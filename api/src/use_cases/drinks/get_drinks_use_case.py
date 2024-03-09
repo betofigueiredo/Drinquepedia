@@ -19,7 +19,7 @@ def get_drinks_use_case(
     query_params: dict[str, str],
     utils: Utils,
     repository: Repository,
-) -> Tuple[dict[str, List[DrinkSchema]], int]:
+) -> Tuple[dict[str, List[DrinkSchema]], int] | Tuple[dict[str, str], int]:
     parsed_params = utils.general.validate_schema(
         schema=Schema,
         params={
