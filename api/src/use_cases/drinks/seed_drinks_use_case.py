@@ -178,8 +178,10 @@ def get_description(old_description: str) -> str:
     return old_description.replace("<BR>", "\n")
 
 
-def get_categories(old_categories: str) -> str:
-    return old_categories.split(",")
+def get_categories(old_categories: str):
+    if isinstance(old_categories, str):
+        return old_categories.split(",")
+    return []
 
 
 def seed_drinks_use_case(
@@ -197,7 +199,7 @@ def seed_drinks_use_case(
         decoration = get_decoration(row.get("ingredientes"))
         preparation_steps = get_preparation_steps(row.get("preparo"))
         ingredients = get_ingredients(row.get("ingredientes"))
-        categories = get_categories(row.get("categorias"))
+        categories = get_categories(row.get("categoria"))
         # TODO: historia = row.get("historia")
         # TODO: dicas = row.get("dicas")
 
@@ -229,20 +231,20 @@ def seed_drinks_use_case(
             query = db.select(IngredientType).where(
                 IngredientType.name == ingredient.get("ingredient_type")
             )
-            existing_category = db.session.scalar(query)
-            if existing_category is None:
-                new_category = IngredientType(
+            existing_ingredient_type = db.session.scalar(query)
+            if existing_ingredient_type is None:
+                ingredient_type = IngredientType(
                     name=ingredient.get("ingredient_type"),
                 )
-                db.session.add(new_category)
+                db.session.add(ingredient_type)
                 db.session.flush()
-                existing_category = new_category
+                existing_ingredient_type = ingredient_type
                 db.session.commit()
             ingred = Ingredient(
                 order=ingredient.get("order"),
                 quantity=ingredient.get("quantity"),
                 unit_of_measurement=ingredient.get("unit_of_measurement"),
-                ingredient_type_id=existing_category.id,
+                ingredient_type_id=existing_ingredient_type.id,
                 drink_id=created_drink.id,
             )
             db.session.add(ingred)
@@ -253,9 +255,7 @@ def seed_drinks_use_case(
             query = db.select(Category).where(Category.name == category)
             existing_category = db.session.scalar(query)
             if existing_category is None:
-                new_category = Category(
-                    name=ingredient.get("ingredient_type"),
-                )
+                new_category = Category(name=category)
                 db.session.add(new_category)
                 db.session.flush()
                 existing_category = new_category
