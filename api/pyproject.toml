@@ -19,6 +19,7 @@ mysqlclient = "^2.2.4"
 pymysql = "^1.1.0"
 flask-marshmallow = "^1.2.0"
 marshmallow-sqlalchemy = "^1.0.0"
+pandas = "^2.2.1"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.0.2"

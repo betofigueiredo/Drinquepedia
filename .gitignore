@@ -16,6 +16,9 @@
 /web/.next/
 /web/out/
 
+# old database csv
+/api/old-data/drinquepedia_full_old_db.csv
+
 # design
 /design/
 

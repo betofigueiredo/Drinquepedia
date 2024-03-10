@@ -55,7 +55,8 @@ const Drink = () => {
                 <li key={ingredient.order} className="relative pl-7">
                   <div className="absolute left-0 top-2 w-2 h-2 border-gray-300 border rounded-full" />
                   {ingredient.quantity || ""}{" "}
-                  {ingredient.unitOfMeasurement || ""}{" "}
+                  {ingredient.unitOfMeasurement || ""}
+                  {ingredient.unitOfMeasurement ? " de " : " "}
                   {ingredient.ingredientType}
                 </li>
               ))}

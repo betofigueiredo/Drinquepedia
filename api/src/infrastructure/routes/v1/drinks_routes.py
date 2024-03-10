@@ -4,7 +4,11 @@ from flask_restful import Api, Resource, request
 from infrastructure.core.database import db
 from infrastructure.repositories.repository import Repository
 from schemas import DrinkSchema
-from use_cases.drinks import get_drink_use_case, get_drinks_use_case
+from use_cases.drinks import (
+    get_drink_use_case,
+    get_drinks_use_case,
+    seed_drinks_use_case,
+)
 from utils import Utils
 
 
@@ -27,10 +31,19 @@ class Drink(Resource):
         )
 
 
+class SeedDrinks(Resource):
+    def get(self) -> bool:
+        return seed_drinks_use_case(
+            utils=Utils(),
+            repository=Repository(db),
+        )
+
+
 class DrinksRoutes:
     def __init__(self, api: Api):
         self.api = api
 
     def setup(self) -> None:
+        self.api.add_resource(SeedDrinks, "/seed-drinks")
         self.api.add_resource(DrinksList, "/drinks")
         self.api.add_resource(Drink, "/drinks/<drink_id>")
