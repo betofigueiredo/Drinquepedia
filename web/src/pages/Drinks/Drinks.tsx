@@ -3,7 +3,7 @@ import SearchBar from "@/components/SearchBar";
 import useSearchStore from "@/stores/useSearchStore";
 
 const Drinks = () => {
-  const { name, calories } = useSearchStore();
+  const { name, calories, alcoholicContent } = useSearchStore();
   const {
     isPending,
     error,
@@ -12,6 +12,7 @@ const Drinks = () => {
     page: 1,
     name,
     calories,
+    alcoholicContent,
   });
 
   if (isPending) {
@@ -27,6 +28,11 @@ const Drinks = () => {
   return (
     <div className="container">
       <SearchBar />
+      <div>
+        {drinks?.map((drink) => (
+          <div key={drink.id}>{drink.name}</div>
+        ))}
+      </div>
     </div>
   );
 };
