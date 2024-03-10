@@ -1,8 +1,8 @@
 import math
 
 import pandas as pd
-from infrastructure.repositories.repository import Repository
-from models import Drink
+from flask_sqlalchemy import SQLAlchemy
+from models import Drink, Ingredient, IngredientType, PreparationStep
 from utils import Utils
 
 
@@ -170,9 +170,9 @@ def get_preparation_steps(old_preparation: str) -> str:
 
 def seed_drinks_use_case(
     utils: Utils,
-    repository: Repository,
+    db: SQLAlchemy,
 ) -> bool:
-    df = pd.read_csv("/app/old-data/drinquepedia_full_old_db.csv")
+    df = pd.read_csv("/app/old-data/drinquepedia_old_db.csv")
 
     print(" ", flush=True)
     print(" ", flush=True)
@@ -187,26 +187,63 @@ def seed_drinks_use_case(
         difficulty = get_difficulty(row.get("dificuldade"))
         description = row.get("sobreodrink")
         decoration = get_decoration(row.get("ingredientes"))
-        ingredients = get_ingredients(row.get("ingredientes"))
         preparation_steps = get_preparation_steps(row.get("preparo"))
-        # historia = row.get("historia")
-        # dicas = row.get("dicas")
-        # categorias = row.get("categorias")
+        ingredients = get_ingredients(row.get("ingredientes"))
+        categories = row.get("categorias")
+        # TODO: historia = row.get("historia")
+        # TODO: dicas = row.get("dicas")
 
-        Drink(
+        drink = Drink(
             old_id=old_id,
             name=name.title(),
             calories=calories,
-            alcoholic_content=get_alcoholic_content(alcoholic_content),
+            alcoholic_content=alcoholic_content,
             difficulty=difficulty,
             description=description,
             decoration=decoration,
         )
 
+        db.session.add(drink)
+        db.session.flush()
+        created_drink = drink
+        db.session.commit()
+
+        for preparation_step in preparation_steps:
+            step = PreparationStep(
+                order=preparation_step.get("order"),
+                description=preparation_step.get("description"),
+                drink_id=created_drink.id,
+            )
+            db.session.add(step)
+            db.session.commit()
+
+        for ingredient in ingredients:
+            query = db.select(IngredientType).where(
+                IngredientType.name == ingredient.get("ingredient_type")
+            )
+            existing_ingredient_type = db.session.scalar(query)
+            if existing_ingredient_type is None:
+                ingredient_type = IngredientType(
+                    name=ingredient.get("ingredient_type"),
+                )
+                db.session.add(ingredient_type)
+                db.session.flush()
+                existing_ingredient_type = ingredient_type
+                db.session.commit()
+            ingred = Ingredient(
+                order=ingredient.get("order"),
+                quantity=ingredient.get("quantity"),
+                unit_of_measurement=ingredient.get("unit_of_measurement"),
+                ingredient_type_id=existing_ingredient_type.id,
+                drink_id=created_drink.id,
+            )
+            db.session.add(ingred)
+            db.session.commit()
+
         result.append(
             {
                 "name": name,
-                "preparation_steps": preparation_steps,
+                "alcoholic_content": alcoholic_content,
             }
         )
 

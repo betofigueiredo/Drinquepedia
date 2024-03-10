@@ -35,7 +35,7 @@ class SeedDrinks(Resource):
     def get(self) -> bool:
         return seed_drinks_use_case(
             utils=Utils(),
-            repository=Repository(db),
+            db=db,
         )
 
 
