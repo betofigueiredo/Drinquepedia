@@ -1,4 +1,3 @@
-import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -8,26 +7,17 @@ import {
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import SearchInput from "./components/SearchInput";
+import CaloriesSelect from "./components/CaloriesSelect";
 
 const SearchBar = () => {
   return (
     <div className="p-20">
-      <Input placeholder="Search for drinks" />
-
       <div>
-        <Label htmlFor="calories">Calorias</Label>
-        <Select>
-          <SelectTrigger id="calories" className="w-[180px]">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value=" ">Todos</SelectItem>
-            <SelectItem value="0-100">0 a 100</SelectItem>
-            <SelectItem value="100-200">100 a 200</SelectItem>
-            <SelectItem value="200-300">200 a 300</SelectItem>
-            <SelectItem value="300-">+ 300</SelectItem>
-          </SelectContent>
-        </Select>
+        <SearchInput />
+      </div>
+      <div>
+        <CaloriesSelect />
       </div>
 
       <div>

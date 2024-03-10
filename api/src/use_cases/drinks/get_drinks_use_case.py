@@ -47,4 +47,11 @@ def get_drinks_use_case(
         alcoholic_content=parsed_params.get("fields").alcoholic_content,
     )
 
-    return {"drinks": [DrinkSchema().dump(drink) for drink in drinks]}, 200
+    return {
+        "drinks": [DrinkSchema().dump(drink) for drink in drinks],
+        "metadata": {
+            # "page": page,
+            # "per_page": per_page,
+            "total_count": 1,  # TODO: get total count
+        },
+    }, 200

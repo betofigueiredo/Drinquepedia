@@ -37,10 +37,5 @@ def find_all_drinks(
         query.order_by(asc(Drink.name)).limit(per_page).offset((page - 1) * per_page)
     )
 
-    print(" ", flush=True)
-    print(" ", flush=True)
-    print(query, flush=True)
-    print(" ", flush=True)
-    print(" ", flush=True)
     drinks = db.session.scalars(query)
     return list(drinks)

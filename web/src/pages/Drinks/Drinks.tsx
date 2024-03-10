@@ -1,14 +1,17 @@
 import useGetDrinks from "@/api/useGetDrinks";
 import SearchBar from "@/components/SearchBar";
+import useSearchStore from "@/stores/useSearchStore";
 
 const Drinks = () => {
+  const { name, calories } = useSearchStore();
   const {
     isPending,
     error,
     data: drinks,
   } = useGetDrinks({
     page: 1,
-    perPage: 10,
+    name,
+    calories,
   });
 
   if (isPending) {
