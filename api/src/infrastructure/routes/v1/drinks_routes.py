@@ -33,10 +33,7 @@ class Drink(Resource):
 
 class SeedDrinks(Resource):
     def get(self) -> bool:
-        return seed_drinks_use_case(
-            utils=Utils(),
-            db=db,
-        )
+        return seed_drinks_use_case(db=db)
 
 
 class DrinksRoutes:

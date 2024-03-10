@@ -1,9 +1,11 @@
 import useGetDrink from "@/api/useGetDrink";
 import DrinkAlcoholicContent from "@/components/DrinkAlcoholicContent";
 import DrinkDifficulty from "@/components/DrinkDifficulty";
+import { useParams } from "react-router-dom";
 
 const Drink = () => {
-  const { isPending, error, data: drink } = useGetDrink();
+  const { drinkId } = useParams();
+  const { isPending, error, data: drink } = useGetDrink(drinkId);
 
   if (isPending) {
     return <div>Loading...</div>;
@@ -17,7 +19,7 @@ const Drink = () => {
     <div className="container leading-relaxed text-gray-700 pt-3">
       <div className="grid grid-cols-[max-content_1fr] gap-4">
         <div className="pr-36 pt-4">
-          <img src="https://www.drinquepedia.com/drinques/fotos/392/392g.jpg" />
+          <img src={`/images/drinks/${drink?.oldId}/${drink?.oldId}g.jpg`} />
         </div>
         <div>
           <h1 className="font-serif font-bold text-4xl text-amber-500 mt-10 mb-7">
@@ -60,10 +62,12 @@ const Drink = () => {
                   {ingredient.ingredientType}
                 </li>
               ))}
-              <li className="relative pl-7">
-                <div className="absolute left-0 top-2 w-2 h-2 border-gray-300 border rounded-full" />
-                {drink?.decoration}
-              </li>
+              {drink?.decoration && (
+                <li className="relative pl-7">
+                  <div className="absolute left-0 top-2 w-2 h-2 border-gray-300 border rounded-full" />
+                  {drink?.decoration}
+                </li>
+              )}
             </ul>
           </div>
           <div className="w-32 border-dashed border-t border-gray-200 mt-8 mb-8" />
@@ -87,7 +91,7 @@ const Drink = () => {
             <h5 className="font-serif font-bold text-2xl text-slate-950 mb-3">
               Sobre o drinque
             </h5>
-            <div className="text-slate-950 pl-8 relative">
+            <div className="text-slate-950 pl-8 relative whitespace-pre-line">
               <div className="absolute top-0 left-0 font-serif font-bold text-5xl text-amber-500 mb-3">
                 “
               </div>

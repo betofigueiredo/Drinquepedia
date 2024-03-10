@@ -4,8 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 
 type Response = { data: { drink: Drink } };
 
-const useGetDrink = () => {
-  const drinkId = 1;
+const useGetDrink = (drinkId?: string) => {
   const { isPending, error, data } = useQuery({
     queryKey: ["drink", drinkId],
     queryFn: async () => {

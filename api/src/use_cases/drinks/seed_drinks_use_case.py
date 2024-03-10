@@ -2,8 +2,14 @@ import math
 
 import pandas as pd
 from flask_sqlalchemy import SQLAlchemy
-from models import Drink, Ingredient, IngredientType, PreparationStep
-from utils import Utils
+from models import (
+    Category,
+    Drink,
+    DrinkCategory,
+    Ingredient,
+    IngredientType,
+    PreparationStep,
+)
 
 
 def get_alcoholic_content(old_value: str) -> str:
@@ -168,28 +174,30 @@ def get_preparation_steps(old_preparation: str) -> str:
     return result
 
 
+def get_description(old_description: str) -> str:
+    return old_description.replace("<BR>", "\n")
+
+
+def get_categories(old_categories: str) -> str:
+    return old_categories.split(",")
+
+
 def seed_drinks_use_case(
-    utils: Utils,
     db: SQLAlchemy,
 ) -> bool:
     df = pd.read_csv("/app/old-data/drinquepedia_old_db.csv")
 
-    print(" ", flush=True)
-    print(" ", flush=True)
-
-    result = []
-
-    for index, row in df.iterrows():
+    for _, row in df.iterrows():
         old_id = row.get("id")
         name = row.get("nome")
         calories = row.get("calorias")
         alcoholic_content = get_alcoholic_content(row.get("teor"))
         difficulty = get_difficulty(row.get("dificuldade"))
-        description = row.get("sobreodrink")
+        description = get_description(row.get("sobreodrink"))
         decoration = get_decoration(row.get("ingredientes"))
         preparation_steps = get_preparation_steps(row.get("preparo"))
         ingredients = get_ingredients(row.get("ingredientes"))
-        categories = row.get("categorias")
+        categories = get_categories(row.get("categorias"))
         # TODO: historia = row.get("historia")
         # TODO: dicas = row.get("dicas")
 
@@ -221,38 +229,42 @@ def seed_drinks_use_case(
             query = db.select(IngredientType).where(
                 IngredientType.name == ingredient.get("ingredient_type")
             )
-            existing_ingredient_type = db.session.scalar(query)
-            if existing_ingredient_type is None:
-                ingredient_type = IngredientType(
+            existing_category = db.session.scalar(query)
+            if existing_category is None:
+                new_category = IngredientType(
                     name=ingredient.get("ingredient_type"),
                 )
-                db.session.add(ingredient_type)
+                db.session.add(new_category)
                 db.session.flush()
-                existing_ingredient_type = ingredient_type
+                existing_category = new_category
                 db.session.commit()
             ingred = Ingredient(
                 order=ingredient.get("order"),
                 quantity=ingredient.get("quantity"),
                 unit_of_measurement=ingredient.get("unit_of_measurement"),
-                ingredient_type_id=existing_ingredient_type.id,
+                ingredient_type_id=existing_category.id,
                 drink_id=created_drink.id,
             )
             db.session.add(ingred)
             db.session.commit()
 
-        result.append(
-            {
-                "name": name,
-                "alcoholic_content": alcoholic_content,
-            }
-        )
+        for category in categories:
+            category = category.strip()
+            query = db.select(Category).where(Category.name == category)
+            existing_category = db.session.scalar(query)
+            if existing_category is None:
+                new_category = Category(
+                    name=ingredient.get("ingredient_type"),
+                )
+                db.session.add(new_category)
+                db.session.flush()
+                existing_category = new_category
+                db.session.commit()
+            category_link = DrinkCategory(
+                drink_id=created_drink.id,
+                category_id=existing_category.id,
+            )
+            db.session.add(category_link)
+            db.session.commit()
 
-        # print(name, flush=True)
-        print(" ", flush=True)
-
-    print(" ", flush=True)
-    print(" ", flush=True)
-
-    return {
-        "drinks": result,
-    }, 200
+    return {"done": True}, 200
