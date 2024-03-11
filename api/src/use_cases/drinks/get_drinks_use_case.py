@@ -1,4 +1,4 @@
-from typing import List, Literal, Tuple
+from typing import List, Literal, Tuple, TypedDict
 
 from infrastructure.repositories.repository import Repository
 from pydantic import BaseModel, Field
@@ -15,11 +15,25 @@ class Schema(BaseModel):
     alcoholic_content: Literal["LOW", "MEDIUM", "HIGH"] | None = Field(None)
 
 
+class MetadataSchema(TypedDict):
+    total_count: int
+
+
+class ResponseSchema(TypedDict):
+    drinks: List[DrinkSchema]
+    metadata: MetadataSchema
+
+
+class ErrorSchema(TypedDict):
+    code: str
+    message: str
+
+
 def get_drinks_use_case(
     query_params: dict[str, str],
     utils: Utils,
     repository: Repository,
-) -> Tuple[dict[str, List[DrinkSchema]], int] | Tuple[dict[str, str], int]:
+) -> Tuple[ResponseSchema | ErrorSchema, int]:
     parsed_params = utils.general.validate_schema(
         schema=Schema,
         params={
@@ -47,11 +61,13 @@ def get_drinks_use_case(
         alcoholic_content=parsed_params.get("fields").alcoholic_content,
     )
 
-    return {
+    result: ResponseSchema = {
         "drinks": [DrinkSchema().dump(drink) for drink in drinks],
         "metadata": {
             # "page": page,
             # "per_page": per_page,
             "total_count": 1,  # TODO: get total count
         },
-    }, 200
+    }
+
+    return result, 200
