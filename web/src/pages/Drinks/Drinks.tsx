@@ -1,15 +1,19 @@
+import { useState } from "react";
 import useGetDrinks from "@/api/useGetDrinks";
 import SearchBar from "@/components/SearchBar";
 import useSearchStore from "@/stores/useSearchStore";
+import DrinkRow from "@/components/DrinkRow";
+import Pagination from "@/components/Pagination";
 
 const Drinks = () => {
   const { name, calories, alcoholicContent } = useSearchStore();
+  const [page, setPage] = useState<number>(1);
   const {
     isPending,
     error,
     data: drinks,
   } = useGetDrinks({
-    page: 1,
+    page,
     name,
     calories,
     alcoholicContent,
@@ -23,15 +27,16 @@ const Drinks = () => {
     return <div>Error: {error.message}</div>;
   }
 
-  console.log(drinks);
-
   return (
     <div className="container">
       <SearchBar />
       <div>
         {drinks?.map((drink) => (
-          <div key={drink.id}>{drink.name}</div>
+          <DrinkRow key={drink.id} drink={drink} />
         ))}
+      </div>
+      <div>
+        <Pagination />
       </div>
     </div>
   );
