@@ -175,7 +175,9 @@ def get_preparation_steps(old_preparation: str) -> str:
 
 
 def get_description(old_description: str) -> str:
-    return old_description.replace("<BR>", "\n")
+    if isinstance(old_description, str):
+        return old_description.replace("<BR>", "\n")
+    return None
 
 
 def get_categories(old_categories: str):
@@ -202,6 +204,8 @@ def seed_drinks_use_case(
         categories = get_categories(row.get("categoria"))
         # TODO: historia = row.get("historia")
         # TODO: dicas = row.get("dicas")
+
+        print(f"Creating drink: {name}", flush=True)
 
         drink = Drink(
             old_id=old_id,
