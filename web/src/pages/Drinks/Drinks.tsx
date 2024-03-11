@@ -1,23 +1,22 @@
-import { useState } from "react";
 import useGetDrinks from "@/api/useGetDrinks";
 import SearchBar from "@/components/SearchBar";
 import useSearchStore from "@/stores/useSearchStore";
 import DrinkRow from "@/components/DrinkRow";
 import Pagination from "@/components/Pagination";
+import { useParams } from "react-router-dom";
 
 const Drinks = () => {
+  const PER_PAGE = 20;
+  const page = Number(useParams().page) || 1; // TODO:
   const { name, calories, alcoholicContent } = useSearchStore();
-  const [page, setPage] = useState<number>(1);
-  const {
-    isPending,
-    error,
-    data: drinks,
-  } = useGetDrinks({
+  const { isPending, error, data } = useGetDrinks({
     page,
+    perPage: PER_PAGE,
     name,
     calories,
     alcoholicContent,
   });
+  const drinks = data?.drinks;
 
   if (isPending) {
     return <div>Loading...</div>;
@@ -36,7 +35,11 @@ const Drinks = () => {
         ))}
       </div>
       <div>
-        <Pagination />
+        <Pagination
+          page={page}
+          perPage={PER_PAGE}
+          totalCount={data?.metadata?.totalCount || 0}
+        />
       </div>
     </div>
   );

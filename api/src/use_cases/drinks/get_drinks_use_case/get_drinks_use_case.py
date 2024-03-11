@@ -30,7 +30,7 @@ def get_drinks_use_case(
 
     parsed_params = validation.get("fields")
 
-    drinks = repository.drinks.find_all(
+    drinks, total_count = repository.drinks.find_all(
         page=parsed_params.page,
         per_page=parsed_params.per_page,
         name=parsed_params.name,
@@ -44,7 +44,7 @@ def get_drinks_use_case(
         "metadata": {
             "page": parsed_params.page,
             "per_page": parsed_params.per_page,
-            "total_count": 1,  # TODO: get total count
+            "total_count": total_count,
         },
     }
 

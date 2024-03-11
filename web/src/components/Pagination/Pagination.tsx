@@ -1,37 +1,65 @@
 import {
   Pagination as PaginationWrapper,
   PaginationContent,
-  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
 
-const Pagination = () => {
+const Pagination = ({
+  page,
+  perPage,
+  totalCount,
+}: {
+  page: number;
+  perPage: number;
+  totalCount: number;
+}) => {
+  const totalPages = Math.ceil(totalCount / perPage);
+  const hasPrevious = page > 1;
+  const previous3Pages = [page - 3, page - 2, page - 1].filter((p) => p > 0);
+  const next3Pages = [page + 1, page + 2, page + 3].filter(
+    (p) => p <= totalPages
+  );
+  const hasNext = page < totalPages;
+
+  const toUrl = (p: number) => `/drinques/tropicais/pag/${p}`;
+
   return (
     <div className="pt-8">
       <PaginationWrapper>
         <PaginationContent>
           <PaginationItem>
-            <PaginationPrevious href="#" />
+            <PaginationPrevious
+              to={toUrl(page - 1)}
+              className={hasPrevious ? "" : "pointer-events-none opacity-30"}
+            />
           </PaginationItem>
+          {previous3Pages.map((p) => (
+            <PaginationItem key={p}>
+              <PaginationLink to={toUrl(p)}>{p}</PaginationLink>
+            </PaginationItem>
+          ))}
           <PaginationItem>
-            <PaginationLink href="#">1</PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href="#" isActive>
-              2
+            <PaginationLink
+              to={toUrl(page)}
+              isActive
+              className="pointer-events-none"
+            >
+              {page}
             </PaginationLink>
           </PaginationItem>
+          {next3Pages.map((p) => (
+            <PaginationItem key={p}>
+              <PaginationLink to={toUrl(p)}>{p}</PaginationLink>
+            </PaginationItem>
+          ))}
           <PaginationItem>
-            <PaginationLink href="#">3</PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationEllipsis />
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationNext href="#" />
+            <PaginationNext
+              to={toUrl(page + 1)}
+              className={hasNext ? "" : "pointer-events-none opacity-30"}
+            />
           </PaginationItem>
         </PaginationContent>
       </PaginationWrapper>

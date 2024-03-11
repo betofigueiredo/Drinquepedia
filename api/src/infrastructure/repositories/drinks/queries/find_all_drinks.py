@@ -1,8 +1,8 @@
-from typing import List
+from typing import List, Tuple
 
 from flask_sqlalchemy import SQLAlchemy
 from models import Drink, Ingredient, IngredientType
-from sqlalchemy import asc
+from sqlalchemy import asc, func
 
 
 def find_all_drinks(
@@ -13,29 +13,40 @@ def find_all_drinks(
     calories: str | None,
     ingredient_type: str | None,
     alcoholic_content: str | None,
-) -> List[Drink]:
-    query = db.select(Drink)
+) -> Tuple[List[Drink], int]:
+    list_query = db.select(Drink)
+    count_query = db.session.query(func.count(Drink.id))
 
     if ingredient_type:
-        query = query.join(Ingredient.ingredient_type).where(
+        list_query = list_query.join(Ingredient.ingredient_type).where(
+            IngredientType.name.like(f"%{ingredient_type}%")
+        )
+        count_query = count_query.join(Ingredient.ingredient_type).where(
             IngredientType.name.like(f"%{ingredient_type}%")
         )
 
     if name:
-        query = query.where(Drink.name.like(f"%{name}%"))
+        list_query = list_query.where(Drink.name.like(f"%{name}%"))
+        count_query = count_query.where(Drink.name.like(f"%{name}%"))
 
     if calories:
-        query = query.where(Drink.calories >= calories.split("-")[0])
-        query = query.where(
-            Drink.calories <= calories.split("-")[1] if calories.split("-")[1] else True
-        )
+        list_query = list_query.where(Drink.calories >= calories.split("-")[0])
+        count_query = count_query.where(Drink.calories >= calories.split("-")[0])
+        if calories.split("-")[1]:
+            list_query = list_query.where(Drink.calories <= calories.split("-")[1])
+            count_query = count_query.where(Drink.calories <= calories.split("-")[1])
 
     if alcoholic_content:
-        query = query.where(Drink.alcoholic_content == alcoholic_content)
+        list_query = list_query.where(Drink.alcoholic_content == alcoholic_content)
+        count_query = count_query.where(Drink.alcoholic_content == alcoholic_content)
 
-    query = (
-        query.order_by(asc(Drink.name)).limit(per_page).offset((page - 1) * per_page)
+    list_query = (
+        list_query.order_by(asc(Drink.name))
+        .limit(per_page)
+        .offset((page - 1) * per_page)
     )
 
-    drinks = db.session.scalars(query)
-    return list(drinks)
+    drinks = db.session.scalars(list_query)
+    total_count = count_query.scalar()
+
+    return list(drinks), total_count

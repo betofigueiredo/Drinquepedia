@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Tuple
 
 from flask_sqlalchemy import SQLAlchemy
 from infrastructure.repositories.drinks.queries import (
@@ -20,7 +20,7 @@ class DrinksRepository:
         calories: str | None,
         ingredient_type: str | None,
         alcoholic_content: str | None,
-    ) -> List[Drink]:
+    ) -> Tuple[List[Drink], int]:
         return find_all_drinks(
             db=self.db,
             page=page,
