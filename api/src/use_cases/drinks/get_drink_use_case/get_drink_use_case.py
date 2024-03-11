@@ -2,7 +2,7 @@ from infrastructure.repositories.repository import Repository
 from schemas import DrinkSchema
 from utils import Utils
 
-from .types import Response, Success
+from .types import Response, SuccessResponse
 
 
 def get_drink_use_case(
@@ -24,6 +24,6 @@ def get_drink_use_case(
     sorted_preparation_steps = sorted(drink.preparation_steps, key=lambda x: x.order)
     drink.preparation_steps = sorted_preparation_steps
 
-    response: Success = {"drink": DrinkSchema().dump(drink)}
+    response: SuccessResponse = {"drink": DrinkSchema().dump(drink)}
 
     return response, 200

@@ -14,9 +14,9 @@ class Validation(BaseModel):
     alcoholic_content: Literal["LOW", "MEDIUM", "HIGH"] | None = Field(None)
 
 
-class Success(TypedDict):
+class SuccessResponse(TypedDict):
     drinks: List[DrinkSchema]
     metadata: ListMetadata
 
 
-Response = Tuple[Success | ErrorResponse, int]
+Response = Tuple[SuccessResponse | ErrorResponse, int]

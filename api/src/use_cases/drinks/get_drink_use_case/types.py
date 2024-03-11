@@ -4,8 +4,8 @@ from custom_types import ErrorResponse
 from schemas import DrinkSchema
 
 
-class Success(TypedDict):
+class SuccessResponse(TypedDict):
     drink: DrinkSchema
 
 
-Response = Tuple[Success | ErrorResponse, int]
+Response = Tuple[SuccessResponse | ErrorResponse, int]
