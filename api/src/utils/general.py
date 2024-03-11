@@ -1,6 +1,16 @@
-from typing import Type
+from typing import Type, TypedDict
 
 from pydantic import BaseModel, ValidationError
+
+
+class SuccessResponse(TypedDict):
+    error: None
+    fields: BaseModel
+
+
+class ErrorResponse(TypedDict):
+    error: str
+    field: str
 
 
 class General:
@@ -8,7 +18,7 @@ class General:
         self,
         schema: Type[BaseModel],
         params: dict[str, str | int | float | bool | None],
-    ) -> dict[str, str | int | BaseModel | None]:
+    ) -> SuccessResponse | ErrorResponse:
         try:
             parsed_fields = schema(**params)
             return {"error": None, "fields": parsed_fields}
