@@ -2,7 +2,7 @@ from infrastructure.repositories.repository import Repository
 from schemas import DrinkSchema
 from utils import Utils
 
-from .types import Response, Validation
+from .types import Response, Success, Validation
 
 
 def get_drinks_use_case(
@@ -39,11 +39,13 @@ def get_drinks_use_case(
         alcoholic_content=parsed_params.alcoholic_content,
     )
 
-    return {
+    response: Success = {
         "drinks": [DrinkSchema().dump(drink) for drink in drinks],
         "metadata": {
             "page": parsed_params.page,
             "per_page": parsed_params.per_page,
             "total_count": 1,  # TODO: get total count
         },
-    }, 200
+    }
+
+    return response, 200

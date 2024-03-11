@@ -1,6 +1,6 @@
 from typing import List, Literal, Tuple, TypedDict
 
-from custom_types import Metadata
+from custom_types import ErrorResponse, ListMetadata
 from pydantic import BaseModel, Field
 from schemas import DrinkSchema
 
@@ -16,12 +16,7 @@ class Validation(BaseModel):
 
 class Success(TypedDict):
     drinks: List[DrinkSchema]
-    metadata: Metadata
+    metadata: ListMetadata
 
 
-class Error(TypedDict):
-    code: str
-    message: str
-
-
-Response = Tuple[Success | Error, int]
+Response = Tuple[Success | ErrorResponse, int]

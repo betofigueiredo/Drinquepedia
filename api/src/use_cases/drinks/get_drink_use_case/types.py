@@ -1,17 +1,11 @@
-from typing import List, Tuple, TypedDict
+from typing import Tuple, TypedDict
 
-from custom_types import Metadata
+from custom_types import ErrorResponse
 from schemas import DrinkSchema
 
 
 class Success(TypedDict):
-    drinks: List[DrinkSchema]
-    metadata: Metadata
+    drink: DrinkSchema
 
 
-class Error(TypedDict):
-    code: str
-    message: str
-
-
-Response = Tuple[Success | Error, int]
+Response = Tuple[Success | ErrorResponse, int]
