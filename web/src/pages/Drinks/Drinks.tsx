@@ -31,6 +31,7 @@ const Drinks = ({ category }: { category?: string }) => {
   return (
     <div className="container">
       <SearchBar />
+      <div>Destaques laterais (caipirinhas e smoothies)</div>
       <div>
         {drinks?.map((drink) => (
           <DrinkRow key={drink.id} drink={drink} />

@@ -23,8 +23,11 @@ from models import (  # noqa: F401
     Category,
     Drink,
     DrinkCategory,
+    DrinkHighlight,
+    Highlight,
     Ingredient,
     IngredientType,
+    Instruction,
     PreparationStep,
 )
 

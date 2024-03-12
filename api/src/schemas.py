@@ -5,6 +5,7 @@ from models import (
     Category,
     Drink,
     DrinkCategory,
+    Highlight,
     Ingredient,
     IngredientType,
     PreparationStep,
@@ -75,3 +76,15 @@ class PreparationStepSchema(ma.SQLAlchemySchema):
 
     class Meta:
         model = PreparationStep
+
+
+class HighlightSchema(ma.SQLAlchemySchema):
+    id = auto_field()
+    type = auto_field()
+    title = auto_field()
+    subtitle = auto_field()
+    description = auto_field()
+    drink = fields.Nested(DrinkSchema)
+
+    class Meta:
+        model = Highlight

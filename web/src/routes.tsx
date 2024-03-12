@@ -26,6 +26,7 @@ const allRoutes = createBrowserRouter([
         element: <Drinks category="caipirinhas" />,
       },
       { path: "/drinques/smoothies", element: <Drinks category="smoothies" /> },
+      { path: "/drinques/festas", element: <Drinks category="smoothies" /> },
       { path: "/drinques/:drinkId", element: <Drink /> },
       { path: "*", element: <NotFound404 /> },
     ],

@@ -20,6 +20,7 @@ const DrinkRow = ({ drink }: { drink: Drink }) => {
         <div>
           <span className="text-gray-500">Ingredientes:</span> {ingredients}
         </div>
+        <div>Veja a receita completa</div>
       </div>
     </div>
   );

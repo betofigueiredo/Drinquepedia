@@ -17,6 +17,7 @@ class Drink(db.Model):
     ingredients = relationship("Ingredient", back_populates="drink")
     preparation_steps = relationship("PreparationStep", back_populates="drink")
     categories = relationship("DrinkCategory", back_populates="drink")
+    highlights = relationship("DrinkHighlight", back_populates="drink", lazy="select")
     # hints = relationship("Hint", back_populates="drink")
 
 
@@ -69,3 +70,33 @@ class DrinkCategory(db.Model):
 #     description = db.Column(db.String(256), nullable=False)
 #     # drinqueId Int
 #     # drinque Drinque @relation(fields: [drinqueId], references: [id])
+
+
+# special_occasion
+# general
+class Highlight(db.Model):
+    id = db.Column(db.String(36), primary_key=True, index=True, default=uuid.uuid4)
+    type = db.Column(db.String(30), nullable=False)
+    title = db.Column(db.String(30), nullable=False)
+    subtitle = db.Column(db.String(256), nullable=False)
+    description = db.Column(TEXT)
+    drinks = relationship("DrinkHighlight", back_populates="highlight")
+
+
+class DrinkHighlight(db.Model):
+    drink_id = db.Column(
+        db.String(36), db.ForeignKey("drink.id"), primary_key=True, nullable=False
+    )
+    highlight_id = db.Column(
+        db.String(36), db.ForeignKey("highlight.id"), primary_key=True, nullable=False
+    )
+    db.Index("id", "drink_id", "highlight_id")
+    drink = relationship("Drink", back_populates="highlights")
+    highlight = relationship("Highlight", back_populates="drinks")
+
+
+class Instruction(db.Model):
+    id = db.Column(db.String(36), primary_key=True, index=True, default=uuid.uuid4)
+    title = db.Column(db.String(30), nullable=False)
+    subtitle = db.Column(db.String(256), nullable=False)
+    description = db.Column(TEXT)
