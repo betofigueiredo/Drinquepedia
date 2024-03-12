@@ -8,10 +8,12 @@ import {
 } from "@/components/ui/pagination";
 
 const Pagination = ({
+  category,
   page,
   perPage,
   totalCount,
 }: {
+  category?: string;
   page: number;
   perPage: number;
   totalCount: number;
@@ -24,7 +26,12 @@ const Pagination = ({
   );
   const hasNext = page < totalPages;
 
-  const toUrl = (p: number) => `/drinques/tropicais/pag/${p}`;
+  const toUrl = (p: number) =>
+    p === 1 ? `/drinques/${category}` : `/drinques/${category}?page=${p}`;
+
+  if (totalPages <= 1) {
+    return null;
+  }
 
   return (
     <div className="pt-8">

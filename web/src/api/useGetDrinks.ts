@@ -8,22 +8,25 @@ type Response = { drinks: Drink[]; metadata: { totalCount: number } };
 const useGetDrinks = ({
   page,
   perPage,
+  category,
   name,
   calories,
   alcoholicContent,
 }: {
   page: number;
   perPage: number;
+  category?: string;
   name: string;
   calories: string;
   alcoholicContent: string;
 }): { isPending: boolean; error: AxiosError | null; data?: Response } => {
   const { isPending, error, data } = useQuery({
-    queryKey: ["drinks", page, name, calories, alcoholicContent],
+    queryKey: ["drinks", page, category, name, calories, alcoholicContent],
     queryFn: async () => {
       const queryParams = {
         page,
         perPage,
+        ...(category && { category }),
         ...(name && { name }),
         ...(calories && { calories }),
         ...(alcoholicContent && { alcoholicContent }),

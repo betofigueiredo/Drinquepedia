@@ -15,6 +15,7 @@ def get_drinks_use_case(
         params={
             "page": query_params.get("page"),
             "per_page": query_params.get("per_page"),
+            "category": query_params.get("category"),
             "name": query_params.get("name"),
             "calories": query_params.get("calories"),
             "ingredient_type": query_params.get("ingredient_type"),
@@ -31,6 +32,7 @@ def get_drinks_use_case(
     drinks, total_count = repository.drinks.find_all(
         page=parsed_params.page,
         per_page=parsed_params.per_page,
+        category=parsed_params.category,
         name=parsed_params.name,
         calories=parsed_params.calories,
         ingredient_type=parsed_params.ingredient_type,

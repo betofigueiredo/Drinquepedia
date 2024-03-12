@@ -1,17 +1,19 @@
+import { useSearchParams } from "react-router-dom";
 import useGetDrinks from "@/api/useGetDrinks";
 import SearchBar from "@/components/SearchBar";
 import useSearchStore from "@/stores/useSearchStore";
 import DrinkRow from "@/components/DrinkRow";
 import Pagination from "@/components/Pagination";
-import { useParams } from "react-router-dom";
 
-const Drinks = () => {
+const Drinks = ({ category }: { category?: string }) => {
   const PER_PAGE = 20;
-  const page = Number(useParams().page) || 1; // TODO:
+  const [searchParams] = useSearchParams();
+  const page = Number(searchParams.get("page")) || 1;
   const { name, calories, alcoholicContent } = useSearchStore();
   const { isPending, error, data } = useGetDrinks({
     page,
     perPage: PER_PAGE,
+    category,
     name,
     calories,
     alcoholicContent,
@@ -36,6 +38,7 @@ const Drinks = () => {
       </div>
       <div>
         <Pagination
+          category={category}
           page={page}
           perPage={PER_PAGE}
           totalCount={data?.metadata?.totalCount || 0}
