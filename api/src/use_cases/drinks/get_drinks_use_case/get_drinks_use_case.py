@@ -10,7 +10,7 @@ def get_drinks_use_case(
     utils: Utils,
     repository: Repository,
 ) -> Response:
-    validation = utils.general.validate_schema(
+    error, parsed_params = utils.general.validate_schema(
         schema=Validation,
         params={
             "page": query_params.get("page"),
@@ -22,13 +22,11 @@ def get_drinks_use_case(
         },
     )
 
-    if validation.get("error"):
+    if error:
         return {
             "code": "INVALID_DATA",
-            "message": f"{validation.get('error')}: {validation.get('field')}",
+            "message": f"{error.message}: {error.field}",
         }, 400
-
-    parsed_params = validation.get("fields")
 
     drinks, total_count = repository.drinks.find_all(
         page=parsed_params.page,

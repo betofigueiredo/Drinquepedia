@@ -1,16 +1,21 @@
-from typing import Type, TypedDict
+from typing import NamedTuple, Type
 
 from pydantic import BaseModel, ValidationError
 
 
-class SuccessResponse(TypedDict):
+class ErrorSchema(NamedTuple):
+    message: str
+    field: str
+
+
+class SuccessResponse(NamedTuple):
     error: None
     fields: BaseModel
 
 
-class ErrorResponse(TypedDict):
-    error: str
-    field: str
+class ErrorResponse(NamedTuple):
+    error: ErrorSchema
+    fields: None
 
 
 class General:
@@ -21,12 +26,10 @@ class General:
     ) -> SuccessResponse | ErrorResponse:
         try:
             parsed_fields = schema(**params)
-            return {"error": None, "fields": parsed_fields}
+            return SuccessResponse(error=None, fields=parsed_fields)
         except ValidationError as exc:
             error = exc.errors()[0]
             error_msg = error.get("msg", "")
-            field = str(error.get("loc", ())[0]) if error.get("loc", None) else ""
-            return {
-                "error": error_msg,
-                "field": field,
-            }
+            error_field = str(error.get("loc", ())[0]) if error.get("loc", None) else ""
+            error_response = ErrorSchema(message=error_msg, field=error_field)
+            return ErrorResponse(error=error_response, fields=None)
