@@ -1,15 +1,18 @@
+from typing import Tuple
+
+from custom_types import ErrorResponse, GetDrinksResponse
 from infrastructure.repositories.repository import Repository
 from schemas import DrinkSchema
 from utils import Utils
 
-from .types import Response, SuccessResponse, Validation
+from .schema import Validation
 
 
 def get_drinks_use_case(
     query_params: dict[str, str],
     utils: Utils,
     repository: Repository,
-) -> Response:
+) -> Tuple[GetDrinksResponse | ErrorResponse, int]:
     error, parsed_params = utils.general.validate_schema(
         schema=Validation,
         params={
@@ -39,11 +42,9 @@ def get_drinks_use_case(
         alcoholic_content=parsed_params.alcoholic_content,
     )
 
-    response: SuccessResponse = {
+    response: GetDrinksResponse = {
         "drinks": [DrinkSchema().dump(drink) for drink in drinks],
         "metadata": {
-            "page": parsed_params.page,
-            "per_page": parsed_params.per_page,
             "total_count": total_count,
         },
     }

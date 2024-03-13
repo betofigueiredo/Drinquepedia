@@ -1,8 +1,6 @@
-from typing import List, Literal, Tuple, TypedDict
+from typing import Literal
 
-from custom_types import ErrorResponse, ListMetadata
 from pydantic import BaseModel, Field
-from schemas import DrinkSchema
 
 
 class Validation(BaseModel):
@@ -26,11 +24,3 @@ class Validation(BaseModel):
     calories: Literal["0-100", "100-200", "200-300", "300-"] | None = Field(None)
     ingredient_type: str | None = Field(None)
     alcoholic_content: Literal["LOW", "MEDIUM", "HIGH"] | None = Field(None)
-
-
-class SuccessResponse(TypedDict):
-    drinks: List[DrinkSchema]
-    metadata: ListMetadata
-
-
-Response = Tuple[SuccessResponse | ErrorResponse, int]

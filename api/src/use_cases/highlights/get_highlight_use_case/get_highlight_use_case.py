@@ -1,15 +1,18 @@
+from typing import Tuple
+
+from custom_types import ErrorResponse, GetHighlightResponse
 from infrastructure.repositories.repository import Repository
 from schemas import HighlightSchema
 from utils import Utils
 
-from .types import Response, SuccessResponse, Validation
+from .schema import Validation
 
 
 def get_highlight_use_case(
     highlight_id: str | None,
     utils: Utils,
     repository: Repository,
-) -> Response:
+) -> Tuple[GetHighlightResponse | ErrorResponse, int]:
     error, parsed_params = utils.general.validate_schema(
         schema=Validation,
         params={"highlight_id": highlight_id},
@@ -25,6 +28,6 @@ def get_highlight_use_case(
         highlight_id=parsed_params.highlight_id
     )
 
-    response: SuccessResponse = {"highlight": HighlightSchema().dump(highlight)}
+    response: GetHighlightResponse = {"highlight": HighlightSchema().dump(highlight)}
 
     return response, 200

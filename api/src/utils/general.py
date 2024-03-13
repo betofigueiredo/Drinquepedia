@@ -18,6 +18,9 @@ class ErrorResponse(NamedTuple):
     fields: None
 
 
+# generics here
+
+
 class General:
     def validate_schema(
         self,

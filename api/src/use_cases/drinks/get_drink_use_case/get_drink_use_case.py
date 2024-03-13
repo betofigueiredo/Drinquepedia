@@ -1,15 +1,16 @@
+from typing import Tuple
+
+from custom_types import ErrorResponse, GetDrinkResponse
 from infrastructure.repositories.repository import Repository
 from schemas import DrinkSchema
 from utils import Utils
-
-from .types import Response, SuccessResponse
 
 
 def get_drink_use_case(
     drink_id: str | None,
     utils: Utils,
     repository: Repository,
-) -> Response:
+) -> Tuple[GetDrinkResponse | ErrorResponse, int]:
     drink = repository.drinks.find_by_id(drink_id=drink_id)
 
     if not drink:
@@ -24,6 +25,6 @@ def get_drink_use_case(
     sorted_preparation_steps = sorted(drink.preparation_steps, key=lambda x: x.order)
     drink.preparation_steps = sorted_preparation_steps
 
-    response: SuccessResponse = {"drink": DrinkSchema().dump(drink)}
+    response: GetDrinkResponse = {"drink": DrinkSchema().dump(drink)}
 
     return response, 200
