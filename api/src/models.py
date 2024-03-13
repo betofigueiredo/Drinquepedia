@@ -74,6 +74,7 @@ class DrinkCategory(db.Model):
 
 class Highlight(db.Model):
     id = db.Column(db.String(36), primary_key=True, index=True, default=uuid.uuid4)
+    old_id = db.Column(SMALLINT, nullable=False, index=True)
     type = db.Column(db.String(30), nullable=False)
     title = db.Column(db.String(30), nullable=False)
     subtitle = db.Column(db.String(256), nullable=False)

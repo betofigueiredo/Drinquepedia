@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const HighlightRow = ({ highlight }: { highlight: Highlight }) => {
   return (
-    <Link to={`/highlights/${highlight.id}`} className="group">
+    <Link to={`/destaques/${highlight.oldId}`} className="group">
       <div className="mb-6 text-slate-950">
         <div className="relative w-full pt-[130%] overflow-hidden">
           <img

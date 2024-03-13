@@ -3,26 +3,28 @@ from typing import List, Tuple
 from flask_restful import Api, Resource
 from infrastructure.core.database import db
 from infrastructure.repositories.repository import Repository
-from schemas import DrinkSchema
+from schemas import HighlightSchema
 from use_cases.highlights import (
+    get_highlight_use_case,
     get_highlights_use_case,
 )
+from utils import Utils
 
 
 class HighlightsList(Resource):
-    def get(self) -> Tuple[dict[str, List[DrinkSchema]], int]:
+    def get(self) -> Tuple[dict[str, List[HighlightSchema]], int]:
         return get_highlights_use_case(
             repository=Repository(db),
         )
 
 
-# class Highlight(Resource):
-#     def get(self, drink_id: int) -> Tuple[dict[str, DrinkSchema], int]:
-#         return get_drink_use_case(
-#             drink_id=drink_id,
-#             utils=Utils(),
-#             repository=Repository(db),
-#         )
+class Highlight(Resource):
+    def get(self, highlight_id: str) -> Tuple[dict[str, HighlightSchema], int]:
+        return get_highlight_use_case(
+            highlight_id=highlight_id,
+            utils=Utils(),
+            repository=Repository(db),
+        )
 
 
 class HighlightsRoutes:
@@ -31,4 +33,4 @@ class HighlightsRoutes:
 
     def setup(self) -> None:
         self.api.add_resource(HighlightsList, "/highlights")
-        # self.api.add_resource(Drink, "/drinks/<drink_id>")
+        self.api.add_resource(Highlight, "/highlights/<highlight_id>")
