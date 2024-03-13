@@ -1,23 +1,22 @@
 import makeRequest from "@/utils/makeRequest";
 import { useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { SpecialOccasions } from "@/types/drink";
+import { Highlight } from "@/types/highlight";
 
 type Response = {
-  specialOccasions: SpecialOccasions[];
-  metadata: { totalCount: number };
+  highlights: Highlight[];
 };
 
-const useGetSpecialOccasions = (): {
+const useGetHighlights = (): {
   isPending: boolean;
   error: AxiosError | null;
   data?: Response;
 } => {
   const { isPending, error, data } = useQuery({
-    queryKey: ["specialOccasions"],
+    queryKey: ["highlights"],
     queryFn: async () => {
       const response = await makeRequest.get<{ data: Response }>(
-        "/v1/special-occasions"
+        "/v1/highlights"
       );
       return response?.data || {};
     },
@@ -25,4 +24,4 @@ const useGetSpecialOccasions = (): {
   return { isPending, error, data };
 };
 
-export default useGetSpecialOccasions;
+export default useGetHighlights;

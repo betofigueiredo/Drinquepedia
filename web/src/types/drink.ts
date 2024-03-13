@@ -35,9 +35,3 @@ export type Drink = {
   ingredients: Ingredient[];
   preparationSteps: PreparationStep[];
 };
-
-export type SpecialOccasions = {
-  id: string;
-  title: string;
-  description: string;
-};

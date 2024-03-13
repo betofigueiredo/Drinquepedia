@@ -6,6 +6,7 @@ import Home from "@/pages/Home";
 import Drinks from "@/pages/Drinks";
 import Drink from "./pages/Drink";
 import NotFound404 from "./pages/NotFound404";
+import Highlights from "./pages/Highlights";
 
 const allRoutes = createBrowserRouter([
   {
@@ -26,7 +27,7 @@ const allRoutes = createBrowserRouter([
         element: <Drinks category="caipirinhas" />,
       },
       { path: "/drinques/smoothies", element: <Drinks category="smoothies" /> },
-      { path: "/drinques/festas", element: <Drinks category="smoothies" /> },
+      { path: "/destaques", element: <Highlights /> },
       { path: "/drinques/:drinkId", element: <Drink /> },
       { path: "*", element: <NotFound404 /> },
     ],

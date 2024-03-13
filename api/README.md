@@ -2,6 +2,7 @@
 
 - ✅ Migrate drinks to database
 - ✅ Change category "caipirinha" to "caipirinhas"
+- ✅ Optimize images
   <br />
   <br />
 

@@ -72,8 +72,6 @@ class DrinkCategory(db.Model):
 #     # drinque Drinque @relation(fields: [drinqueId], references: [id])
 
 
-# special_occasion
-# general
 class Highlight(db.Model):
     id = db.Column(db.String(36), primary_key=True, index=True, default=uuid.uuid4)
     type = db.Column(db.String(30), nullable=False)
