@@ -37,3 +37,5 @@ jobs:
 
       - name: Tests
         run: poetry run task test
+        env:
+          ENV: ci
