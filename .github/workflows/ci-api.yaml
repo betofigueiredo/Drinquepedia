@@ -17,22 +17,24 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Check location
-        run: echo $(pwd)
-
       - name: Install python
         uses: actions/setup-python@v4
         with:
           python-version: "3.12.2"
+        working-directory: api
 
       - name: Install Poetry
         run: python3 -m pip install poetry
+        working-directory: api
 
       - name: Install dependencies
         run: poetry install --without doc
+        working-directory: api
 
       - name: MyPy
         run: poetry run task mypy
+        working-directory: api
 
       - name: Tests
         run: poetry run task test
+        working-directory: api
