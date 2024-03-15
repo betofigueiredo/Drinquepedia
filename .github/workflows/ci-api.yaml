@@ -3,19 +3,22 @@ name: CI api
 on:
   push:
     branches: [master]
-    paths:
-      - "api/**"
+    # paths:
+    #   - "api/**"
   pull_request:
     branches: [master]
-    paths:
-      - "api/**"
+    # paths:
+    #   - "api/**"
 
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - name: Copy files
-        uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check location
+        run: echo $(pwd)
 
       - name: Install python
         uses: actions/setup-python@v4
