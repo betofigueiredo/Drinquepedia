@@ -1,3 +1,6 @@
+# type: ignore
+
+
 class CreateDotDict(dict):
     __getattr__ = dict.get
     __setattr__ = dict.__setitem__  # type: ignore

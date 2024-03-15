@@ -1,98 +1,110 @@
+from typing import List, Tuple
+
 import pytest  # noqa: F401
 from infrastructure.repositories.mock.repository_mock import RepositoryMock
-from use_cases.drinks.get_drinks_use_case import get_drinks_use_case
+from models import Drink
+from tests.helpers import helpers
+from use_cases.drinks import get_drinks_use_case
 from utils import Utils
 
 
 class TestGetDrinksUseCase:
     # TEST
-    def test_invalid_user_id(self):
+    def test_invalid_page(self) -> None:
         repository = RepositoryMock()
         utils = Utils()
+        query_params = {"page": None, "per_page": 10}
         result = get_drinks_use_case(
-            page=None,
-            per_page="10",
+            query_params=query_params,
             utils=utils,
-            repository=repository,  # type: ignore
+            repository=repository,
         )
-        assert result[0].get("code") == "INVALID_DATA"  # type: ignore
-        assert "Input should be a valid integer" in result[0].get("message")  # type: ignore
-        assert "page" in result[0].get("message")  # type: ignore
+        assert result[0].get("code") == "INVALID_DATA"
+        assert "Input should be a valid integer" in result[0].get("message")
+        assert "page" in result[0].get("message")
 
-    # # TEST
-    # def test_invalid_song_id(self):
-    #     repository = RepositoryMock()
-    #     utils = Utils()
-    #     result = get_drink_use_case(
-    #         user_id="2a253332-f9d5-4924-9c80-7856ee71e852",
-    #         song_id="wrong_song_id",
-    #         utils=utils,
-    #         repository=repository,  # type: ignore
-    #     )
-    #     assert result[0].get("code") == "INVALID_DATA"  # type: ignore
-    #     assert "Input should be a valid UUID" in result[0].get("message")  # type: ignore
-    #     assert "song_id" in result[0].get("message")  # type: ignore
+    # TEST
+    def test_invalid_per_page(self) -> None:
+        repository = RepositoryMock()
+        utils = Utils()
+        query_params = {"page": 1, "per_page": None}
+        result = get_drinks_use_case(
+            query_params=query_params,
+            utils=utils,
+            repository=repository,
+        )
+        assert result[0].get("code") == "INVALID_DATA"
+        assert "Input should be a valid integer" in result[0].get("message")
+        assert "per_page" in result[0].get("message")
 
-    # # TEST
-    # def test_song_not_found(self):
-    #     def find_song_by_id(song_id):
-    #         return None
+    # TEST
+    def test_invalid_category(self) -> None:
+        repository = RepositoryMock()
+        utils = Utils()
+        query_params = {"page": 1, "per_page": 10, "category": "invalid_value"}
+        result = get_drinks_use_case(
+            query_params=query_params,
+            utils=utils,
+            repository=repository,
+        )
+        assert result[0].get("code") == "INVALID_DATA"
+        assert "category" in result[0].get("message")
 
-    #     repository = RepositoryMock()
-    #     repository.songs.find_by_id = find_song_by_id  # type: ignore
-    #     utils = Utils()
-    #     result = get_drink_use_case(
-    #         user_id="2a253332-f9d5-4924-9c80-7856ee71e852",
-    #         song_id="f551219f-da27-4d6d-9d31-907a015a5b45",
-    #         utils=utils,
-    #         repository=repository,  # type: ignore
-    #     )
-    #     assert result[0].get("code") == "SONG_NOT_FOUND"  # type: ignore
-    #     assert result[0].get("message") == "Song not found."  # type: ignore
+    # TEST
+    def test_invalid_calories(self) -> None:
+        repository = RepositoryMock()
+        utils = Utils()
+        query_params = {"page": 1, "per_page": 10, "calories": "invalid_value"}
+        result = get_drinks_use_case(
+            query_params=query_params,
+            utils=utils,
+            repository=repository,
+        )
+        assert result[0].get("code") == "INVALID_DATA"
+        assert "calories" in result[0].get("message")
 
-    # # TEST
-    # def test_song_from_another_user(self):
-    #     def find_song_by_id(song_id):
-    #         return helpers.CreateDotDict(
-    #             {
-    #                 "id": "f551219f-da27-4d6d-9d31-907a015a5b45",
-    #                 "user_id": "c4b0aab0-9675-49f9-9e9c-5834910b0dfb",
-    #             }
-    #         )
+    # TEST
+    def test_invalid_alcoholic_content(self) -> None:
+        repository = RepositoryMock()
+        utils = Utils()
+        query_params = {"page": 1, "per_page": 10, "alcoholic_content": "invalid_value"}
+        result = get_drinks_use_case(
+            query_params=query_params,
+            utils=utils,
+            repository=repository,
+        )
+        assert result[0].get("code") == "INVALID_DATA"
+        assert "alcoholic_content" in result[0].get("message")
 
-    #     repository = RepositoryMock()
-    #     repository.songs.find_by_id = find_song_by_id  # type: ignore
-    #     utils = Utils()
-    #     result = get_drink_use_case(
-    #         user_id="2a253332-f9d5-4924-9c80-7856ee71e852",
-    #         song_id="f551219f-da27-4d6d-9d31-907a015a5b45",
-    #         utils=utils,
-    #         repository=repository,  # type: ignore
-    #     )
-    #     assert result[0].get("code") == "SONG_NOT_FOUND"  # type: ignore
-    #     assert result[0].get("message") == "Song not found."  # type: ignore
+    # TEST
+    def test_success(self) -> None:
+        def find_all_drinks(
+            page: int,
+            per_page: int,
+            category: str | None,
+            name: str | None,
+            calories: str | None,
+            ingredient_type: str | None,
+            alcoholic_content: str | None,
+        ) -> Tuple[List[Drink], int]:
+            return [
+                helpers.CreateDotDict(
+                    {
+                        "id": "f551219f-da27-4d6d-9d31-907a015a5b45",
+                        "old_id": 1,
+                        "name": "Drink 1",
+                    }
+                )
+            ], 1
 
-    # # TEST
-    # def test_success(self):
-    #     def find_song_by_id(song_id):
-    #         return helpers.CreateDotDict(
-    #             {
-    #                 "id": "f551219f-da27-4d6d-9d31-907a015a5b45",
-    #                 "user_id": "2a253332-f9d5-4924-9c80-7856ee71e852",
-    #             }
-    #         )
-
-    #     def find_kit_by_id(kit_id):
-    #         return helpers.CreateDotDict({"id": "636800dd-54b8-4284-8904-854fe4f01966"})
-
-    #     repository = RepositoryMock()
-    #     repository.songs.find_by_id = find_song_by_id  # type: ignore
-    #     repository.kits.find_by_id = find_kit_by_id  # type: ignore
-    #     utils = Utils()
-    #     result = get_drink_use_case(
-    #         user_id="2a253332-f9d5-4924-9c80-7856ee71e852",
-    #         song_id="f551219f-da27-4d6d-9d31-907a015a5b45",
-    #         utils=utils,
-    #         repository=repository,  # type: ignore
-    #     )
-    #     assert result.get("song") is not None  # type: ignore
+        repository = RepositoryMock()
+        repository.drinks.find_all = find_all_drinks
+        utils = Utils()
+        query_params = {"page": 1, "per_page": 10}
+        result = get_drinks_use_case(
+            query_params=query_params,
+            utils=utils,
+            repository=repository,
+        )
+        assert result[0].get("drinks") is not None
+        assert result[1] == 200
