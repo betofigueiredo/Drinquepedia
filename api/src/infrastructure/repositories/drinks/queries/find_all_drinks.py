@@ -58,8 +58,4 @@ def find_all_drinks(
     drinks = db.session.scalars(list_query)
     total_count = count_query.scalar()
 
-    print(" ", flush=True)
-    print(list_query, flush=True)
-    print(" ", flush=True)
-
     return list(drinks), total_count
