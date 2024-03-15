@@ -11,7 +11,7 @@ on:
     #   - "api/**"
 
 jobs:
-  test:
+  ci:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -29,6 +29,15 @@ jobs:
 
       - name: Install dependencies
         run: poetry install
+
+      - name: Create .env file from secret
+        id: import-env
+        run: |
+          echo "${{ secrets.ENV_FILE }}" >> .env
+      - uses: cardinalby/export-env-action@v2
+        with:
+          mask: true
+          envFile: ".env"
 
       - name: MyPy
         run: poetry run task mypy
