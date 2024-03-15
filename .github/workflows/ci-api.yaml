@@ -28,7 +28,7 @@ jobs:
         run: python3 -m pip install poetry
 
       - name: Install dependencies
-        run: poetry install --without doc
+        run: poetry install
 
       - name: MyPy
         run: poetry run task mypy
