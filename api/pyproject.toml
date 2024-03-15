@@ -61,6 +61,7 @@ pythonpath = "src"
 
 [tool.taskipy.tasks]
 test = { cmd = "docker compose exec drinquepedia_api python -m pytest -vv", help = "runs all unit tests" }
+test_ci = { cmd = "python3 -m pytest -vv", help = "runs all unit tests on CI" }
 mypy = { cmd = "mypy src", help = "runs mypy" }
 create_migration = { cmd = "docker compose exec drinquepedia_api alembic revision --autogenerate -m", help = "create new migration" }
 run_migrations = { cmd = "docker compose exec drinquepedia_api alembic upgrade head", help = "run migrations" }

@@ -40,4 +40,4 @@ jobs:
         run: poetry run task mypy
 
       - name: Tests
-        run: poetry run task test
+        run: poetry run task test_ci
