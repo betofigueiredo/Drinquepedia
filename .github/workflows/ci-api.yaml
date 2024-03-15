@@ -19,9 +19,9 @@ jobs:
 
       - name: Install python
         uses: actions/setup-python@v4
+        working-directory: api
         with:
           python-version: "3.12.2"
-        working-directory: api
 
       - name: Install Poetry
         run: python3 -m pip install poetry
