@@ -1,5 +1,5 @@
 import useGetHighlights from "@/api/useGetHighlights";
-import HighlightRow from "@/components/HighlightRow";
+import HighlightCard from "@/components/HighlightCard";
 
 const Highlights = () => {
   const { isPending, error, data } = useGetHighlights();
@@ -26,7 +26,7 @@ const Highlights = () => {
       </h1>
       <div className="grid grid-cols-4 gap-7 mt-14">
         {specialOccasions?.map((specialOccasion) => (
-          <HighlightRow key={specialOccasion.id} highlight={specialOccasion} />
+          <HighlightCard key={specialOccasion.id} highlight={specialOccasion} />
         ))}
       </div>
       <h1 className="font-serif font-bold text-3xl text-gray-700 mt-20">
@@ -34,7 +34,7 @@ const Highlights = () => {
       </h1>
       <div className="grid grid-cols-4 gap-7 mt-14">
         {generalHighlights?.map((generalHighlight) => (
-          <HighlightRow
+          <HighlightCard
             key={generalHighlight.id}
             highlight={generalHighlight}
           />
