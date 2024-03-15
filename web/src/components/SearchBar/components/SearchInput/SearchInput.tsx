@@ -1,11 +1,13 @@
 import { ChangeEvent, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import { useDebounceValue } from "usehooks-ts";
-import useSearchStore from "@/stores/useSearchStore";
+import updateSearchParams from "@/utils/updateSearchParams";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 
 const SearchInput = () => {
-  const { name, update } = useSearchStore();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const name = searchParams.get("name") ?? "";
   const [debouncedValue, setValue] = useDebounceValue(name, 800);
 
   const onChangeName = (event: ChangeEvent<HTMLInputElement>) => {
@@ -13,19 +15,19 @@ const SearchInput = () => {
   };
 
   useEffect(() => {
-    update({ key: "name", value: debouncedValue });
-  }, [update, debouncedValue]);
+    const params = updateSearchParams({
+      searchParams,
+      key: "name",
+      value: debouncedValue,
+    });
+    setSearchParams(params);
+  }, [debouncedValue, searchParams, setSearchParams]);
 
   return (
-    <>
+    <div className="w-96">
       <Label htmlFor="search">Nome / Ingrediente</Label>
-      <Input
-        id="search"
-        defaultValue={name}
-        onChange={onChangeName}
-        placeholder="Search for drinks"
-      />
-    </>
+      <Input id="search" defaultValue={name} onChange={onChangeName} />
+    </div>
   );
 };
 

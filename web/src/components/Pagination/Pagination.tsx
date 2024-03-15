@@ -26,8 +26,10 @@ const Pagination = ({
   );
   const hasNext = page < totalPages;
 
-  const toUrl = (p: number) =>
-    p === 1 ? `/drinques/${category}` : `/drinques/${category}?page=${p}`;
+  const toUrl = (p: number) => {
+    const firstUrlPart = category ? `/drinques/${category}` : `/drinques/AaZ`;
+    return p === 1 ? firstUrlPart : `${firstUrlPart}?page=${p}`;
+  };
 
   if (totalPages <= 1) {
     return null;

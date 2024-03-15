@@ -1,4 +1,5 @@
-import useSearchStore from "@/stores/useSearchStore";
+import { useSearchParams } from "react-router-dom";
+import updateSearchParams from "@/utils/updateSearchParams";
 import { Label } from "@/components/ui/label";
 import {
   Select,
@@ -9,15 +10,20 @@ import {
 } from "@/components/ui/select";
 
 const CaloriesSelect = () => {
-  const { calories, update } = useSearchStore();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const calories = searchParams.get("calories") ?? "";
 
   const onChangeCalories = (value: string) => {
-    const newValue = value === "-" ? "" : value;
-    update({ key: "calories", value: newValue });
+    const params = updateSearchParams({
+      searchParams,
+      key: "calories",
+      value: value === "-" ? "" : value,
+    });
+    setSearchParams(params);
   };
 
   return (
-    <>
+    <div>
       <Label htmlFor="calories">Calorias</Label>
       <Select onValueChange={onChangeCalories} defaultValue={calories}>
         <SelectTrigger id="calories" className="w-[180px]">
@@ -31,7 +37,7 @@ const CaloriesSelect = () => {
           <SelectItem value="300-">+ 300</SelectItem>
         </SelectContent>
       </Select>
-    </>
+    </div>
   );
 };
 

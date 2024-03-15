@@ -21,6 +21,7 @@ const Home = () => {
       subtitle:
         "O calor chegou e nada melhor do que um bom drinque frozen para se refrescar durante esse verão. Confira aqui nossas receitas",
       description: "",
+      customUrl: "/drinques/frozen",
     },
     {
       id: "101",
@@ -30,6 +31,7 @@ const Home = () => {
       subtitle:
         "Feita com Rum, suco de abacaxi, leite condensado e leite de côco, a Pinã Colada é um dos coquetéis mais gostosos e refrescantes que existe.",
       description: "",
+      customUrl: "/drinques/284",
     },
     {
       id: "109",
@@ -39,6 +41,7 @@ const Home = () => {
       subtitle:
         "Conheça os drinques clássicos que nunca saem de moda. Daiquiri, Mojito, Margarita, Negroni e muito mais. Confira já!",
       description: "",
+      customUrl: "/drinques/classicos",
     },
   ];
 

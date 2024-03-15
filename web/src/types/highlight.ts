@@ -5,4 +5,5 @@ export type Highlight = {
   title: string;
   subtitle: string;
   description: string;
+  customUrl?: string;
 };

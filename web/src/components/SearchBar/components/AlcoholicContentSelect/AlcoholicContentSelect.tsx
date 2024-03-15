@@ -1,4 +1,5 @@
-import useSearchStore from "@/stores/useSearchStore";
+import { useSearchParams } from "react-router-dom";
+import updateSearchParams from "@/utils/updateSearchParams";
 import { Label } from "@/components/ui/label";
 import {
   Select,
@@ -9,15 +10,20 @@ import {
 } from "@/components/ui/select";
 
 const AlcoholicContentSelect = () => {
-  const { alcoholicContent, update } = useSearchStore();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const alcoholicContent = searchParams.get("alcoholicContent") ?? "";
 
   const onChangeAlcoholicContent = (value: string) => {
-    const newValue = value === "-" ? "" : value;
-    update({ key: "alcoholicContent", value: newValue });
+    const params = updateSearchParams({
+      searchParams,
+      key: "alcoholicContent",
+      value: value === "-" ? "" : value,
+    });
+    setSearchParams(params);
   };
 
   return (
-    <>
+    <div>
       <Label htmlFor="alcoholic_content">Teor alcoólico</Label>
       <Select
         onValueChange={onChangeAlcoholicContent}
@@ -27,13 +33,13 @@ const AlcoholicContentSelect = () => {
           <SelectValue />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value=" ">Todos</SelectItem>
+          <SelectItem value="-">Todos</SelectItem>
           <SelectItem value="LOW">Baixo</SelectItem>
           <SelectItem value="MEDIUM">Médio</SelectItem>
           <SelectItem value="HIGH">Alto</SelectItem>
         </SelectContent>
       </Select>
-    </>
+    </div>
   );
 };
 

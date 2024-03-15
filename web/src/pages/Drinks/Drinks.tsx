@@ -9,7 +9,8 @@ const Drinks = ({ category }: { category?: string }) => {
   const PER_PAGE = 20;
   const [searchParams] = useSearchParams();
   const page = Number(searchParams.get("page")) || 1;
-  const { name, calories, alcoholicContent } = useSearchStore();
+  const name = searchParams.get("name") ?? "";
+  const { calories, alcoholicContent } = useSearchStore();
   const { isPending, error, data } = useGetDrinks({
     page,
     perPage: PER_PAGE,
@@ -20,32 +21,32 @@ const Drinks = ({ category }: { category?: string }) => {
   });
   const drinks = data?.drinks;
 
-  if (isPending) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
-
   return (
-    <div className="container">
-      <SearchBar />
-      <div>Destaques laterais (caipirinhas e smoothies)</div>
-      <div>
-        {drinks?.map((drink) => (
-          <DrinkRow key={drink.id} drink={drink} />
-        ))}
+    <>
+      {!category && <SearchBar />}
+      <div className="container">
+        {isPending && <div>Carregando...</div>}
+        {error && <div>Erro</div>}
+        {!isPending && !error && (
+          <>
+            <div>Destaques laterais (caipirinhas e smoothies)</div>
+            <div>
+              {drinks?.map((drink) => (
+                <DrinkRow key={drink.id} drink={drink} />
+              ))}
+            </div>
+            <div>
+              <Pagination
+                category={category}
+                page={page}
+                perPage={PER_PAGE}
+                totalCount={data?.metadata?.totalCount || 0}
+              />
+            </div>
+          </>
+        )}
       </div>
-      <div>
-        <Pagination
-          category={category}
-          page={page}
-          perPage={PER_PAGE}
-          totalCount={data?.metadata?.totalCount || 0}
-        />
-      </div>
-    </div>
+    </>
   );
 };
 

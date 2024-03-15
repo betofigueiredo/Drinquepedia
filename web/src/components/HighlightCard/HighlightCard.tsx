@@ -3,7 +3,10 @@ import { Link } from "react-router-dom";
 
 const HighlightCard = ({ highlight }: { highlight: Highlight }) => {
   return (
-    <Link to={`/destaques/${highlight.oldId}`} className="group">
+    <Link
+      to={highlight.customUrl ?? `/destaques/${highlight.oldId}`}
+      className="group"
+    >
       <div className="mb-6 text-slate-950">
         <div className="relative w-full pt-[130%] overflow-hidden">
           <img
