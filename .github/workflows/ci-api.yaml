@@ -1,0 +1,13 @@
+name: CI api
+
+on:
+  push:
+    paths:
+      - "api/**"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        run: echo $(pwd)
