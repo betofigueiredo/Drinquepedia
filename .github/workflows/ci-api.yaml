@@ -30,12 +30,14 @@ jobs:
       - name: Install dependencies
         run: poetry install
 
+      - name: Create env file
+        run: |
+          touch .env
+          echo ENV=ci >> .env
+          cat .env
+
       - name: MyPy
         run: poetry run task mypy
-        env:
-          ENV: ci
 
       - name: Tests
         run: poetry run task test
-        env:
-          ENV: ci
