@@ -2,6 +2,11 @@ name: CI api
 
 on:
   push:
+    branches: [master]
+    paths:
+      - "api/**"
+  pull_request:
+    branches: [master]
     paths:
       - "api/**"
 
@@ -9,5 +14,22 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        run: echo $(pwd)
+      - name: Copy files
+        uses: actions/checkout@v3
+
+      - name: Install python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12.2"
+
+      - name: Install Poetry
+        run: python3 -m pip install poetry
+
+      - name: Install dependencies
+        run: poetry install --without doc
+
+      - name: MyPy
+        run: poetry run task mypy
+
+      - name: Tests
+        run: poetry run task test
