@@ -31,6 +31,8 @@ const Drinks = ({ category }: { category?: string }) => {
       shot: "Shots",
       classicos: "Clássicos",
       semalcool: "Sem Álcool",
+      caipirinhas: "Caipirinhas",
+      smoothies: "Smoothies",
     };
     return categories[category as keyof typeof categories] || "Todos os drinks";
   };
@@ -60,7 +62,7 @@ const Drinks = ({ category }: { category?: string }) => {
                 totalCount={data?.metadata?.totalCount || 0}
               />
             </div>
-            <div className="mt-24">
+            <div className="mt-20">
               <HighlightCard
                 highlight={{
                   id: "6",
@@ -72,6 +74,7 @@ const Drinks = ({ category }: { category?: string }) => {
                   description: "",
                 }}
               />
+              <div className="mb-16" />
               <HighlightCard
                 highlight={{
                   id: "109",

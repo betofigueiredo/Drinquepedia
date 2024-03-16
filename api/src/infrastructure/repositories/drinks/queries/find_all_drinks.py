@@ -1,7 +1,7 @@
 from typing import List, Tuple
 
 from flask_sqlalchemy import SQLAlchemy
-from models import Drink, DrinkCategory, Ingredient, IngredientType
+from models import Category, Drink, DrinkCategory, Ingredient, IngredientType
 from sqlalchemy import asc, func
 
 
@@ -19,11 +19,18 @@ def find_all_drinks(
     count_query = db.session.query(func.count(Drink.id))
 
     if category:
+        categories = (
+            [category, "scaipirinhas"] if category == "caipirinhas" else [category]
+        )
         list_query = list_query.where(
-            Drink.categories.any(DrinkCategory.category.has(name=category))
+            Drink.categories.any(
+                DrinkCategory.category.has(Category.name.in_(categories))
+            )
         )
         count_query = count_query.where(
-            Drink.categories.any(DrinkCategory.category.has(name=category))
+            Drink.categories.any(
+                DrinkCategory.category.has(Category.name.in_(categories))
+            )
         )
 
     if ingredient_type:
