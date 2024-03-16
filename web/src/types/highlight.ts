@@ -1,3 +1,5 @@
+import { Drink } from "./drink";
+
 export type Highlight = {
   id: string;
   oldId: number;
@@ -6,4 +8,5 @@ export type Highlight = {
   subtitle: string;
   description: string;
   customUrl?: string;
+  drinks?: Drink[];
 };
