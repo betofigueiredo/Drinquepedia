@@ -13,7 +13,7 @@ def get_drink_use_case(
     utils: Utils,
     repository: Repository,
 ) -> Tuple[GetDrinkResponse | ErrorResponse, int]:
-    error, parsed_params = utils.general.validate_schema(
+    error, fields = utils.general.validate_schema(
         schema=Validation,
         params={"drink_id": drink_id},
     )
@@ -24,7 +24,7 @@ def get_drink_use_case(
             "message": f"{error.message}: {error.field}",
         }, 400
 
-    drink = repository.drinks.find_by_id(drink_id=parsed_params.drink_id)
+    drink = repository.drinks.find_by_id(drink_id=fields.drink_id)
 
     if not drink:
         return {

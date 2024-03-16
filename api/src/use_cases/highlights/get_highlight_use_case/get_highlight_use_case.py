@@ -13,7 +13,7 @@ def get_highlight_use_case(
     utils: Utils,
     repository: Repository,
 ) -> Tuple[GetHighlightResponse | ErrorResponse, int]:
-    error, parsed_params = utils.general.validate_schema(
+    error, fields = utils.general.validate_schema(
         schema=Validation,
         params={"highlight_id": highlight_id},
     )
@@ -24,9 +24,7 @@ def get_highlight_use_case(
             "message": f"{error.message}: {error.field}",
         }, 400
 
-    highlight = repository.highlights.find_by_id(
-        highlight_id=parsed_params.highlight_id
-    )
+    highlight = repository.highlights.find_by_id(highlight_id=fields.highlight_id)
 
     if not highlight:
         return {

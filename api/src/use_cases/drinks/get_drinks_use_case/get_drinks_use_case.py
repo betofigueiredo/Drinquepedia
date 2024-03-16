@@ -13,7 +13,7 @@ def get_drinks_use_case(
     utils: Utils,
     repository: Repository,
 ) -> Tuple[GetDrinksResponse | ErrorResponse, int]:
-    error, parsed_params = utils.general.validate_schema(
+    error, fields = utils.general.validate_schema(
         schema=Validation,
         params={
             "page": query_params.get("page"),
@@ -33,13 +33,13 @@ def get_drinks_use_case(
         }, 400
 
     drinks, total_count = repository.drinks.find_all(
-        page=parsed_params.page,
-        per_page=parsed_params.per_page,
-        category=parsed_params.category,
-        name=parsed_params.name,
-        calories=parsed_params.calories,
-        ingredient_type=parsed_params.ingredient_type,
-        alcoholic_content=parsed_params.alcoholic_content,
+        page=fields.page,
+        per_page=fields.per_page,
+        category=fields.category,
+        name=fields.name,
+        calories=fields.calories,
+        ingredient_type=fields.ingredient_type,
+        alcoholic_content=fields.alcoholic_content,
     )
 
     response: GetDrinksResponse = {

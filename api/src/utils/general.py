@@ -1,6 +1,8 @@
-from typing import NamedTuple, Type
+from typing import Generic, NamedTuple, Type, TypeVar
 
 from pydantic import BaseModel, ValidationError
+
+R = TypeVar("R", bound=BaseModel)
 
 
 class ErrorSchema(NamedTuple):
@@ -8,9 +10,9 @@ class ErrorSchema(NamedTuple):
     field: str
 
 
-class SuccessResponse(NamedTuple):
+class SuccessResponse(NamedTuple, Generic[R]):
     error: None
-    fields: BaseModel
+    fields: R
 
 
 class ErrorResponse(NamedTuple):
@@ -18,15 +20,12 @@ class ErrorResponse(NamedTuple):
     fields: None
 
 
-# generics here
-
-
 class General:
     def validate_schema(
         self,
-        schema: Type[BaseModel],
+        schema: Type[R],
         params: dict[str, str | int | float | bool | None],
-    ) -> SuccessResponse | ErrorResponse:
+    ) -> SuccessResponse[R] | ErrorResponse:
         try:
             parsed_fields = schema(**params)
             return SuccessResponse(error=None, fields=parsed_fields)
