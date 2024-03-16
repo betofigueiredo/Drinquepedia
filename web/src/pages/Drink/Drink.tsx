@@ -1,7 +1,7 @@
+import { Link, useParams } from "react-router-dom";
 import useGetDrink from "@/api/useGetDrink";
 import DrinkAlcoholicContent from "@/components/DrinkAlcoholicContent";
 import DrinkDifficulty from "@/components/DrinkDifficulty";
-import { useParams } from "react-router-dom";
 
 const Drink = () => {
   const { drinkId } = useParams();
@@ -47,7 +47,7 @@ const Drink = () => {
               <DrinkDifficulty difficulty={drink?.difficulty} />
             </div>
           </div>
-          <div className="w-32 border-dashed border-t border-gray-200 mt-8 mb-8" />
+          <div className="w-32 border-dashed border-t border-gray-200 mt-9 mb-9" />
           <div>
             <h5 className="font-serif font-bold text-2xl text-slate-950 mb-3">
               Ingredientes
@@ -70,7 +70,7 @@ const Drink = () => {
               )}
             </ul>
           </div>
-          <div className="w-32 border-dashed border-t border-gray-200 mt-8 mb-8" />
+          <div className="w-32 border-dashed border-t border-gray-200 mt-9 mb-9" />
           <div>
             <h5 className="font-serif font-bold text-2xl text-slate-950 mb-3">
               Modo de preparo
@@ -86,7 +86,7 @@ const Drink = () => {
               ))}
             </ul>
           </div>
-          <div className="w-32 border-dashed border-t border-gray-200 mt-8 mb-8" />
+          <div className="w-32 border-dashed border-t border-gray-200 mt-9 mb-9" />
           <div>
             <h5 className="font-serif font-bold text-2xl text-slate-950 mb-3">
               Sobre o drinque
@@ -95,10 +95,32 @@ const Drink = () => {
               <div className="absolute top-0 left-0 font-serif font-bold text-5xl text-amber-500 mb-3">
                 “
               </div>
-
               {drink?.description}
             </div>
           </div>
+          {drink?.instructions?.length ? (
+            <>
+              <div className="w-32 border-dashed border-t border-gray-200 mt-9 mb-9" />
+              <div>
+                <h5 className="font-serif font-bold text-2xl text-slate-950 mb-1">
+                  Dicas para o preparo
+                </h5>
+                <ul>
+                  {drink?.instructions.map((instruction) => (
+                    <li key={instruction.id} className="pb-2">
+                      <span className="text-3xl pr-1 text-gray-400">→</span>
+                      <Link
+                        to={`/dicas/${instruction.oldId}`}
+                        className="text-slate-800 underline hover:text-amber-500 transition-all"
+                      >
+                        {instruction.title}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </>
+          ) : null}
         </div>
       </div>
     </div>

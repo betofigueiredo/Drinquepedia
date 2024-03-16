@@ -10,6 +10,14 @@ export type PreparationStep = {
   description: number;
 };
 
+export type Instruction = {
+  id: string;
+  oldId: number;
+  title: string;
+  subtitle: string;
+  description?: string;
+};
+
 export const ALCOHOLIC_CONTENTS = ["LOW", "MEDIUM", "HIGH"] as const;
 export type AlcoholicContent = (typeof ALCOHOLIC_CONTENTS)[number];
 
@@ -34,4 +42,5 @@ export type Drink = {
   difficulty: Difficulty;
   ingredients: Ingredient[];
   preparationSteps: PreparationStep[];
+  instructions?: Instruction[];
 };
