@@ -5,13 +5,26 @@ from infrastructure.repositories.repository import Repository
 from schemas import DrinkSchema
 from utils import Utils
 
+from .schema import Validation
+
 
 def get_drink_use_case(
     drink_id: str | None,
     utils: Utils,
     repository: Repository,
 ) -> Tuple[GetDrinkResponse | ErrorResponse, int]:
-    drink = repository.drinks.find_by_id(drink_id=drink_id)
+    error, parsed_params = utils.general.validate_schema(
+        schema=Validation,
+        params={"drink_id": drink_id},
+    )
+
+    if error:
+        return {
+            "code": "INVALID_DATA",
+            "message": f"{error.message}: {error.field}",
+        }, 400
+
+    drink = repository.drinks.find_by_id(drink_id=parsed_params.drink_id)
 
     if not drink:
         return {

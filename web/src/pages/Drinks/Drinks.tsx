@@ -29,7 +29,7 @@ const Drinks = ({ category }: { category?: string }) => {
         {isPending && <div>Carregando...</div>}
         {error && <div>Erro</div>}
         {!isPending && !error && (
-          <div className="grid grid-cols-[auto,313px] gap-4">
+          <div className="grid grid-cols-[auto,300px] gap-4">
             <div>
               <h1 className="font-serif font-bold text-3xl text-gray-700 mt-14 mb-14">
                 {category || "Todos os drinks"}
@@ -54,6 +54,18 @@ const Drinks = ({ category }: { category?: string }) => {
                   subtitle:
                     "Confira nossa lista dos 10 melhores drinques tropicais para esse verão. Não deixe de experimentar. Confira já e divirta-se!",
                   description: "",
+                }}
+              />
+              <HighlightCard
+                highlight={{
+                  id: "109",
+                  oldId: 109,
+                  type: "GENERAL",
+                  title: "CLÁSSICOS",
+                  subtitle:
+                    "Conheça os drinques clássicos que nunca saem de moda. Daiquiri, Mojito, Margarita, Negroni e muito mais. Confira já!",
+                  description: "",
+                  customUrl: "/drinques/classicos",
                 }}
               />
             </div>

@@ -33,5 +33,5 @@ class DrinksRepository:
             alcoholic_content=alcoholic_content,
         )
 
-    def find_by_id(self, drink_id: str | None) -> Drink | None:
+    def find_by_id(self, drink_id: int) -> Drink | None:
         return find_drink_by_id(db=self.db, drink_id=drink_id)
