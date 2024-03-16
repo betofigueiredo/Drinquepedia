@@ -4,7 +4,7 @@
   <p><a href="http://www.drinquepedia.com/">Acessar drinquepedia.com</a></p>
 </div>
 
-![workflow](https://github.com/betofigueiredo/Drinquepedia/actions/workflows/ci-api.yaml/badge.svg)
+![api-workflow](https://github.com/betofigueiredo/Drinquepedia/actions/workflows/ci-api.yaml/badge.svg) ![web-workflow](https://github.com/betofigueiredo/Drinquepedia/actions/workflows/ci-web.yaml/badge.svg)
 
 ## História
 
