@@ -1,7 +1,6 @@
 import { useSearchParams } from "react-router-dom";
 import useGetDrinks from "@/api/useGetDrinks";
 import SearchBar from "@/components/SearchBar";
-import useSearchStore from "@/stores/useSearchStore";
 import DrinkRow from "@/components/DrinkRow";
 import Pagination from "@/components/Pagination";
 import HighlightCard from "@/components/HighlightCard";
@@ -11,7 +10,8 @@ const Drinks = ({ category }: { category?: string }) => {
   const [searchParams] = useSearchParams();
   const page = Number(searchParams.get("page")) || 1;
   const name = searchParams.get("name") ?? "";
-  const { calories, alcoholicContent } = useSearchStore();
+  const calories = searchParams.get("calories") ?? "";
+  const alcoholicContent = searchParams.get("alcoholicContent") ?? "";
   const { isPending, error, data } = useGetDrinks({
     page,
     perPage: PER_PAGE,
