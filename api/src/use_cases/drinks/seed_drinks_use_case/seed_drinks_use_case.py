@@ -3,10 +3,11 @@ import math
 
 import pandas as pd
 from flask_sqlalchemy import SQLAlchemy
-from models import (
+from models import (  # noqa: F401
     Category,
     Drink,
     DrinkCategory,
+    DrinkInstruction,
     Ingredient,
     IngredientType,
     PreparationStep,
@@ -197,10 +198,34 @@ def get_categories(old_categories: str):
     return []
 
 
+def get_instructions(old_instructions: str):
+    result = []
+
+    if not isinstance(old_instructions, str):
+        return result
+
+    all_instructions = {
+        '/dicas/1"': "b5d8cb8a-ead4-4ca3-b938-dd96e3fc6873",
+        '/dicas/2"': "6fdf06df-f78a-4aef-889f-703aba975360",
+        '/dicas/3"': "bdd703df-7cb3-4505-9645-61c3ca6695bb",
+        '/dicas/4"': "fe37b5eb-18e8-48c4-b750-c3febf7a2527",
+        '/dicas/5"': "ac200107-65c3-4227-ae75-cf502d913f07",
+        '/dicas/6"': "d69148a5-6599-4525-bbe9-68f0e705d4cd",
+        '/dicas/7"': "8ef86270-57dd-4f4d-930c-3bca59c0ddcf",
+        '/dicas/8"': "2e5163a1-4747-4f03-aa01-aec9ec4eda10",
+    }
+
+    for instruction_url, new_instruction_id in all_instructions.items():
+        if instruction_url in old_instructions:
+            result.append(new_instruction_id)
+
+    return result
+
+
 def seed_drinks_use_case(
     db: SQLAlchemy,
 ) -> bool:
-    df = pd.read_csv("/app/old-data/drinquepedia_old_db.csv")
+    df = pd.read_csv("/app/old-data/drinquepedia_full_old_db.csv")
 
     for _, row in df.iterrows():
         old_id = row.get("id")
@@ -213,8 +238,8 @@ def seed_drinks_use_case(
         preparation_steps = get_preparation_steps(row.get("preparo"))
         ingredients = get_ingredients(row.get("ingredientes"))
         categories = get_categories(row.get("categoria"))
+        dicas = row.get("dicas")
         # TODO: historia = row.get("historia")
-        # TODO: dicas = row.get("dicas")
 
         print(f"Creating drink: {name}", flush=True)
 
@@ -280,6 +305,15 @@ def seed_drinks_use_case(
                 category_id=existing_category.id,
             )
             db.session.add(category_link)
+            db.session.commit()
+
+        instructions = get_instructions(dicas)
+        for instruction in instructions:
+            instruction_link = DrinkInstruction(
+                drink_id=created_drink.id,
+                instruction_id=instruction,
+            )
+            db.session.add(instruction_link)
             db.session.commit()
 
     return {"done": True}, 200

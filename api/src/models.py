@@ -18,7 +18,9 @@ class Drink(db.Model):
     preparation_steps = relationship("PreparationStep", back_populates="drink")
     categories = relationship("DrinkCategory", back_populates="drink")
     highlights = relationship("DrinkHighlight", back_populates="drink", lazy="select")
-    # hints = relationship("Hint", back_populates="drink")
+    instructions = relationship(
+        "DrinkInstruction", back_populates="drink", lazy="select"
+    )
 
 
 class Ingredient(db.Model):
@@ -64,14 +66,6 @@ class DrinkCategory(db.Model):
     category = relationship("Category", back_populates="drinks")
 
 
-# class Hint(db.Model):
-#     id = db.Column(db.String(36), primary_key=True, index=True, default=uuid.uuid4)
-#     order = db.Column(TINYINT)
-#     description = db.Column(db.String(256), nullable=False)
-#     # drinqueId Int
-#     # drinque Drinque @relation(fields: [drinqueId], references: [id])
-
-
 class Highlight(db.Model):
     id = db.Column(db.String(36), primary_key=True, index=True, default=uuid.uuid4)
     old_id = db.Column(SMALLINT, nullable=False, index=True)
@@ -96,6 +90,22 @@ class DrinkHighlight(db.Model):
 
 class Instruction(db.Model):
     id = db.Column(db.String(36), primary_key=True, index=True, default=uuid.uuid4)
-    title = db.Column(db.String(30), nullable=False)
+    old_id = db.Column(SMALLINT, nullable=False, index=True)
+    title = db.Column(db.String(60), nullable=False)
     subtitle = db.Column(db.String(256), nullable=False)
     description = db.Column(TEXT)
+    drinks = relationship(
+        "DrinkInstruction", back_populates="instruction", lazy="select"
+    )
+
+
+class DrinkInstruction(db.Model):
+    drink_id = db.Column(
+        db.String(36), db.ForeignKey("drink.id"), primary_key=True, nullable=False
+    )
+    instruction_id = db.Column(
+        db.String(36), db.ForeignKey("instruction.id"), primary_key=True, nullable=False
+    )
+    db.Index("id", "drink_id", "instruction_id")
+    drink = relationship("Drink", back_populates="instructions")
+    instruction = relationship("Instruction", back_populates="drinks")

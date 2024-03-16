@@ -24,6 +24,7 @@ from models import (  # noqa: F401
     Drink,
     DrinkCategory,
     DrinkHighlight,
+    DrinkInstruction,
     Highlight,
     Ingredient,
     IngredientType,
