@@ -44,9 +44,12 @@ const Drinks = ({ category }: { category?: string }) => {
         {!isPending && !error && (
           <div className="grid grid-cols-[auto,300px] gap-24">
             <div>
-              <h1 className="font-serif font-bold text-3xl text-gray-700 mt-14 mb-14">
+              <h1 className="font-serif font-bold text-3xl text-gray-700 mt-14 mb-0">
                 {getCategoryName()}
               </h1>
+              <div className="mb-14 text-gray-500">
+                {data?.metadata?.totalCount} drinques
+              </div>
               {drinks?.map((drink) => (
                 <DrinkRow key={drink.id} drink={drink} />
               ))}
