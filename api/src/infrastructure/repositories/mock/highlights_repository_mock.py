@@ -1,11 +1,11 @@
 from typing import List, Tuple
 
-from models import Drink
+from models import Highlight
 
 
 class HighlightsRepositoryMock:
-    def find_all(self) -> Tuple[List[Drink], int]:
+    def find_all(self) -> Tuple[List[Highlight], int]:
         return [], 0
 
-    def find_by_id(self, drink_id: str | None) -> Drink | None:
+    def find_by_id(self, highlight_id: str | None) -> Highlight | None:
         return None

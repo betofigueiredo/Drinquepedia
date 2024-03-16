@@ -28,6 +28,12 @@ def get_highlight_use_case(
         highlight_id=parsed_params.highlight_id
     )
 
+    if not highlight:
+        return {
+            "code": "HIGHLIGHT_NOT_FOUND",
+            "message": "Highlight not found.",
+        }, 404
+
     response: GetHighlightResponse = {"highlight": HighlightSchema().dump(highlight)}
 
     return response, 200
