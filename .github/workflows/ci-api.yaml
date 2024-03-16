@@ -7,8 +7,8 @@ on:
       - "api/**"
   pull_request:
     branches: [master]
-    # paths:
-    #   - "api/**"
+    paths:
+      - "api/**"
 
 jobs:
   ci:
@@ -24,7 +24,7 @@ jobs:
         with:
           python-version: "3.12.2"
 
-      - name: Install Poetry
+      - name: Install poetry
         run: python3 -m pip install poetry
 
       - name: Install dependencies
