@@ -32,6 +32,18 @@ def find_all_drinks(
                 DrinkCategory.category.has(Category.name.in_(categories))
             )
         )
+    else:
+        categories_to_exclude = ["caipirinhas", "scaipirinhas"]
+        list_query = list_query.where(
+            ~Drink.categories.any(
+                DrinkCategory.category.has(Category.name.in_(categories_to_exclude))
+            )
+        )
+        count_query = count_query.where(
+            ~Drink.categories.any(
+                DrinkCategory.category.has(Category.name.in_(categories_to_exclude))
+            )
+        )
 
     if ingredient_type:
         list_query = list_query.join(Ingredient.ingredient_type).where(
