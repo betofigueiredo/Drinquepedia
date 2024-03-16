@@ -34,7 +34,9 @@ const Drinks = ({ category }: { category?: string }) => {
       caipirinhas: "Caipirinhas",
       smoothies: "Smoothies",
     };
-    return categories[category as keyof typeof categories] || "Todos os drinks";
+    return (
+      categories[category as keyof typeof categories] || "Todos os drinques"
+    );
   };
 
   return (
