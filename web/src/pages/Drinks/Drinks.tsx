@@ -22,6 +22,19 @@ const Drinks = ({ category }: { category?: string }) => {
   });
   const drinks = data?.drinks;
 
+  const getCategoryName = (): string => {
+    const categories: { [key: string]: string } = {
+      martinis: "Martinis",
+      tropicais: "Tropicais",
+      frozen: "Frozen",
+      quentes: "Quentes",
+      shot: "Shots",
+      classicos: "Clássicos",
+      semalcool: "Sem Álcool",
+    };
+    return categories[category as keyof typeof categories] || "Todos os drinks";
+  };
+
   return (
     <>
       {!category && <SearchBar />}
@@ -29,10 +42,10 @@ const Drinks = ({ category }: { category?: string }) => {
         {isPending && <div>Carregando...</div>}
         {error && <div>Erro</div>}
         {!isPending && !error && (
-          <div className="grid grid-cols-[auto,300px] gap-4">
+          <div className="grid grid-cols-[auto,300px] gap-24">
             <div>
               <h1 className="font-serif font-bold text-3xl text-gray-700 mt-14 mb-14">
-                {category || "Todos os drinks"}
+                {getCategoryName()}
               </h1>
               {drinks?.map((drink) => (
                 <DrinkRow key={drink.id} drink={drink} />
