@@ -7,22 +7,19 @@ const DrinkRow = ({ drink }: { drink: Drink }) => {
     .join(", ");
 
   return (
-    <div className="grid grid-cols-[max-content_1fr] mb-6 text-slate-950">
-      <Link to={`/drinques/${drink.oldId}`}>
-        <div className="mr-6 border-4">
+    <Link to={`/drinques/${drink.oldId}`} className="group">
+      <div className="grid grid-cols-[max-content_1fr] mb-7 text-slate-950">
+        <div className="mr-6 border-[5px] group-hover:border-amber-300 transition-all duration-200">
           <img src={`/images/drinks/${drink?.oldId}/${drink?.oldId}p.jpg`} />
         </div>
-      </Link>
-      <div>
-        <h1 className="font-serif font-bold text-2xl text-amber-500">
-          <Link to={`/drinques/${drink.oldId}`}>{drink?.name}</Link>
-        </h1>
         <div>
-          <span className="text-gray-500">Ingredientes:</span> {ingredients}
+          <h1 className="font-serif font-bold text-2xl text-amber-500 group-hover:text-amber-300">
+            {drink?.name}
+          </h1>
+          <div className="text-gray-500">{ingredients}</div>
         </div>
-        <div>Veja a receita completa</div>
       </div>
-    </div>
+    </Link>
   );
 };
 
