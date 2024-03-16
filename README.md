@@ -1,7 +1,8 @@
 <div align="center">
   <h1>Drinquepedia</h1>
   <h3>🍸 Things go better with a cocktail!</h3>
-  View here ⇢ <a href="http://www.drinquepedia.com/" target="_blank" rel="noopener noreferrer">drinquepedia.com</a>
+  <p>View here ⇢ <a href="http://www.drinquepedia.com" target="_blank" rel="noopener noreferrer">drinquepedia.com</a></p>
+  <img src="https://github.com/betofigueiredo/Drinquepedia/actions/workflows/ci-api.yaml/badge.svg" /> <img src="https://github.com/betofigueiredo/Drinquepedia/actions/workflows/ci-web.yaml/badge.svg" />
   <br />
   <br />
   <figure>
@@ -11,21 +12,27 @@
 
 <br />
 
-<div align="center">
-  <div><a href="http://www.drinquepedia.com/"><img src="http://www.drinquepedia.com/img/logo.jpg" alt="Drinquepedia"></a></div>
-  <h3 align="center">Desenvolvimento da nova versão do site</h3>
-  <p><a href="http://www.drinquepedia.com/">Acessar drinquepedia.com</a></p>
-</div>
+## Frontend with
 
-![api-workflow](https://github.com/betofigueiredo/Drinquepedia/actions/workflows/ci-api.yaml/badge.svg) ![web-workflow](https://github.com/betofigueiredo/Drinquepedia/actions/workflows/ci-web.yaml/badge.svg)
+- ✅ React
+- ✅ Typescript
+- ✅ Tailwind
+- ✅ shadcn/ui
+- ✅ Vite
+  <br />
+  <br />
 
-## História
+## Backend with
 
-Desenvolvi esse projeto há mais de 10 anos, inicialmente em ASP e depois em PHP. Já fez parte do portal IG, atualmente não está sendo atualizado.
+- ✅ Flask
+- ✅ Alembic
+- ✅ Marshmallow
+- ✅ MyPy
+  <br />
+  <br />
 
-## O que será refeito?
+## Database
 
-- Novo design, mais limpo e mobile first.
-- Novas tecnologias: GraphQL e NextJS.
-
-...mais detalhes em breve
+- ✅ MySQL
+  <br />
+  <br />
