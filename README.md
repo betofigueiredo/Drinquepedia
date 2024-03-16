@@ -4,6 +4,8 @@
   <p><a href="http://www.drinquepedia.com/">Acessar drinquepedia.com</a></p>
 </div>
 
+![workflow](https://github.com/betofigueiredo/Drinquepedia/actions/workflows/ci-api.yaml/badge.svg)
+
 ## História
 
 Desenvolvi esse projeto há mais de 10 anos, inicialmente em ASP e depois em PHP. Já fez parte do portal IG, atualmente não está sendo atualizado.
