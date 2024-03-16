@@ -40,7 +40,7 @@ const FeaturedHighlights = () => {
     },
   ];
 
-  const { order, image, title, description, link } =
+  const { order, image, title, description } =
     highlights[selectedHighlightIdx] || {};
 
   return (
