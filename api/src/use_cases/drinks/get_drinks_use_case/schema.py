@@ -4,8 +4,8 @@ from pydantic import BaseModel, Field
 
 
 class Validation(BaseModel):
-    page: int = Field(None, gt=0)
-    per_page: int = Field(None, gt=5)
+    page: int = Field(..., gt=0)
+    per_page: int = Field(..., gt=5)
     category: (
         Literal[
             "martinis",
