@@ -5,7 +5,7 @@
   <br />
   <br />
   <figure>
-    <img src="https://github.com/betofigueiredo/sudoku/assets/7251116/4044910a-fd0e-47d9-8300-1f0e498b6081" alt="Demo" />
+    <img src="[https://github.com/betofigueiredo/sudoku/assets/7251116/4044910a-fd0e-47d9-8300-1f0e498b6081](https://github.com/betofigueiredo/Drinquepedia/assets/7251116/18d3062b-d459-495e-a416-c337e448d5fa)" alt="Demo" />
   </figure>
 </div>
 
