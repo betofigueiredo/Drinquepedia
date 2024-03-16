@@ -115,6 +115,7 @@ def get_ingredient_unit_of_measurement(old_ingredient: str) -> str:
                 "1/2": 15,
                 "1/4": 7.5,
                 "1/3": 10,
+                "2/3": 20,
                 "3/4": 22.5,
                 "2": 60,
                 "3": 90,
@@ -122,6 +123,15 @@ def get_ingredient_unit_of_measurement(old_ingredient: str) -> str:
                 "5": 150,
                 "6": 180,
                 "7": 210,
+                "8": 240,
+                "9": 270,
+                "10": 300,
+                "11": 330,
+                "12": 360,
+                "13": 390,
+                "14": 420,
+                "15": 450,
+                "16": 480,
             }
             ml += oz.get(piece, 0)
         if ingredient[:3] == "de ":
