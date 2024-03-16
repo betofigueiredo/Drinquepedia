@@ -6,9 +6,11 @@ from models import (
     Drink,
     DrinkCategory,
     DrinkHighlight,
+    DrinkInstruction,
     Highlight,
     Ingredient,
     IngredientType,
+    Instruction,
     PreparationStep,
 )
 
@@ -25,6 +27,7 @@ class DrinkSchema(ma.SQLAlchemySchema):
     ingredients = fields.Nested("IngredientSchema", many=True)
     preparation_steps = fields.Nested("PreparationStepSchema", many=True)
     categories = fields.Nested("DrinkCategorySchema", many=True)
+    instructions = fields.Nested("DrinkInstructionSchema", many=True)
 
     class Meta:
         model = Drink
@@ -77,6 +80,30 @@ class PreparationStepSchema(ma.SQLAlchemySchema):
 
     class Meta:
         model = PreparationStep
+
+
+class InstructionSchema(ma.SQLAlchemySchema):
+    id = auto_field()
+    old_id = auto_field()
+    title = auto_field()
+    subtitle = auto_field()
+    description = auto_field()
+
+    class Meta:
+        model = Instruction
+
+
+class DrinkInstructionSchema(ma.SQLAlchemySchema):
+    instruction = fields.Nested(InstructionSchema)
+
+    @post_dump()
+    def make_object(
+        self, data: dict[str, InstructionSchema], **kwargs: InstructionSchema
+    ) -> dict[str, str]:
+        return {**data["instruction"]}
+
+    class Meta:
+        model = DrinkInstruction
 
 
 class DrinkHighlightSchema(ma.SQLAlchemySchema):
