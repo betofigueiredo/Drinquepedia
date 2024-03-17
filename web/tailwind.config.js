@@ -34,11 +34,16 @@ module.exports = {
           "0%": { transform: "translateX(-5%)", opacity: "0" },
           "100%": { transform: "translateX(0)", opacity: "1" },
         },
+        "opacity-in": {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "slide-in-from-left": "slide-in-from-left 0.5s ease-out",
+        "opacity-in": "opacity-in 0.5s ease-out",
       },
       colors: {
         slate: {
