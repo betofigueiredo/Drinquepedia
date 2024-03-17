@@ -9,7 +9,7 @@ import NotFound404 from "./pages/NotFound404";
 import Highlights from "./pages/Highlights";
 import Highlight from "./pages/Highlight";
 import AllAboutBar from "./pages/AllAboutBar";
-import BarTips from "./pages/BarTips";
+import Instructions from "./pages/Instructions";
 
 const allRoutes = createBrowserRouter([
   {
@@ -34,7 +34,7 @@ const allRoutes = createBrowserRouter([
       { path: "/destaques/:highlightId", element: <Highlight /> },
       { path: "/destaques", element: <Highlights /> },
       { path: "/tudosobrebar", element: <AllAboutBar /> },
-      { path: "/dicas", element: <BarTips /> },
+      { path: "/dicas", element: <Instructions /> },
       { path: "*", element: <NotFound404 /> },
     ],
   },
