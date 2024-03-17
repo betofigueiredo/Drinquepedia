@@ -39,7 +39,6 @@ const DrinkView = ({ drink }: { drink?: Drink }) => (
       <DrinkIngredients drink={drink} />
       <div className="w-32 border-dashed border-t border-gray-200 mt-9 mb-9" />
       <DrinkPreparationSteps drink={drink} />
-      <div className="w-32 border-dashed border-t border-gray-200 mt-9 mb-9" />
       <DrinkDescription drink={drink} />
       <DrinkInstructions drink={drink} />
     </div>
