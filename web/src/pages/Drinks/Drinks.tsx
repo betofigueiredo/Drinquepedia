@@ -2,7 +2,7 @@ import { useSearchParams } from "react-router-dom";
 import useGetDrinks from "@/api/useGetDrinks";
 import SearchBar from "@/components/SearchBar";
 import DrinksList from "@/components/DrinksList";
-import HighlightCard from "@/components/HighlightCard";
+import DrinksListHighlights from "@/components/DrinksListHighlights";
 
 const Drinks = ({ category }: { category?: string }) => {
   const perPage = category === "caipirinhas" ? 50 : 20;
@@ -35,32 +35,7 @@ const Drinks = ({ category }: { category?: string }) => {
               page={page}
               perPage={perPage}
             />
-            <div className="mt-20">
-              <HighlightCard
-                highlight={{
-                  id: "6",
-                  oldId: 6,
-                  type: "GENERAL",
-                  title: "TOP 10 TROPICAIS",
-                  subtitle:
-                    "Confira nossa lista dos 10 melhores drinques tropicais para esse verão. Não deixe de experimentar. Confira já e divirta-se!",
-                  description: "",
-                }}
-              />
-              <div className="mb-16" />
-              <HighlightCard
-                highlight={{
-                  id: "109",
-                  oldId: 109,
-                  type: "GENERAL",
-                  title: "CLÁSSICOS",
-                  subtitle:
-                    "Conheça os drinques clássicos que nunca saem de moda. Daiquiri, Mojito, Margarita, Negroni e muito mais. Confira já!",
-                  description: "",
-                  customUrl: "/drinques/classicos",
-                }}
-              />
-            </div>
+            <DrinksListHighlights category={category} />
           </div>
         )}
       </div>

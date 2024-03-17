@@ -3,7 +3,7 @@ import { Drink } from "./drink";
 export type Highlight = {
   id: string;
   oldId: number;
-  type: "SPECIAL_OCCASION" | "GENERAL";
+  type: string;
   title: string;
   subtitle: string;
   description: string;

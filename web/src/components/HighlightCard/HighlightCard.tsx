@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const HighlightCard = ({ highlight }: { highlight: Highlight }) => {
   return (
     <Link
-      to={highlight.customUrl ?? `/destaques/${highlight.oldId}`}
+      to={highlight?.customUrl ?? `/destaques/${highlight.oldId}`}
       className="group"
     >
       <div className="mb-6 text-slate-950">
