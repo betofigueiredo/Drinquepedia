@@ -1,13 +1,18 @@
 import { useParams } from "react-router-dom";
 import useGetDrink from "@/api/useGetDrink";
 import DrinkView from "@/components/DrinkView";
+import Loadings from "@/components/Loadings";
 
 const Drink = () => {
   const { drinkId } = useParams();
   const { isPending, error, data: drink } = useGetDrink(drinkId);
 
   if (isPending) {
-    return <div>Loading...</div>;
+    return (
+      <div className="container leading-relaxed pt-3">
+        <Loadings.Drink />
+      </div>
+    );
   }
 
   if (error) {

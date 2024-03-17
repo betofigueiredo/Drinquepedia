@@ -1,11 +1,16 @@
 import useGetHighlights from "@/api/useGetHighlights";
 import HighlightCard from "@/components/HighlightCard";
+import Loadings from "@/components/Loadings";
 
 const Highlights = () => {
   const { isPending, error, data } = useGetHighlights();
 
   if (isPending) {
-    return <div>Loading...</div>;
+    return (
+      <div className="container">
+        <Loadings.Highlights />;
+      </div>
+    );
   }
 
   if (error) {

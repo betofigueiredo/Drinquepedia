@@ -1,5 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import useGetHighlight from "@/api/useGetHighlight";
+import Loadings from "@/components/Loadings";
 import { Button } from "@/components/ui/button";
 
 const Highlight = () => {
@@ -7,7 +8,11 @@ const Highlight = () => {
   const { isPending, error, data } = useGetHighlight({ highlightId });
 
   if (isPending) {
-    return <div>Loading...</div>;
+    return (
+      <div className="container">
+        <Loadings.Highlight />;
+      </div>
+    );
   }
 
   if (error) {

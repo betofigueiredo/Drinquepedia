@@ -1,19 +1,20 @@
 import { Skeleton } from "@/components/ui/skeleton";
 
-const LoadingDrinks = () => {
+const LoadingHighlights = () => {
   const row = (
-    <div className="grid grid-cols-[max-content_1fr] mb-7">
-      <Skeleton className="h-16 w-16 mr-5" />
-      <div className="space-y-2 pt-2">
+    <div className="flex flex-col space-y-3">
+      <Skeleton className="h-[400px] w-[305px] rounded-xl" />
+      <div className="space-y-2">
         <Skeleton className="h-4 w-[250px]" />
         <Skeleton className="h-4 w-[200px]" />
       </div>
     </div>
   );
+
   return (
     <>
       <Skeleton className="mt-14 h-5 w-[250px]" />
-      <div className="mt-12">
+      <div className="grid grid-cols-4 gap-7 mt-16">
         {row}
         {row}
         {row}
@@ -23,4 +24,4 @@ const LoadingDrinks = () => {
   );
 };
 
-export default LoadingDrinks;
+export default LoadingHighlights;
