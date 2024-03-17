@@ -205,14 +205,14 @@ def get_instructions(old_instructions: str):
         return result
 
     all_instructions = {
-        '/dicas/1"': "b5d8cb8a-ead4-4ca3-b938-dd96e3fc6873",
-        '/dicas/2"': "6fdf06df-f78a-4aef-889f-703aba975360",
-        '/dicas/3"': "bdd703df-7cb3-4505-9645-61c3ca6695bb",
-        '/dicas/4"': "fe37b5eb-18e8-48c4-b750-c3febf7a2527",
-        '/dicas/5"': "ac200107-65c3-4227-ae75-cf502d913f07",
-        '/dicas/6"': "d69148a5-6599-4525-bbe9-68f0e705d4cd",
-        '/dicas/7"': "8ef86270-57dd-4f4d-930c-3bca59c0ddcf",
-        '/dicas/8"': "2e5163a1-4747-4f03-aa01-aec9ec4eda10",
+        '/dicas/1"': "0654b45a-8dde-4764-934b-d7fc74208a41",
+        '/dicas/2"': "54e7afbe-126e-4900-b5d2-ed1bd9c15de9",
+        '/dicas/3"': "2276e694-2b5d-413f-a229-ef52dc0db750",
+        '/dicas/4"': "d9fd0cce-2315-4130-b72e-9b33d76e4db7",
+        '/dicas/5"': "011ba134-03cc-4c25-9243-dcf309eab7c0",
+        '/dicas/6"': "da3cc010-bb6b-4484-a886-f7f988d0d510",
+        '/dicas/7"': "0bdf6a5c-f22d-4805-9a6e-2b60707b1b43",
+        '/dicas/8"': "ec8d68ac-91af-49c3-8227-d1d6fe27c223",
     }
 
     for instruction_url, new_instruction_id in all_instructions.items():
@@ -241,7 +241,7 @@ def seed_drinks_use_case(
         dicas = row.get("dicas")
         # TODO: historia = row.get("historia")
 
-        print(f"Creating drink: {name}", flush=True)
+        print(f"    Creating drink: {name}", flush=True)
 
         drink = Drink(
             old_id=old_id,
