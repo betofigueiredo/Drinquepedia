@@ -1,12 +1,11 @@
 import { useSearchParams } from "react-router-dom";
 import useGetDrinks from "@/api/useGetDrinks";
 import SearchBar from "@/components/SearchBar";
-import DrinkRow from "@/components/DrinkRow";
-import Pagination from "@/components/Pagination";
+import DrinksList from "@/components/DrinksList";
 import HighlightCard from "@/components/HighlightCard";
 
 const Drinks = ({ category }: { category?: string }) => {
-  const PER_PAGE = 20;
+  const perPage = category === "caipirinhas" ? 50 : 20;
   const [searchParams] = useSearchParams();
   const page = Number(searchParams.get("page")) || 1;
   const name = searchParams.get("name") ?? "";
@@ -14,30 +13,12 @@ const Drinks = ({ category }: { category?: string }) => {
   const alcoholicContent = searchParams.get("alcoholicContent") ?? "";
   const { isPending, error, data } = useGetDrinks({
     page,
-    perPage: PER_PAGE,
+    perPage,
     category,
     name,
     calories,
     alcoholicContent,
   });
-  const drinks = data?.drinks;
-
-  const getCategoryName = (): string => {
-    const categories: { [key: string]: string } = {
-      martinis: "Martinis",
-      tropicais: "Tropicais",
-      frozen: "Frozen",
-      quentes: "Quentes",
-      shot: "Shots",
-      classicos: "Clássicos",
-      semalcool: "Sem Álcool",
-      caipirinhas: "Caipirinhas",
-      smoothies: "Smoothies",
-    };
-    return (
-      categories[category as keyof typeof categories] || "Todos os drinques"
-    );
-  };
 
   return (
     <>
@@ -47,23 +28,13 @@ const Drinks = ({ category }: { category?: string }) => {
         {error && <div>Erro</div>}
         {!isPending && !error && (
           <div className="grid grid-cols-[auto,300px] gap-24">
-            <div>
-              <h1 className="font-serif font-bold text-3xl text-gray-700 mt-14 mb-0">
-                {getCategoryName()}
-              </h1>
-              <div className="mb-14 text-gray-500">
-                {data?.metadata?.totalCount} drinques
-              </div>
-              {drinks?.map((drink) => (
-                <DrinkRow key={drink.id} drink={drink} />
-              ))}
-              <Pagination
-                category={category}
-                page={page}
-                perPage={PER_PAGE}
-                totalCount={data?.metadata?.totalCount || 0}
-              />
-            </div>
+            <DrinksList
+              drinks={data?.drinks}
+              totalCount={data?.metadata?.totalCount || 0}
+              category={category}
+              page={page}
+              perPage={perPage}
+            />
             <div className="mt-20">
               <HighlightCard
                 highlight={{
