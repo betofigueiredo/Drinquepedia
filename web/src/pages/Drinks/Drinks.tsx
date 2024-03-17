@@ -3,6 +3,7 @@ import useGetDrinks from "@/api/useGetDrinks";
 import SearchBar from "@/components/SearchBar";
 import DrinksList from "@/components/DrinksList";
 import DrinksListHighlights from "@/components/DrinksListHighlights";
+import Loadings from "@/components/Loadings";
 
 const Drinks = ({ category }: { category?: string }) => {
   const perPage = category === "caipirinhas" ? 50 : 20;
@@ -24,7 +25,7 @@ const Drinks = ({ category }: { category?: string }) => {
     <>
       {!category && <SearchBar />}
       <div className="container">
-        {isPending && <div>Carregando...</div>}
+        {isPending && <Loadings.Drinks />}
         {error && <div>Erro</div>}
         {!isPending && !error && (
           <div className="grid grid-cols-[auto,300px] gap-24">
