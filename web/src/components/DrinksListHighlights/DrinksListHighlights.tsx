@@ -83,7 +83,7 @@ const DrinksListHighlights = ({ category }: { category?: string }) => {
   });
   const firstItem = options[Math.floor(Math.random() * options.length)];
   const secondItem = options.filter((option) => option.id !== firstItem.id)[
-    Math.floor(Math.random() * options.length - 1)
+    Math.floor(Math.random() * (options.length - 1))
   ];
 
   return (
