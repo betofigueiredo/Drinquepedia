@@ -1,4 +1,4 @@
-from typing import List, Tuple
+from typing import List
 
 from flask_sqlalchemy import SQLAlchemy
 from infrastructure.repositories.highlights.queries import (
@@ -12,7 +12,7 @@ class HighlightsRepository:
     def __init__(self, db: SQLAlchemy):
         self.db = db
 
-    def find_all(self) -> Tuple[List[Highlight], int]:
+    def find_all(self) -> List[Highlight]:
         return find_all_highlights(db=self.db)
 
     def find_by_id(self, highlight_id: str | None) -> Highlight | None:
