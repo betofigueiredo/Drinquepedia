@@ -10,6 +10,7 @@ import Highlights from "./pages/Highlights";
 import Highlight from "./pages/Highlight";
 import AllAboutBar from "./pages/AllAboutBar";
 import Instructions from "./pages/Instructions";
+import Instruction from "./pages/Instruction";
 
 const allRoutes = createBrowserRouter([
   {
@@ -34,6 +35,7 @@ const allRoutes = createBrowserRouter([
       { path: "/destaques/:highlightId", element: <Highlight /> },
       { path: "/destaques", element: <Highlights /> },
       { path: "/tudosobrebar", element: <AllAboutBar /> },
+      { path: "/dicas/:instructionId", element: <Instruction /> },
       { path: "/dicas", element: <Instructions /> },
       { path: "*", element: <NotFound404 /> },
     ],
