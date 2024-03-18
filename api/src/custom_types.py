@@ -29,5 +29,9 @@ class GetHighlightsResponse(TypedDict):
     highlights: List[HighlightSchema]
 
 
+class GetInstructionResponse(TypedDict):
+    instruction: InstructionSchema
+
+
 class GetInstructionsResponse(TypedDict):
     instructions: List[InstructionSchema]

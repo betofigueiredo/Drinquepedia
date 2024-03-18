@@ -3,6 +3,7 @@ from typing import List
 from flask_sqlalchemy import SQLAlchemy
 from infrastructure.repositories.instructions.queries import (
     find_all_instructions,
+    find_instruction_by_id,
 )
 from models import Instruction
 
@@ -14,5 +15,5 @@ class InstructionsRepository:
     def find_all(self) -> List[Instruction]:
         return find_all_instructions(db=self.db)
 
-    # def find_by_id(self, highlight_id: str | None) -> Instruction | None:
-    #     return find_highlight_by_id(db=self.db, highlight_id=highlight_id)
+    def find_by_id(self, instruction_id: str | None) -> Instruction | None:
+        return find_instruction_by_id(db=self.db, instruction_id=instruction_id)
