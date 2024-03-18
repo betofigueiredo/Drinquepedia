@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom";
 import useGetInstruction from "@/api/useGetInstruction";
 import Loadings from "@/components/Loadings";
-import { Button } from "@/components/ui/button";
 
 const Instruction = () => {
   const { instructionId } = useParams();
