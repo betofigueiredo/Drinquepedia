@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.h3 {
+  font-family: "Source Serif Pro", "serif";
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.p {
+  margin-bottom: 23px;
+}
+
+.image-border {
+  border: 1px solid #5e636e;
+}
+
+.hr {
+  margin: 44px 0 38px;
+  border: 0;
+  border-top: 1px solid #eee;
+}

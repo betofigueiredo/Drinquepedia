@@ -25,7 +25,10 @@ const Instruction = () => {
       <h1 className="font-serif font-bold text-3xl text-gray-700 mt-12">
         {instruction?.title}
       </h1>
-      <p className="text-gray-600 mt-4 mb-6">{instruction?.description}</p>
+      <p
+        className="text-gray-600 mt-8 mb-6"
+        dangerouslySetInnerHTML={{ __html: instruction?.description || "" }}
+      />
     </div>
   );
 };
