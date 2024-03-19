@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Styles for HTML from database (instructions, etc) */
 .h3 {
   font-family: "Source Serif Pro", "serif";
   font-size: 1.5rem;
