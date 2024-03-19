@@ -8,9 +8,10 @@ import Drink from "./pages/Drink";
 import NotFound404 from "./pages/NotFound404";
 import Highlights from "./pages/Highlights";
 import Highlight from "./pages/Highlight";
-import AllAboutBar from "./pages/AllAboutBar";
 import Instructions from "./pages/Instructions";
 import Instruction from "./pages/Instruction";
+import Knowledge from "./pages/Knowledge";
+import Knowledges from "./pages/Knowledges";
 
 const allRoutes = createBrowserRouter([
   {
@@ -34,7 +35,8 @@ const allRoutes = createBrowserRouter([
       { path: "/drinques", element: <Drinks /> },
       { path: "/destaques/:highlightId", element: <Highlight /> },
       { path: "/destaques", element: <Highlights /> },
-      { path: "/tudosobrebar", element: <AllAboutBar /> },
+      { path: "/tudosobrebar/:knowledgeSlug", element: <Knowledge /> },
+      { path: "/tudosobrebar", element: <Knowledges /> },
       { path: "/dicas/:instructionId", element: <Instruction /> },
       { path: "/dicas", element: <Instructions /> },
       { path: "*", element: <NotFound404 /> },

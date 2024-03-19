@@ -11,6 +11,7 @@ from models import (
     Ingredient,
     IngredientType,
     Instruction,
+    Knowledge,
     PreparationStep,
 )
 
@@ -130,3 +131,14 @@ class HighlightSchema(ma.SQLAlchemySchema):
 
     class Meta:
         model = Highlight
+
+
+class KnowledgeSchema(ma.SQLAlchemySchema):
+    id = auto_field()
+    slug = auto_field()
+    title = auto_field()
+    subtitle = auto_field()
+    description = auto_field()
+
+    class Meta:
+        model = Knowledge

@@ -109,3 +109,11 @@ class DrinkInstruction(db.Model):
     db.Index("id", "drink_id", "instruction_id")
     drink = relationship("Drink", back_populates="instructions")
     instruction = relationship("Instruction", back_populates="drinks")
+
+
+class Knowledge(db.Model):
+    id = db.Column(db.String(36), primary_key=True, index=True, default=uuid.uuid4)
+    slug = db.Column(db.String(20), nullable=False)
+    title = db.Column(db.String(60), nullable=False)
+    subtitle = db.Column(db.String(256), nullable=False)
+    description = db.Column(TEXT)

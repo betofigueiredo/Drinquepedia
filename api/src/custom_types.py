@@ -1,6 +1,6 @@
 from typing import List, TypedDict
 
-from schemas import DrinkSchema, HighlightSchema, InstructionSchema
+from schemas import DrinkSchema, HighlightSchema, InstructionSchema, KnowledgeSchema
 
 
 class ListMetadata(TypedDict):
@@ -35,3 +35,11 @@ class GetInstructionResponse(TypedDict):
 
 class GetInstructionsResponse(TypedDict):
     instructions: List[InstructionSchema]
+
+
+class GetKnowledgeResponse(TypedDict):
+    knowledge: KnowledgeSchema
+
+
+class GetKnowledgesResponse(TypedDict):
+    knowledges: List[KnowledgeSchema]

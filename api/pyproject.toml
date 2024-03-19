@@ -64,6 +64,7 @@ test = { cmd = "python3 -m pytest -vv", help = "runs all unit tests" }
 test_docker = { cmd = "docker compose exec drinquepedia_api python -m pytest -vv", help = "runs all unit tests inside docker" }
 create_migration = { cmd = "docker compose exec drinquepedia_api alembic revision --autogenerate -m", help = "create new migration" }
 run_migrations = { cmd = "docker compose exec drinquepedia_api alembic upgrade head", help = "run migrations" }
+undo_last_migration = { cmd = "docker compose exec drinquepedia_api alembic downgrade -1", help = "undo last migration" }
 
 [build-system]
 requires = ["poetry-core"]
