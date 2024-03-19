@@ -23,7 +23,7 @@ const SearchInput = () => {
       value: debouncedValue,
     });
     setSearchParams(params);
-  }, [debouncedValue, searchParams, setSearchParams]);
+  }, [debouncedValue, name, searchParams, setSearchParams]);
 
   return (
     <div className="w-96">
