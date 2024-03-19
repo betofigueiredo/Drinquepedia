@@ -15,6 +15,8 @@ const SearchInput = () => {
   };
 
   useEffect(() => {
+    const isDifferent = debouncedValue !== name;
+    if (!isDifferent) return;
     const params = updateSearchParams({
       searchParams,
       key: "name",
