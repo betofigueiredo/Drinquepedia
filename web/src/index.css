@@ -9,8 +9,18 @@
   font-weight: 600;
 }
 
+.h5 {
+  font-family: "Source Serif Pro", "serif";
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
 .p {
   margin-bottom: 23px;
+}
+
+.p-no-margin {
+  margin-bottom: 0;
 }
 
 .image-border {
