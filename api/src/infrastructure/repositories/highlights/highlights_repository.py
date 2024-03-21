@@ -15,5 +15,5 @@ class HighlightsRepository:
     def find_all(self) -> List[Highlight]:
         return find_all_highlights(db=self.db)
 
-    def find_by_id(self, highlight_id: str | None) -> Highlight | None:
+    def find_by_id(self, highlight_id: int) -> Highlight | None:
         return find_highlight_by_id(db=self.db, highlight_id=highlight_id)
