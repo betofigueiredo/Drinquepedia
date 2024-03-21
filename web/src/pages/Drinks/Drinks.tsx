@@ -28,7 +28,7 @@ const Drinks = ({ category }: { category?: string }) => {
         {isPending && <Loadings.Drinks />}
         {error && <div>Erro</div>}
         {!isPending && !error && (
-          <div className="grid grid-cols-[auto,300px] gap-24">
+          <div className="grid grid-cols md:grid-cols-[auto,300px] gap-24">
             <DrinksList
               drinks={data?.drinks}
               totalCount={data?.metadata?.totalCount || 0}

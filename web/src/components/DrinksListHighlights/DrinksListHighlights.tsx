@@ -87,7 +87,7 @@ const DrinksListHighlights = ({ category }: { category?: string }) => {
   ];
 
   return (
-    <div className="mt-20">
+    <div className="hidden md:inline-block mt-20">
       <HighlightCard highlight={firstItem} />
       <div className="mb-16" />
       <HighlightCard highlight={secondItem} />

@@ -7,8 +7,8 @@ import DrinkInstructions from "./components/DrinkInstructions";
 import DrinkDescription from "./components/DrinkDescription";
 
 const DrinkView = ({ drink }: { drink?: Drink }) => (
-  <div className="grid grid-cols-[max-content_1fr] text-gray-700 gap-4">
-    <div className="pr-36 pt-4">
+  <div className="grid grid-cols md:grid-cols-[max-content_1fr] text-gray-700 gap-4">
+    <div className="md:pr-36 pt-4">
       <img src={`/images/drinks/${drink?.oldId}/${drink?.oldId}g.jpg`} />
     </div>
     <div>
