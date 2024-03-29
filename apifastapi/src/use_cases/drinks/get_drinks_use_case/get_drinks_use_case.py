@@ -43,9 +43,7 @@ async def get_drinks_use_case(
         alcoholic_content=fields.alcoholic_content,
     )
 
-    response: GetDrinksResponse = {
+    return {
         "drinks": drinks,
         "metadata": {"total_count": total_count},
     }
-
-    return response

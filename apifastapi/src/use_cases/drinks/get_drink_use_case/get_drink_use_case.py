@@ -1,36 +1,40 @@
-from typing import Tuple
-
 from custom_types import ErrorResponse, GetDrinkResponse
+from fastapi import HTTPException, status
 from infrastructure.repositories.repository import Repository
-from schemas import DrinkSchema
 from utils import Utils
 
 from .schema import Validation
 
 
-def get_drink_use_case(
+async def get_drink_use_case(
     drink_id: str | None,
     utils: Utils,
     repository: Repository,
-) -> Tuple[GetDrinkResponse | ErrorResponse, int]:
+) -> GetDrinkResponse | ErrorResponse:
     error, fields = utils.general.validate_schema(
         schema=Validation,
         params={"drink_id": drink_id},
     )
 
     if error:
-        return {
-            "code": "INVALID_DATA",
-            "message": f"{error.message}: {error.field}",
-        }, 400
+        raise HTTPException(
+            detail={
+                "code": "INVALID_DATA",
+                "message": f"{error.message}: {error.field}",
+            },
+            status_code=status.HTTP_400_BAD_REQUEST,
+        )
 
-    drink = repository.drinks.find_by_id(drink_id=fields.drink_id)
+    drink = await repository.drinks.find_by_id(drink_id=fields.drink_id)
 
     if not drink:
-        return {
-            "code": "DRINK_NOT_FOUND",
-            "message": "Drink not found.",
-        }, 404
+        raise HTTPException(
+            detail={
+                "code": "DRINK_NOT_FOUND",
+                "message": "Drink not found.",
+            },
+            status_code=status.HTTP_404_NOT_FOUND,
+        )
 
     sorted_ingredients = sorted(drink.ingredients, key=lambda x: x.order)
     drink.ingredients = sorted_ingredients
@@ -38,6 +42,4 @@ def get_drink_use_case(
     sorted_preparation_steps = sorted(drink.preparation_steps, key=lambda x: x.order)
     drink.preparation_steps = sorted_preparation_steps
 
-    response: GetDrinkResponse = {"drink": DrinkSchema().dump(drink)}
-
-    return response, 200
+    return {"drink": drink}

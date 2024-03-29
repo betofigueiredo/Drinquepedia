@@ -81,6 +81,6 @@ async def find_all_drinks(
         )
 
         drinks = await session.scalars(list_query)
-        total_count = await session.scalar(count_query)
+        total_count = await session.scalar(count_query) or 0
 
         return list(drinks), total_count
