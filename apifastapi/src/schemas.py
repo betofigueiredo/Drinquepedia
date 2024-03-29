@@ -5,20 +5,13 @@ from pydantic import BaseModel, model_serializer
 
 class KnowledgeSchema(BaseModel):
     id: str
+    slug: str
+    title: str
+    subtitle: str
+    description: str
 
     class ConfigDict:
         from_attributes = True
-
-
-# class KnowledgeSchema(ma.SQLAlchemySchema):
-#     id = auto_field()
-#     slug = auto_field()
-#     title = auto_field()
-#     subtitle = auto_field()
-#     description = auto_field()
-
-#     class Meta:
-#         model = Knowledge
 
 
 class CategorySchema(BaseModel):
