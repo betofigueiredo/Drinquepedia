@@ -1,3 +1,5 @@
+/db_backup/
+
 # api-old
 /api-old/*.log*
 /api-old/node_modules
