@@ -10,7 +10,7 @@ router = APIRouter(prefix="/highlights", tags=["highlights"])
 
 
 @router.get("/", response_model=GetHighlightsResponse)
-async def get_drinks(
+async def get_highlights(
     db_session: AsyncSession = Depends(get_db_session),
 ) -> GetHighlightsResponse | ErrorResponse:
     return await get_highlights_use_case(
@@ -19,7 +19,7 @@ async def get_drinks(
 
 
 @router.get("/{highlight_id}", response_model=GetHighlightResponse)
-async def publish_article(
+async def get_highlight(
     highlight_id: str,
     db_session: AsyncSession = Depends(get_db_session),
 ) -> GetHighlightResponse | ErrorResponse:

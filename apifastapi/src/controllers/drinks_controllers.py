@@ -39,7 +39,7 @@ async def get_drinks(
 
 
 @router.get("/{drink_id}", response_model=GetDrinkResponse)
-async def publish_article(
+async def get_drink(
     drink_id: str,
     db_session: AsyncSession = Depends(get_db_session),
 ) -> GetDrinkResponse | ErrorResponse:

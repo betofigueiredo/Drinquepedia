@@ -3,44 +3,6 @@ from typing import List
 from pydantic import BaseModel, model_serializer
 
 
-class InstructionSchema(BaseModel):
-    id: str
-
-    class ConfigDict:
-        from_attributes = True
-
-
-# class InstructionSchema(ma.SQLAlchemySchema):
-#     id = auto_field()
-#     old_id = auto_field()
-#     title = auto_field()
-#     subtitle = auto_field()
-#     description = auto_field()
-
-#     class Meta:
-#         model = Instruction
-
-
-class DrinkInstructionSchema(BaseModel):
-    id: str
-
-    class ConfigDict:
-        from_attributes = True
-
-
-# class DrinkInstructionSchema(ma.SQLAlchemySchema):
-#     instruction = fields.Nested(InstructionSchema)
-
-#     @post_dump()
-#     def make_object(
-#         self, data: dict[str, InstructionSchema], **kwargs: InstructionSchema
-#     ) -> dict[str, str]:
-#         return {**data["instruction"]}
-
-#     class Meta:
-#         model = DrinkInstruction
-
-
 class KnowledgeSchema(BaseModel):
     id: str
 
@@ -106,6 +68,28 @@ class IngredientSchema(BaseModel):
         from_attributes = True
 
 
+class InstructionSchema(BaseModel):
+    id: str
+    old_id: int
+    title: str
+    subtitle: str
+    description: str
+
+    class ConfigDict:
+        from_attributes = True
+
+
+class DrinkInstructionSchema(BaseModel):
+    instruction: InstructionSchema
+
+    @model_serializer
+    def ser_model(self) -> InstructionSchema:
+        return self.instruction
+
+    class ConfigDict:
+        from_attributes = True
+
+
 class DrinkSchema(BaseModel):
     id: str
     old_id: int
@@ -118,8 +102,7 @@ class DrinkSchema(BaseModel):
     ingredients: List[IngredientSchema]
     preparation_steps: List[PreparationStepSchema]
     categories: List[DrinkCategorySchema]
-    # highlights: List[DrinkHighlightSchema]
-    # instructions: List[DrinkInstructionSchema]
+    instructions: List[DrinkInstructionSchema]
 
     class ConfigDict:
         from_attributes = True

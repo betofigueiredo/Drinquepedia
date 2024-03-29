@@ -22,10 +22,10 @@ class Drink(settings.DB_BASE_MODEL):
         "PreparationStep", back_populates="drink", lazy="subquery"
     )
     categories = relationship("DrinkCategory", back_populates="drink", lazy="subquery")
-    highlights = relationship("DrinkHighlight", back_populates="drink", lazy="select")
     instructions = relationship(
-        "DrinkInstruction", back_populates="drink", lazy="select"
+        "DrinkInstruction", back_populates="drink", lazy="subquery"
     )
+    highlights = relationship("DrinkHighlight", back_populates="drink", lazy="select")
 
 
 class Ingredient(settings.DB_BASE_MODEL):
@@ -132,8 +132,8 @@ class DrinkInstruction(settings.DB_BASE_MODEL):
         String(36), ForeignKey("instruction.id"), primary_key=True, nullable=False
     )
     Index("id", "drink_id", "instruction_id")
-    drink = relationship("Drink", back_populates="instructions")
-    instruction = relationship("Instruction", back_populates="drinks")
+    drink = relationship("Drink", back_populates="instructions", lazy="subquery")
+    instruction = relationship("Instruction", back_populates="drinks", lazy="subquery")
 
 
 class Knowledge(settings.DB_BASE_MODEL):

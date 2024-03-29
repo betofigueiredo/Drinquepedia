@@ -1,41 +1,41 @@
-from typing import Tuple
-
 from custom_types import ErrorResponse, GetInstructionResponse
+from fastapi import HTTPException, status
 from infrastructure.repositories.repository import Repository
-from schemas import InstructionSchema
 from utils import Utils
 
 from .schema import Validation
 
 
-def get_instruction_use_case(
+async def get_instruction_use_case(
     instruction_id: str | None,
     utils: Utils,
     repository: Repository,
-) -> Tuple[GetInstructionResponse | ErrorResponse, int]:
+) -> GetInstructionResponse | ErrorResponse:
     error, fields = utils.general.validate_schema(
         schema=Validation,
         params={"instruction_id": instruction_id},
     )
 
     if error:
-        return {
-            "code": "INVALID_DATA",
-            "message": f"{error.message}: {error.field}",
-        }, 400
+        raise HTTPException(
+            detail={
+                "code": "INVALID_DATA",
+                "message": f"{error.message}: {error.field}",
+            },
+            status_code=status.HTTP_400_BAD_REQUEST,
+        )
 
-    instruction = repository.instructions.find_by_id(
+    instruction = await repository.instructions.find_by_id(
         instruction_id=fields.instruction_id
     )
 
     if not instruction:
-        return {
-            "code": "INSTRUCTION_NOT_FOUND",
-            "message": "Instruction not found.",
-        }, 404
+        raise HTTPException(
+            detail={
+                "code": "INSTRUCTION_NOT_FOUND",
+                "message": "Instruction not found.",
+            },
+            status_code=status.HTTP_404_NOT_FOUND,
+        )
 
-    response: GetInstructionResponse = {
-        "instruction": InstructionSchema().dump(instruction)
-    }
-
-    return response, 200
+    return {"instruction": instruction}
