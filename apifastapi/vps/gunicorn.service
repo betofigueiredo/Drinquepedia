@@ -1,0 +1,18 @@
+# ~/.config/systemd/user/gunicorn.service
+
+[Unit]
+Description=Gunicorn instance to serve application
+After=network.target
+
+[Service]
+WorkingDirectory=/home/<username>/<domain>/src
+Environment="PATH=/home/<username>/<domain>/venv/bin"
+ExecStart=/home/<username>/<domain>/venv/bin/gunicorn --workers 3 --worker-class uvicorn.workers.UvicornWorker --bind=<domain>:<port> main:app
+ExecReload=/bin/kill -s HUP $MAINPID
+KillMode=mixed
+TimeoutStopSec=5
+PrivateTmp=true
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
