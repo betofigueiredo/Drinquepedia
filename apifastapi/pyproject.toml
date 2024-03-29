@@ -19,6 +19,7 @@ uvicorn = { extras = ["standard"], version = "^0.29.0" }
 gunicorn = "^21.2.0"
 databases = { extras = ["asyncmy"], version = "^0.9.0" }
 pandas = "^2.2.1"
+cryptography = "^42.0.5"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.1.1"
@@ -64,12 +65,15 @@ pythonpath = "src"
 mypy = { cmd = "mypy src", help = "runs mypy" }
 test = { cmd = "python3 -m pytest -vv", help = "runs all unit tests" }
 test_docker = { cmd = "docker compose exec drinquepedia_api python -m pytest -vv", help = "runs all unit tests inside docker" }
-create_migration = { cmd = "docker compose exec drinquepedia_api alembic revision --autogenerate -m", help = "create new migration" }
-run_migrations = { cmd = "docker compose exec drinquepedia_api alembic upgrade head", help = "run migrations" }
+create_migration = { cmd = "alembic revision --autogenerate -m", help = "create new migration" }
+run_migrations = { cmd = "alembic upgrade head", help = "run migrations" }
+create_migration_docker = { cmd = "docker compose exec drinquepedia_api alembic revision --autogenerate -m", help = "create new migration" }
+run_migrations_docker = { cmd = "docker compose exec drinquepedia_api alembic upgrade head", help = "run migrations" }
 undo_last_migration = { cmd = "docker compose exec drinquepedia_api alembic downgrade -1", help = "undo last migration" }
 start_vps = { cmd = "systemctl --user start gunicorn", help = "start vps server" }
 restart_vps = { cmd = "systemctl --user restart gunicorn", help = "restart vps server" }
 stop_vps = { cmd = "systemctl --user stop gunicorn", help = "stop vps server" }
+status_vps = { cmd = "systemctl --user status gunicorn", help = "status of gunicorn on vps server" }
 
 [build-system]
 requires = ["poetry-core"]

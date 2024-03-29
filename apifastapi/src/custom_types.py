@@ -1,5 +1,6 @@
 from typing import List, TypedDict
 
+from fastapi import HTTPException
 from schemas import DrinkSchema, HighlightSchema, InstructionSchema, KnowledgeSchema
 
 
@@ -7,9 +8,14 @@ class ListMetadata(TypedDict):
     total_count: int
 
 
-class ErrorResponse(TypedDict):
+class ErrorDetail(TypedDict):
     code: str
     message: str
+
+
+class ErrorResponse(HTTPException):
+    details: ErrorDetail
+    status_code: int
 
 
 class GetDrinkResponse(TypedDict):

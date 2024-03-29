@@ -1,3 +1,6 @@
+from typing import Optional
+
+from custom_types import GetDrinksResponse
 from fastapi import APIRouter, Depends
 from infrastructure.core.database import get_db_session
 from infrastructure.repositories.repository import Repository
@@ -8,14 +11,27 @@ from utils import Utils
 router = APIRouter(prefix="/drinks", tags=["drinks"])
 
 
-# def get(self) -> Tuple[GetDrinksResponse | ErrorResponse, int]:
-# @router.get("/", response_model=dict[str, List[ArticleSchema]])
-@router.get("/")
+@router.get("/", response_model=GetDrinksResponse)
 async def get_drinks(
+    page: int,
+    per_page: int,
+    category: Optional[str] = None,
+    name: Optional[str] = None,
+    calories: Optional[str] = None,
+    ingredient_type: Optional[str] = None,
+    alcoholic_content: Optional[str] = None,
     db_session: AsyncSession = Depends(get_db_session),
-):
+) -> GetDrinksResponse:
     response = await get_drinks_use_case(
-        query_params={},
+        query_params={
+            "page": page,
+            "per_page": per_page,
+            "category": category,
+            "name": name,
+            "calories": calories,
+            "ingredient_type": ingredient_type,
+            "alcoholic_content": alcoholic_content,
+        },
         utils=Utils(),
         repository=Repository(db_session),
     )

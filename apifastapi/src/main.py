@@ -20,12 +20,6 @@ app.add_middleware(
 
 app.include_router(router_v1, prefix=settings.API_V1_PREFIX)
 
-
-@app.get("/")
-def read_root() -> dict[str, str]:
-    return {"Hello": "Drinquepedia FastAPI"}
-
-
 # app.add_exception_handler(Exception, unhandled_exception_handler)
 
 if __name__ == "__main__":

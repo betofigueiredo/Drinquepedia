@@ -18,8 +18,10 @@ class Drink(settings.DB_BASE_MODEL):
     description = Column(TEXT)
     decoration = Column(String(256))
     ingredients = relationship("Ingredient", back_populates="drink", lazy="subquery")
-    preparation_steps = relationship("PreparationStep", back_populates="drink")
-    categories = relationship("DrinkCategory", back_populates="drink")
+    preparation_steps = relationship(
+        "PreparationStep", back_populates="drink", lazy="subquery"
+    )
+    categories = relationship("DrinkCategory", back_populates="drink", lazy="subquery")
     highlights = relationship("DrinkHighlight", back_populates="drink", lazy="select")
     instructions = relationship(
         "DrinkInstruction", back_populates="drink", lazy="select"
@@ -34,9 +36,11 @@ class Ingredient(settings.DB_BASE_MODEL):
     quantity = Column(String(50))
     unit_of_measurement = Column(String(36))
     ingredient_type_id = Column(String(36), ForeignKey("ingredient_type.id"))
-    ingredient_type = relationship("IngredientType", back_populates="ingredients")
+    ingredient_type = relationship(
+        "IngredientType", back_populates="ingredients", lazy="subquery"
+    )
     drink_id = Column(String(36), ForeignKey("drink.id"))
-    drink = relationship("Drink", back_populates="ingredients")
+    drink = relationship("Drink", back_populates="ingredients", lazy="subquery")
 
 
 class IngredientType(settings.DB_BASE_MODEL):
@@ -62,7 +66,7 @@ class Category(settings.DB_BASE_MODEL):
 
     id = Column(String(36), primary_key=True, index=True, default=uuid.uuid4)
     name = Column(String(256), nullable=False)
-    drinks = relationship("DrinkCategory", back_populates="category")
+    drinks = relationship("DrinkCategory", back_populates="category", lazy="subquery")
 
 
 class DrinkCategory(settings.DB_BASE_MODEL):
@@ -75,8 +79,8 @@ class DrinkCategory(settings.DB_BASE_MODEL):
         String(36), ForeignKey("category.id"), primary_key=True, nullable=False
     )
     Index("id", "drink_id", "category_id")
-    drink = relationship("Drink", back_populates="categories")
-    category = relationship("Category", back_populates="drinks")
+    drink = relationship("Drink", back_populates="categories", lazy="subquery")
+    category = relationship("Category", back_populates="drinks", lazy="subquery")
 
 
 class Highlight(settings.DB_BASE_MODEL):

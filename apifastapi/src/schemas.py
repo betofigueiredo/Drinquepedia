@@ -1,6 +1,6 @@
 from typing import List
 
-from pydantic import BaseModel
+from pydantic import BaseModel, model_serializer
 
 # from models import (
 #     Category,
@@ -15,34 +15,6 @@ from pydantic import BaseModel
 #     Knowledge,
 #     PreparationStep,
 # )
-
-
-class IngredientTypeSchema(BaseModel):
-    id: str
-
-    class ConfigDict:
-        from_attributes = True
-
-
-class CategorySchema(BaseModel):
-    id: str
-
-    class ConfigDict:
-        from_attributes = True
-
-
-class DrinkCategorySchema(BaseModel):
-    id: str
-
-    class ConfigDict:
-        from_attributes = True
-
-
-class PreparationStepSchema(BaseModel):
-    id: str
-
-    class ConfigDict:
-        from_attributes = True
 
 
 # class DrinkSchema(ma.SQLAlchemySchema):
@@ -72,34 +44,6 @@ class PreparationStepSchema(BaseModel):
 
 #     class Meta:
 #         model = IngredientType
-
-
-# class CategorySchema(ma.SQLAlchemySchema):
-#     name = auto_field()
-
-#     class Meta:
-#         model = Category
-
-
-# class DrinkCategorySchema(ma.SQLAlchemySchema):
-#     category = fields.Nested(CategorySchema)
-
-#     @post_dump()
-#     def make_object(
-#         self, data: dict[str, CategorySchema], **kwargs: CategorySchema
-#     ) -> dict[str, str]:
-#         return {**data["category"]}
-
-#     class Meta:
-#         model = DrinkCategory
-
-
-# class PreparationStepSchema(ma.SQLAlchemySchema):
-#     order = auto_field()
-#     description = auto_field()
-
-#     class Meta:
-#         model = PreparationStep
 
 
 class InstructionSchema(BaseModel):
@@ -198,23 +142,51 @@ class KnowledgeSchema(BaseModel):
 #         model = Knowledge
 
 
-class IngredientSchema(BaseModel):
-    order: int
-    quantity: str | None
-    unit_of_measurement: str | None
+class CategorySchema(BaseModel):
+    name: str
 
     class ConfigDict:
         from_attributes = True
 
 
-# class IngredientSchema(ma.SQLAlchemySchema):
-#     order = auto_field()
-#     quantity = auto_field()
-#     unit_of_measurement = auto_field()
-#     ingredient_type = fields.Nested("IngredientTypeSchema")
+class DrinkCategorySchema(BaseModel):
+    category: CategorySchema
 
-#     class Meta:
-#         model = Ingredient
+    @model_serializer
+    def ser_model(self) -> str:
+        return self.category.name
+
+    class ConfigDict:
+        from_attributes = True
+
+
+class PreparationStepSchema(BaseModel):
+    order: int
+    description: str
+
+    class ConfigDict:
+        from_attributes = True
+
+
+class IngredientTypeSchema(BaseModel):
+    name: str
+
+    @model_serializer
+    def ser_model(self) -> str:
+        return self.name
+
+    class ConfigDict:
+        from_attributes = True
+
+
+class IngredientSchema(BaseModel):
+    order: int
+    quantity: str | None
+    unit_of_measurement: str | None
+    ingredient_type: IngredientTypeSchema
+
+    class ConfigDict:
+        from_attributes = True
 
 
 class DrinkSchema(BaseModel):
@@ -227,31 +199,10 @@ class DrinkSchema(BaseModel):
     description: str
     decoration: str | None
     ingredients: List[IngredientSchema]
-    # preparation_steps: List[PreparationStepSchema]
-    # categories: List[CategorySchema]
+    preparation_steps: List[PreparationStepSchema]
+    categories: List[DrinkCategorySchema]
     # highlights: List[DrinkHighlightSchema]
     # instructions: List[DrinkInstructionSchema]
 
     class ConfigDict:
         from_attributes = True
-
-
-# class ArticleKeywordSchema(BaseModel):
-#     keyword: KeywordSchema
-
-#     @model_serializer
-#     def ser_model(self) -> KeywordSchema:
-#         return self.keyword
-
-#     class ConfigDict:
-#         from_attributes = True
-
-
-# class ArticleSchema(BaseModel):
-#     id: UUID4
-#     content: str
-#     published_at: datetime
-#     keywords: List[ArticleKeywordSchema]
-
-#     class ConfigDict:
-#         from_attributes = True
