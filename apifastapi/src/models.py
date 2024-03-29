@@ -92,7 +92,7 @@ class Highlight(settings.DB_BASE_MODEL):
     title = Column(String(30), nullable=False)
     subtitle = Column(String(256), nullable=False)
     description = Column(TEXT)
-    drinks = relationship("DrinkHighlight", back_populates="highlight")
+    drinks = relationship("DrinkHighlight", back_populates="highlight", lazy="subquery")
 
 
 class DrinkHighlight(settings.DB_BASE_MODEL):
@@ -105,8 +105,8 @@ class DrinkHighlight(settings.DB_BASE_MODEL):
         String(36), ForeignKey("highlight.id"), primary_key=True, nullable=False
     )
     Index("id", "drink_id", "highlight_id")
-    drink = relationship("Drink", back_populates="highlights")
-    highlight = relationship("Highlight", back_populates="drinks")
+    drink = relationship("Drink", back_populates="highlights", lazy="subquery")
+    highlight = relationship("Highlight", back_populates="drinks", lazy="subquery")
 
 
 class Instruction(settings.DB_BASE_MODEL):

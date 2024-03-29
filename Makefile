@@ -26,8 +26,3 @@ up_d:
 down:
 	docker compose down
 
-test_front:
-	docker compose run --rm drinquepedia_frontend yarn test
-
-test_api:
-	docker compose exec drinquepedia_api python -m pytest -vv

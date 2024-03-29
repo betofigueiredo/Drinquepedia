@@ -1,13 +1,15 @@
 from typing import List
 
-from flask_sqlalchemy import SQLAlchemy
 from models import Highlight
 from sqlalchemy import asc
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.future import select
 
 
-def find_all_highlights(
-    db: SQLAlchemy,
+async def find_all_highlights(
+    db_session: AsyncSession,
 ) -> List[Highlight]:
-    list_query = db.select(Highlight).order_by(asc(Highlight.title))
-    highlights = db.session.scalars(list_query)
-    return list(highlights)
+    async with db_session as session:
+        list_query = select(Highlight).order_by(asc(Highlight.title))
+        highlights = await session.scalars(list_query)
+        return list(highlights)

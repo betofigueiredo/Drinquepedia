@@ -1,8 +1,12 @@
-from flask_sqlalchemy import SQLAlchemy
 from models import Highlight
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.future import select
 
 
-def find_highlight_by_id(db: SQLAlchemy, highlight_id: int) -> Highlight | None:
-    query = db.select(Highlight).where(Highlight.old_id == highlight_id)
-    highlight = db.session.scalar(query)
-    return highlight
+async def find_highlight_by_id(
+    db_session: AsyncSession, highlight_id: int
+) -> Highlight | None:
+    async with db_session as session:
+        query = select(Highlight).where(Highlight.old_id == highlight_id)
+        result = await session.execute(query)
+        return result.scalars().unique().one_or_none()

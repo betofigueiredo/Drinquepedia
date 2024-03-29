@@ -2,49 +2,6 @@ from typing import List
 
 from pydantic import BaseModel, model_serializer
 
-# from models import (
-#     Category,
-#     Drink,
-#     DrinkCategory,
-#     DrinkHighlight,
-#     DrinkInstruction,
-#     Highlight,
-#     Ingredient,
-#     IngredientType,
-#     Instruction,
-#     Knowledge,
-#     PreparationStep,
-# )
-
-
-# class DrinkSchema(ma.SQLAlchemySchema):
-#     id = auto_field()
-#     old_id = auto_field()
-#     name = auto_field()
-#     calories = auto_field()
-#     alcoholic_content = auto_field()
-#     difficulty = auto_field()
-#     description = auto_field()
-#     decoration = auto_field()
-#     ingredients = fields.Nested("IngredientSchema", many=True)
-#     preparation_steps = fields.Nested("PreparationStepSchema", many=True)
-#     categories = fields.Nested("DrinkCategorySchema", many=True)
-#     instructions = fields.Nested("DrinkInstructionSchema", many=True)
-
-#     class Meta:
-#         model = Drink
-
-
-# class IngredientTypeSchema(ma.SQLAlchemySchema):
-#     name = auto_field()
-
-#     @post_dump()
-#     def make_object(self, data: dict[str, str], **kwargs: str) -> str:
-#         return data["name"]
-
-#     class Meta:
-#         model = IngredientType
-
 
 class InstructionSchema(BaseModel):
     id: str
@@ -82,46 +39,6 @@ class DrinkInstructionSchema(BaseModel):
 
 #     class Meta:
 #         model = DrinkInstruction
-
-
-class DrinkHighlightSchema(BaseModel):
-    id: str
-
-    class ConfigDict:
-        from_attributes = True
-
-
-# class DrinkHighlightSchema(ma.SQLAlchemySchema):
-#     drink = fields.Nested(DrinkSchema)
-
-#     @post_dump()
-#     def make_object(
-#         self, data: dict[str, DrinkSchema], **kwargs: DrinkSchema
-#     ) -> dict[str, str]:
-#         return {**data["drink"]}
-
-#     class Meta:
-#         model = DrinkHighlight
-
-
-class HighlightSchema(BaseModel):
-    id: str
-
-    class ConfigDict:
-        from_attributes = True
-
-
-# class HighlightSchema(ma.SQLAlchemySchema):
-#     id = auto_field()
-#     old_id = auto_field()
-#     type = auto_field()
-#     title = auto_field()
-#     subtitle = auto_field()
-#     description = auto_field()
-#     drinks = fields.Nested(DrinkHighlightSchema, many=True)
-
-#     class Meta:
-#         model = Highlight
 
 
 class KnowledgeSchema(BaseModel):
@@ -203,6 +120,30 @@ class DrinkSchema(BaseModel):
     categories: List[DrinkCategorySchema]
     # highlights: List[DrinkHighlightSchema]
     # instructions: List[DrinkInstructionSchema]
+
+    class ConfigDict:
+        from_attributes = True
+
+
+class DrinkHighlightSchema(BaseModel):
+    drink: DrinkSchema
+
+    @model_serializer
+    def ser_model(self) -> DrinkSchema:
+        return self.drink
+
+    class ConfigDict:
+        from_attributes = True
+
+
+class HighlightSchema(BaseModel):
+    id: str
+    old_id: int
+    type: str
+    title: str
+    subtitle: str
+    description: str
+    drinks: List[DrinkHighlightSchema]
 
     class ConfigDict:
         from_attributes = True
