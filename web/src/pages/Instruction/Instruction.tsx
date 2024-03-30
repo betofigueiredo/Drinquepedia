@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import useGetInstruction from "@/api/useGetInstruction";
 import Loadings from "@/components/Loadings";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 const Instruction = () => {
   const { instructionId } = useParams();
@@ -21,12 +22,13 @@ const Instruction = () => {
   const instruction = data?.instruction;
 
   return (
-    <div className="container">
-      <h1 className="font-serif font-bold text-3xl text-gray-700 mt-12">
+    <div className="container mt-2">
+      <Breadcrumbs />
+      <h1 className="mt-6 font-serif text-3xl font-bold text-gray-700">
         {instruction?.title}
       </h1>
       <p
-        className="text-gray-600 mt-8 mb-6"
+        className="mb-6 mt-8 text-gray-600"
         dangerouslySetInnerHTML={{ __html: instruction?.description || "" }}
       />
     </div>

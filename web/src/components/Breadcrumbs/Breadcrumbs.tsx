@@ -1,39 +1,24 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
-  BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { Fragment } from "react/jsx-runtime";
 
-type Breadcrumb = {
-  url?: string;
-  label: string;
-};
-
-const Breadcrumbs = ({ list }: { list: Breadcrumb[] }) => {
-  const currentItem = list[list.length - 1];
-  const prevItems = list.slice(0, list.length - 1);
+const Breadcrumbs = () => {
+  const navigate = useNavigate();
 
   return (
-    <div className="pt-5">
+    <div className="pt-7">
       <Breadcrumb>
         <BreadcrumbList>
-          {prevItems.map((item: Breadcrumb) => (
-            <Fragment key={item.url}>
-              <BreadcrumbItem>
-                <BreadcrumbLink asChild>
-                  <Link to={item?.url || ""}>{item.label}</Link>
-                </BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator />
-            </Fragment>
-          ))}
+          <BreadcrumbSeparator className="rotate-180" />
           <BreadcrumbItem>
-            <BreadcrumbPage>{currentItem?.label}</BreadcrumbPage>
+            <BreadcrumbLink asChild>
+              <button onClick={() => navigate(-1)}>Voltar</button>
+            </BreadcrumbLink>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>

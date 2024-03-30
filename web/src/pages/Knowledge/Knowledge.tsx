@@ -1,4 +1,5 @@
 import useGetKnowledge from "@/api/useGetKnowledge";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import Loadings from "@/components/Loadings";
 import { useParams } from "react-router-dom";
 
@@ -21,12 +22,13 @@ const Knowledge = () => {
   const knowledge = data?.knowledge;
 
   return (
-    <div className="container">
-      <h1 className="font-serif font-bold text-3xl text-gray-700 mt-12">
+    <div className="container mt-2">
+      <Breadcrumbs />
+      <h1 className="mt-6 font-serif text-3xl font-bold text-gray-700">
         {knowledge?.title}
       </h1>
       <p
-        className="text-gray-600 mt-8 mb-6"
+        className="mb-6 mt-8 text-gray-600"
         dangerouslySetInnerHTML={{ __html: knowledge?.description || "" }}
       />
     </div>

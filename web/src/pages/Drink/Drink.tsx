@@ -2,7 +2,6 @@ import { useParams } from "react-router-dom";
 import useGetDrink from "@/api/useGetDrink";
 import DrinkView from "@/components/DrinkView";
 import Loadings from "@/components/Loadings";
-import Breadcrumbs from "@/components/Breadcrumbs";
 import SimilarDrinks from "@/components/SimilarDrinks";
 
 const Drink = () => {
@@ -23,12 +22,6 @@ const Drink = () => {
 
   return (
     <div className="container pt-3 leading-relaxed">
-      <Breadcrumbs
-        list={[
-          { url: "/drinques", label: "Drinques" },
-          { label: drink?.name || "" },
-        ]}
-      />
       <DrinkView drink={drink} />
       <SimilarDrinks drinkId={drink?.oldId} />
     </div>

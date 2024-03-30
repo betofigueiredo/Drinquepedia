@@ -4,13 +4,18 @@ import Loadings from "@/components/Loadings";
 
 const SimilarDrinks = ({ drinkId }: { drinkId?: number }) => {
   const { isPending, isRefetching, data } = useGetSimilarDrinks(drinkId);
+  const isLoading = isPending || isRefetching;
   const drinks = data?.drinks || [];
+
+  if (!isLoading && !drinks.length) {
+    return null;
+  }
 
   return (
     <div className="mt-14 grid gap-4 text-gray-700 md:grid-cols-[max-content_1fr]">
       <div className="w-[359px] pt-4 md:pr-36" />
       <div>
-        {isPending || isRefetching ? (
+        {isLoading ? (
           <Loadings.Drinks />
         ) : (
           <>
