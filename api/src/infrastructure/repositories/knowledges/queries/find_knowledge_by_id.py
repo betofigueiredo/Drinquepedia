@@ -1,10 +1,12 @@
-from flask_sqlalchemy import SQLAlchemy
 from models import Knowledge
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.future import select
 
 
-def find_knowledge_by_id(
-    db: SQLAlchemy, knowledge_slug: str | None
+async def find_knowledge_by_id(
+    db_session: AsyncSession, knowledge_slug: str | None
 ) -> Knowledge | None:
-    query = db.select(Knowledge).where(Knowledge.slug == knowledge_slug)
-    knowledge = db.session.scalar(query)
-    return knowledge
+    async with db_session as session:
+        query = select(Knowledge).where(Knowledge.slug == knowledge_slug)
+        result = await session.execute(query)
+        return result.scalars().unique().one_or_none()

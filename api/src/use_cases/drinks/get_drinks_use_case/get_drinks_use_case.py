@@ -1,18 +1,16 @@
-from typing import Tuple
-
 from custom_types import ErrorResponse, GetDrinksResponse
+from fastapi import HTTPException, status
 from infrastructure.repositories.repository import Repository
-from schemas import DrinkSchema
 from utils import Utils
 
 from .schema import Validation
 
 
-def get_drinks_use_case(
+async def get_drinks_use_case(
     query_params: dict[str, str],
     utils: Utils,
     repository: Repository,
-) -> Tuple[GetDrinksResponse | ErrorResponse, int]:
+) -> GetDrinksResponse | ErrorResponse:
     error, fields = utils.general.validate_schema(
         schema=Validation,
         params={
@@ -27,12 +25,15 @@ def get_drinks_use_case(
     )
 
     if error:
-        return {
-            "code": "INVALID_DATA",
-            "message": f"{error.message}: {error.field}",
-        }, 400
+        raise HTTPException(
+            detail={
+                "code": "INVALID_DATA",
+                "message": f"{error.message}: {error.field}",
+            },
+            status_code=status.HTTP_400_BAD_REQUEST,
+        )
 
-    drinks, total_count = repository.drinks.find_all(
+    drinks, total_count = await repository.drinks.find_all(
         page=fields.page,
         per_page=fields.per_page,
         category=fields.category,
@@ -42,11 +43,7 @@ def get_drinks_use_case(
         alcoholic_content=fields.alcoholic_content,
     )
 
-    response: GetDrinksResponse = {
-        "drinks": [DrinkSchema().dump(drink) for drink in drinks],
-        "metadata": {
-            "total_count": total_count,
-        },
+    return {
+        "drinks": drinks,
+        "metadata": {"total_count": total_count},
     }
-
-    return response, 200

@@ -1,18 +1,15 @@
 from typing import List, Tuple
 
-from flask_sqlalchemy import SQLAlchemy
-from infrastructure.repositories.drinks.queries import (
-    find_all_drinks,
-    find_drink_by_id,
-)
+from infrastructure.repositories.drinks.queries import find_all_drinks, find_drink_by_id
 from models import Drink
+from sqlalchemy.ext.asyncio import AsyncSession
 
 
 class DrinksRepository:
-    def __init__(self, db: SQLAlchemy):
-        self.db = db
+    def __init__(self, db_session: AsyncSession):
+        self.db_session = db_session
 
-    def find_all(
+    async def find_all(
         self,
         page: int,
         per_page: int,
@@ -22,8 +19,8 @@ class DrinksRepository:
         ingredient_type: str | None,
         alcoholic_content: str | None,
     ) -> Tuple[List[Drink], int]:
-        return find_all_drinks(
-            db=self.db,
+        return await find_all_drinks(
+            db_session=self.db_session,
             page=page,
             per_page=per_page,
             category=category,
@@ -33,5 +30,5 @@ class DrinksRepository:
             alcoholic_content=alcoholic_content,
         )
 
-    def find_by_id(self, drink_id: int) -> Drink | None:
-        return find_drink_by_id(db=self.db, drink_id=drink_id)
+    async def find_by_id(self, drink_id: int) -> Drink | None:
+        return await find_drink_by_id(db_session=self.db_session, drink_id=drink_id)

@@ -1,13 +1,15 @@
 from typing import List
 
-from flask_sqlalchemy import SQLAlchemy
 from models import Knowledge
 from sqlalchemy import asc
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.future import select
 
 
-def find_all_knowledges(
-    db: SQLAlchemy,
+async def find_all_knowledges(
+    db_session: AsyncSession,
 ) -> List[Knowledge]:
-    list_query = db.select(Knowledge).order_by(asc(Knowledge.title))
-    knowledges = db.session.scalars(list_query)
-    return list(knowledges)
+    async with db_session as session:
+        list_query = select(Knowledge).order_by(asc(Knowledge.title))
+        knowledges = await session.scalars(list_query)
+        return list(knowledges)

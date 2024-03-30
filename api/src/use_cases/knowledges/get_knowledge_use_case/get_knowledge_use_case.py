@@ -1,37 +1,41 @@
-from typing import Tuple
-
 from custom_types import ErrorResponse, GetKnowledgeResponse
+from fastapi import HTTPException, status
 from infrastructure.repositories.repository import Repository
-from schemas import KnowledgeSchema
 from utils import Utils
 
 from .schema import Validation
 
 
-def get_knowledge_use_case(
+async def get_knowledge_use_case(
     knowledge_slug: str | None,
     utils: Utils,
     repository: Repository,
-) -> Tuple[GetKnowledgeResponse | ErrorResponse, int]:
+) -> GetKnowledgeResponse | ErrorResponse:
     error, fields = utils.general.validate_schema(
         schema=Validation,
         params={"knowledge_slug": knowledge_slug},
     )
 
     if error:
-        return {
-            "code": "INVALID_DATA",
-            "message": f"{error.message}: {error.field}",
-        }, 400
+        raise HTTPException(
+            detail={
+                "code": "INVALID_DATA",
+                "message": f"{error.message}: {error.field}",
+            },
+            status_code=status.HTTP_400_BAD_REQUEST,
+        )
 
-    knowledge = repository.knowledges.find_by_id(knowledge_slug=fields.knowledge_slug)
+    knowledge = await repository.knowledges.find_by_id(
+        knowledge_slug=fields.knowledge_slug
+    )
 
     if not knowledge:
-        return {
-            "code": "KNOWLEDGE_NOT_FOUND",
-            "message": "Knowledge not found.",
-        }, 404
+        raise HTTPException(
+            detail={
+                "code": "KNOWLEDGE_NOT_FOUND",
+                "message": "Knowledge not found.",
+            },
+            status_code=status.HTTP_404_NOT_FOUND,
+        )
 
-    response: GetKnowledgeResponse = {"knowledge": KnowledgeSchema().dump(knowledge)}
-
-    return response, 200
+    return {"knowledge": knowledge}

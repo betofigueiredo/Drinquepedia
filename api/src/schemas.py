@@ -1,144 +1,125 @@
-from infrastructure.core.database import ma
-from marshmallow import fields, post_dump
-from marshmallow_sqlalchemy import auto_field
-from models import (
-    Category,
-    Drink,
-    DrinkCategory,
-    DrinkHighlight,
-    DrinkInstruction,
-    Highlight,
-    Ingredient,
-    IngredientType,
-    Instruction,
-    Knowledge,
-    PreparationStep,
-)
+from typing import List
+
+from pydantic import BaseModel, model_serializer
 
 
-class DrinkSchema(ma.SQLAlchemySchema):
-    id = auto_field()
-    old_id = auto_field()
-    name = auto_field()
-    calories = auto_field()
-    alcoholic_content = auto_field()
-    difficulty = auto_field()
-    description = auto_field()
-    decoration = auto_field()
-    ingredients = fields.Nested("IngredientSchema", many=True)
-    preparation_steps = fields.Nested("PreparationStepSchema", many=True)
-    categories = fields.Nested("DrinkCategorySchema", many=True)
-    instructions = fields.Nested("DrinkInstructionSchema", many=True)
+class KnowledgeSchema(BaseModel):
+    id: str
+    slug: str
+    title: str
+    subtitle: str
+    description: str
 
-    class Meta:
-        model = Drink
+    class ConfigDict:
+        from_attributes = True
 
 
-class IngredientSchema(ma.SQLAlchemySchema):
-    order = auto_field()
-    quantity = auto_field()
-    unit_of_measurement = auto_field()
-    ingredient_type = fields.Nested("IngredientTypeSchema")
+class CategorySchema(BaseModel):
+    name: str
 
-    class Meta:
-        model = Ingredient
+    class ConfigDict:
+        from_attributes = True
 
 
-class IngredientTypeSchema(ma.SQLAlchemySchema):
-    name = auto_field()
+class DrinkCategorySchema(BaseModel):
+    category: CategorySchema
 
-    @post_dump()
-    def make_object(self, data: dict[str, str], **kwargs: str) -> str:
-        return data["name"]
+    @model_serializer
+    def ser_model(self) -> str:
+        return self.category.name
 
-    class Meta:
-        model = IngredientType
-
-
-class CategorySchema(ma.SQLAlchemySchema):
-    name = auto_field()
-
-    class Meta:
-        model = Category
+    class ConfigDict:
+        from_attributes = True
 
 
-class DrinkCategorySchema(ma.SQLAlchemySchema):
-    category = fields.Nested(CategorySchema)
+class PreparationStepSchema(BaseModel):
+    order: int
+    description: str
 
-    @post_dump()
-    def make_object(
-        self, data: dict[str, CategorySchema], **kwargs: CategorySchema
-    ) -> dict[str, str]:
-        return {**data["category"]}
-
-    class Meta:
-        model = DrinkCategory
+    class ConfigDict:
+        from_attributes = True
 
 
-class PreparationStepSchema(ma.SQLAlchemySchema):
-    order = auto_field()
-    description = auto_field()
+class IngredientTypeSchema(BaseModel):
+    name: str
 
-    class Meta:
-        model = PreparationStep
+    @model_serializer
+    def ser_model(self) -> str:
+        return self.name
 
-
-class InstructionSchema(ma.SQLAlchemySchema):
-    id = auto_field()
-    old_id = auto_field()
-    title = auto_field()
-    subtitle = auto_field()
-    description = auto_field()
-
-    class Meta:
-        model = Instruction
+    class ConfigDict:
+        from_attributes = True
 
 
-class DrinkInstructionSchema(ma.SQLAlchemySchema):
-    instruction = fields.Nested(InstructionSchema)
+class IngredientSchema(BaseModel):
+    order: int
+    quantity: str | None
+    unit_of_measurement: str | None
+    ingredient_type: IngredientTypeSchema
 
-    @post_dump()
-    def make_object(
-        self, data: dict[str, InstructionSchema], **kwargs: InstructionSchema
-    ) -> dict[str, str]:
-        return {**data["instruction"]}
-
-    class Meta:
-        model = DrinkInstruction
+    class ConfigDict:
+        from_attributes = True
 
 
-class DrinkHighlightSchema(ma.SQLAlchemySchema):
-    drink = fields.Nested(DrinkSchema)
+class InstructionSchema(BaseModel):
+    id: str
+    old_id: int
+    title: str
+    subtitle: str
+    description: str
 
-    @post_dump()
-    def make_object(
-        self, data: dict[str, DrinkSchema], **kwargs: DrinkSchema
-    ) -> dict[str, str]:
-        return {**data["drink"]}
-
-    class Meta:
-        model = DrinkHighlight
+    class ConfigDict:
+        from_attributes = True
 
 
-class HighlightSchema(ma.SQLAlchemySchema):
-    id = auto_field()
-    old_id = auto_field()
-    type = auto_field()
-    title = auto_field()
-    subtitle = auto_field()
-    description = auto_field()
-    drinks = fields.Nested(DrinkHighlightSchema, many=True)
+class DrinkInstructionSchema(BaseModel):
+    instruction: InstructionSchema
 
-    class Meta:
-        model = Highlight
+    @model_serializer
+    def ser_model(self) -> InstructionSchema:
+        return self.instruction
+
+    class ConfigDict:
+        from_attributes = True
 
 
-class KnowledgeSchema(ma.SQLAlchemySchema):
-    id = auto_field()
-    slug = auto_field()
-    title = auto_field()
-    subtitle = auto_field()
-    description = auto_field()
+class DrinkSchema(BaseModel):
+    id: str
+    old_id: int
+    name: str
+    calories: int
+    alcoholic_content: str
+    difficulty: str
+    description: str
+    decoration: str | None
+    ingredients: List[IngredientSchema]
+    preparation_steps: List[PreparationStepSchema]
+    categories: List[DrinkCategorySchema]
+    instructions: List[DrinkInstructionSchema]
 
-    class Meta:
-        model = Knowledge
+    class ConfigDict:
+        from_attributes = True
+
+
+class DrinkHighlightSchema(BaseModel):
+    drink: DrinkSchema
+
+    @model_serializer
+    def ser_model(self) -> DrinkSchema:
+        return self.drink
+
+    class ConfigDict:
+        from_attributes = True
+
+
+class HighlightSchema(BaseModel):
+    id: str
+    old_id: int
+    type: str
+    title: str
+    subtitle: str
+    description: str
+    drinks: List[DrinkHighlightSchema]
+
+    class ConfigDict:
+        from_attributes = True

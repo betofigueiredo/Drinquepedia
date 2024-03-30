@@ -16,15 +16,15 @@ services:
   drinquepedia_api:
     container_name: "drinquepedia_api"
     build:
-      context: ./apifastapi
+      context: ./api
       dockerfile: Dockerfile
     env_file:
-      - ./apifastapi/.env
+      - ./api/.env
     ports:
       - "3000:3000"
     restart: on-failure
     volumes:
-      - ./apifastapi:/app
+      - ./api:/app
     depends_on:
       - drinquepedia_db
 

@@ -1,119 +1,146 @@
 import uuid
 
-from infrastructure.core.database import db
+from infrastructure.core.settings import settings
+from sqlalchemy import Column, ForeignKey, Index, String
 from sqlalchemy.dialects.mysql import SMALLINT, TEXT, TINYINT
 from sqlalchemy.orm import relationship
 
 
-class Drink(db.Model):
-    id = db.Column(db.String(36), primary_key=True, index=True, default=uuid.uuid4)
-    old_id = db.Column(SMALLINT, nullable=False, index=True)
-    name = db.Column(db.String(100), nullable=False)
-    calories = db.Column(SMALLINT)
-    alcoholic_content = db.Column(db.String(10))
-    difficulty = db.Column(db.String(10))
-    description = db.Column(TEXT)
-    decoration = db.Column(db.String(256))
-    ingredients = relationship("Ingredient", back_populates="drink")
-    preparation_steps = relationship("PreparationStep", back_populates="drink")
-    categories = relationship("DrinkCategory", back_populates="drink")
-    highlights = relationship("DrinkHighlight", back_populates="drink", lazy="select")
-    instructions = relationship(
-        "DrinkInstruction", back_populates="drink", lazy="select"
+class Drink(settings.DB_BASE_MODEL):
+    __tablename__ = "drink"
+
+    id = Column(String(36), primary_key=True, index=True, default=uuid.uuid4)
+    old_id = Column(SMALLINT, nullable=False, index=True)
+    name = Column(String(100), nullable=False)
+    calories = Column(SMALLINT)
+    alcoholic_content = Column(String(10))
+    difficulty = Column(String(10))
+    description = Column(TEXT)
+    decoration = Column(String(256))
+    ingredients = relationship("Ingredient", back_populates="drink", lazy="subquery")
+    preparation_steps = relationship(
+        "PreparationStep", back_populates="drink", lazy="subquery"
     )
+    categories = relationship("DrinkCategory", back_populates="drink", lazy="subquery")
+    instructions = relationship(
+        "DrinkInstruction", back_populates="drink", lazy="subquery"
+    )
+    highlights = relationship("DrinkHighlight", back_populates="drink", lazy="select")
 
 
-class Ingredient(db.Model):
-    id = db.Column(db.String(36), primary_key=True, index=True, default=uuid.uuid4)
-    order = db.Column(TINYINT, nullable=False)
-    quantity = db.Column(db.String(50))
-    unit_of_measurement = db.Column(db.String(36))
-    ingredient_type_id = db.Column(db.String(36), db.ForeignKey("ingredient_type.id"))
-    ingredient_type = relationship("IngredientType", back_populates="ingredients")
-    drink_id = db.Column(db.String(36), db.ForeignKey("drink.id"))
-    drink = relationship("Drink", back_populates="ingredients")
+class Ingredient(settings.DB_BASE_MODEL):
+    __tablename__ = "ingredient"
+
+    id = Column(String(36), primary_key=True, index=True, default=uuid.uuid4)
+    order = Column(TINYINT, nullable=False)
+    quantity = Column(String(50))
+    unit_of_measurement = Column(String(36))
+    ingredient_type_id = Column(String(36), ForeignKey("ingredient_type.id"))
+    ingredient_type = relationship(
+        "IngredientType", back_populates="ingredients", lazy="subquery"
+    )
+    drink_id = Column(String(36), ForeignKey("drink.id"))
+    drink = relationship("Drink", back_populates="ingredients", lazy="subquery")
 
 
-class IngredientType(db.Model):
-    id = db.Column(db.String(36), primary_key=True, index=True, default=uuid.uuid4)
-    name = db.Column(db.String(256), nullable=False)
+class IngredientType(settings.DB_BASE_MODEL):
+    __tablename__ = "ingredient_type"
+
+    id = Column(String(36), primary_key=True, index=True, default=uuid.uuid4)
+    name = Column(String(256), nullable=False)
     ingredients = relationship("Ingredient", back_populates="ingredient_type")
 
 
-class PreparationStep(db.Model):
-    id = db.Column(db.String(36), primary_key=True, index=True, default=uuid.uuid4)
-    order = db.Column(TINYINT, nullable=False)
-    description = db.Column(db.String(256), nullable=False)
-    drink_id = db.Column(db.String(36), db.ForeignKey("drink.id"))
+class PreparationStep(settings.DB_BASE_MODEL):
+    __tablename__ = "preparation_step"
+
+    id = Column(String(36), primary_key=True, index=True, default=uuid.uuid4)
+    order = Column(TINYINT, nullable=False)
+    description = Column(String(256), nullable=False)
+    drink_id = Column(String(36), ForeignKey("drink.id"))
     drink = relationship("Drink", back_populates="preparation_steps")
 
 
-class Category(db.Model):
-    id = db.Column(db.String(36), primary_key=True, index=True, default=uuid.uuid4)
-    name = db.Column(db.String(256), nullable=False)
-    drinks = relationship("DrinkCategory", back_populates="category")
+class Category(settings.DB_BASE_MODEL):
+    __tablename__ = "category"
+
+    id = Column(String(36), primary_key=True, index=True, default=uuid.uuid4)
+    name = Column(String(256), nullable=False)
+    drinks = relationship("DrinkCategory", back_populates="category", lazy="subquery")
 
 
-class DrinkCategory(db.Model):
-    drink_id = db.Column(
-        db.String(36), db.ForeignKey("drink.id"), primary_key=True, nullable=False
+class DrinkCategory(settings.DB_BASE_MODEL):
+    __tablename__ = "drink_category"
+
+    drink_id = Column(
+        String(36), ForeignKey("drink.id"), primary_key=True, nullable=False
     )
-    category_id = db.Column(
-        db.String(36), db.ForeignKey("category.id"), primary_key=True, nullable=False
+    category_id = Column(
+        String(36), ForeignKey("category.id"), primary_key=True, nullable=False
     )
-    db.Index("id", "drink_id", "category_id")
-    drink = relationship("Drink", back_populates="categories")
-    category = relationship("Category", back_populates="drinks")
+    Index("id", "drink_id", "category_id")
+    drink = relationship("Drink", back_populates="categories", lazy="subquery")
+    category = relationship("Category", back_populates="drinks", lazy="subquery")
 
 
-class Highlight(db.Model):
-    id = db.Column(db.String(36), primary_key=True, index=True, default=uuid.uuid4)
-    old_id = db.Column(SMALLINT, nullable=False, index=True)
-    type = db.Column(db.String(30), nullable=False)
-    title = db.Column(db.String(30), nullable=False)
-    subtitle = db.Column(db.String(256), nullable=False)
-    description = db.Column(TEXT)
-    drinks = relationship("DrinkHighlight", back_populates="highlight")
+class Highlight(settings.DB_BASE_MODEL):
+    __tablename__ = "highlight"
+
+    id = Column(String(36), primary_key=True, index=True, default=uuid.uuid4)
+    old_id = Column(SMALLINT, nullable=False, index=True)
+    type = Column(String(30), nullable=False)
+    title = Column(String(30), nullable=False)
+    subtitle = Column(String(256), nullable=False)
+    description = Column(TEXT)
+    drinks = relationship("DrinkHighlight", back_populates="highlight", lazy="subquery")
 
 
-class DrinkHighlight(db.Model):
-    drink_id = db.Column(
-        db.String(36), db.ForeignKey("drink.id"), primary_key=True, nullable=False
+class DrinkHighlight(settings.DB_BASE_MODEL):
+    __tablename__ = "drink_highlight"
+
+    drink_id = Column(
+        String(36), ForeignKey("drink.id"), primary_key=True, nullable=False
     )
-    highlight_id = db.Column(
-        db.String(36), db.ForeignKey("highlight.id"), primary_key=True, nullable=False
+    highlight_id = Column(
+        String(36), ForeignKey("highlight.id"), primary_key=True, nullable=False
     )
-    db.Index("id", "drink_id", "highlight_id")
-    drink = relationship("Drink", back_populates="highlights")
-    highlight = relationship("Highlight", back_populates="drinks")
+    Index("id", "drink_id", "highlight_id")
+    drink = relationship("Drink", back_populates="highlights", lazy="subquery")
+    highlight = relationship("Highlight", back_populates="drinks", lazy="subquery")
 
 
-class Instruction(db.Model):
-    id = db.Column(db.String(36), primary_key=True, index=True, default=uuid.uuid4)
-    old_id = db.Column(SMALLINT, nullable=False, index=True)
-    title = db.Column(db.String(60), nullable=False)
-    subtitle = db.Column(db.String(256), nullable=False)
-    description = db.Column(TEXT)
+class Instruction(settings.DB_BASE_MODEL):
+    __tablename__ = "instruction"
+
+    id = Column(String(36), primary_key=True, index=True, default=uuid.uuid4)
+    old_id = Column(SMALLINT, nullable=False, index=True)
+    title = Column(String(60), nullable=False)
+    subtitle = Column(String(256), nullable=False)
+    description = Column(TEXT)
     drinks = relationship(
         "DrinkInstruction", back_populates="instruction", lazy="select"
     )
 
 
-class DrinkInstruction(db.Model):
-    drink_id = db.Column(
-        db.String(36), db.ForeignKey("drink.id"), primary_key=True, nullable=False
+class DrinkInstruction(settings.DB_BASE_MODEL):
+    __tablename__ = "drink_instruction"
+
+    drink_id = Column(
+        String(36), ForeignKey("drink.id"), primary_key=True, nullable=False
     )
-    instruction_id = db.Column(
-        db.String(36), db.ForeignKey("instruction.id"), primary_key=True, nullable=False
+    instruction_id = Column(
+        String(36), ForeignKey("instruction.id"), primary_key=True, nullable=False
     )
-    db.Index("id", "drink_id", "instruction_id")
-    drink = relationship("Drink", back_populates="instructions")
-    instruction = relationship("Instruction", back_populates="drinks")
+    Index("id", "drink_id", "instruction_id")
+    drink = relationship("Drink", back_populates="instructions", lazy="subquery")
+    instruction = relationship("Instruction", back_populates="drinks", lazy="subquery")
 
 
-class Knowledge(db.Model):
-    id = db.Column(db.String(36), primary_key=True, index=True, default=uuid.uuid4)
-    slug = db.Column(db.String(20), nullable=False)
-    title = db.Column(db.String(60), nullable=False)
-    subtitle = db.Column(db.String(256), nullable=False)
-    description = db.Column(TEXT)
+class Knowledge(settings.DB_BASE_MODEL):
+    __tablename__ = "knowledge"
+
+    id = Column(String(36), primary_key=True, index=True, default=uuid.uuid4)
+    slug = Column(String(20), nullable=False)
+    title = Column(String(60), nullable=False)
+    subtitle = Column(String(256), nullable=False)
+    description = Column(TEXT)

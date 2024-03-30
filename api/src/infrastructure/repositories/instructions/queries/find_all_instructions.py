@@ -1,13 +1,15 @@
 from typing import List
 
-from flask_sqlalchemy import SQLAlchemy
 from models import Instruction
 from sqlalchemy import asc
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.future import select
 
 
-def find_all_instructions(
-    db: SQLAlchemy,
+async def find_all_instructions(
+    db_session: AsyncSession,
 ) -> List[Instruction]:
-    list_query = db.select(Instruction).order_by(asc(Instruction.old_id))
-    instructions = db.session.scalars(list_query)
-    return list(instructions)
+    async with db_session as session:
+        list_query = select(Instruction).order_by(asc(Instruction.old_id))
+        instructions = await session.scalars(list_query)
+        return list(instructions)
