@@ -8,7 +8,7 @@ const SubNavigationItem = ({ label, url }: { label: string; url: string }) => {
     const currentLocation =
       Object.values(params).reduce(
         (path, param) => path?.replace("/" + param, ""),
-        location.pathname
+        location.pathname,
       ) || "/";
     const options = {
       "/drinques/AaZ": label === "De A a Z",
@@ -31,11 +31,11 @@ const SubNavigationItem = ({ label, url }: { label: string; url: string }) => {
       : "relative h-14 flex items-center text-gray-700 hover:text-amber-500 transition-all";
 
   return (
-    <li className="relative pl-2 pr-2 ml-2 mr-2 first-of-type:pl-0 last-of-type:pr-0">
+    <li className="relative mx-2 px-2 first-of-type:ml-0 first-of-type:pl-0 last-of-type:pr-0">
       <Link to={url} className={getLabelCss()}>
         {label}
         {isActive() && (
-          <div className="absolute w-full h-[3px] left-0 bg-amber-400 bottom-[1px] z-0" />
+          <div className="absolute bottom-px left-0 z-0 h-[3px] w-full bg-amber-400" />
         )}
       </Link>
     </li>

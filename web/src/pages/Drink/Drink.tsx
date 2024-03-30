@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import useGetDrink from "@/api/useGetDrink";
 import DrinkView from "@/components/DrinkView";
 import Loadings from "@/components/Loadings";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 const Drink = () => {
   const { drinkId } = useParams();
@@ -9,7 +10,7 @@ const Drink = () => {
 
   if (isPending) {
     return (
-      <div className="container leading-relaxed pt-3">
+      <div className="container pt-3 leading-relaxed">
         <Loadings.Drink />
       </div>
     );
@@ -20,7 +21,13 @@ const Drink = () => {
   }
 
   return (
-    <div className="container leading-relaxed pt-3">
+    <div className="container pt-3 leading-relaxed">
+      <Breadcrumbs
+        list={[
+          { url: "/drinques", label: "Drinques" },
+          { label: drink?.name || "" },
+        ]}
+      />
       <DrinkView drink={drink} />
     </div>
   );
