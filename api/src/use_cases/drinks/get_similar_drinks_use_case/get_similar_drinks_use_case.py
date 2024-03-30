@@ -40,6 +40,7 @@ async def get_similar_drinks_use_case(
     ingredients = [ingredient.ingredient_type.name for ingredient in drink.ingredients]
 
     similar_drinks = await repository.drinks.find_similar(
+        drink_id=fields.drink_id,
         categories=categories,
         ingredients=ingredients,
     )

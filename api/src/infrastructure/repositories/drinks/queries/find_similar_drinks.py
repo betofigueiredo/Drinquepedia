@@ -9,6 +9,7 @@ from sqlalchemy.orm import selectinload
 
 async def find_similar_drinks(
     db_session: AsyncSession,
+    drink_id: int,
     categories: List[str],
     ingredients: List[str],
 ) -> List[Drink]:
@@ -18,14 +19,19 @@ async def find_similar_drinks(
             .options(selectinload(Drink.categories))
             .options(selectinload(Drink.ingredients))
             .where(
-                Drink.categories.any(
-                    DrinkCategory.category.has(Category.name.in_(categories))
+                (
+                    Drink.categories.any(
+                        DrinkCategory.category.has(Category.name.in_(categories))
+                    )
                 )
-            )
-            .where(
-                Drink.ingredients.any(
-                    Ingredient.ingredient_type.has(IngredientType.name.in_(ingredients))
+                & (
+                    Drink.ingredients.any(
+                        Ingredient.ingredient_type.has(
+                            IngredientType.name.in_(ingredients)
+                        )
+                    )
                 )
+                & (Drink.old_id != drink_id)
             )
             .order_by(func.rand())
             .limit(5)

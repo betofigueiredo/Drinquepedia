@@ -38,8 +38,11 @@ class DrinksRepository:
         return await find_drink_by_id(db_session=self.db_session, drink_id=drink_id)
 
     async def find_similar(
-        self, categories: List[int], ingredients: List[str]
+        self, drink_id: int, categories: List[int], ingredients: List[str]
     ) -> List[Drink]:
         return await find_similar_drinks(
-            db_session=self.db_session, categories=categories, ingredients=ingredients
+            db_session=self.db_session,
+            drink_id=drink_id,
+            categories=categories,
+            ingredients=ingredients,
         )

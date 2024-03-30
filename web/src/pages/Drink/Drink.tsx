@@ -3,6 +3,7 @@ import useGetDrink from "@/api/useGetDrink";
 import DrinkView from "@/components/DrinkView";
 import Loadings from "@/components/Loadings";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import SimilarDrinks from "@/components/SimilarDrinks";
 
 const Drink = () => {
   const { drinkId } = useParams();
@@ -29,6 +30,7 @@ const Drink = () => {
         ]}
       />
       <DrinkView drink={drink} />
+      <SimilarDrinks drinkId={drink?.oldId} />
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import { Drink } from "@/types/drink";
 import Pagination from "@/components/Pagination";
-import DrinkRow from "./components/DrinkRow";
+import DrinkRow from "@/components/DrinkRow";
 
 const DrinksList = ({
   drinks,

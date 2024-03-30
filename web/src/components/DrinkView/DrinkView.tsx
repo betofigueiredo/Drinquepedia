@@ -7,37 +7,37 @@ import DrinkInstructions from "./components/DrinkInstructions";
 import DrinkDescription from "./components/DrinkDescription";
 
 const DrinkView = ({ drink }: { drink?: Drink }) => (
-  <div className="grid grid-cols md:grid-cols-[max-content_1fr] text-gray-700 gap-4">
-    <div className="md:pr-36 pt-4">
+  <div className="grid gap-4 text-gray-700 md:grid-cols-[max-content_1fr]">
+    <div className="pt-4 md:pr-36">
       <img src={`/images/drinks/${drink?.oldId}/${drink?.oldId}g.jpg`} />
     </div>
     <div>
-      <h1 className="font-serif font-bold text-4xl text-amber-500 mt-10 mb-7">
+      <h1 className="mb-7 mt-10 font-serif text-4xl font-bold text-amber-500">
         {drink?.name}
       </h1>
-      <div className="max-w-xl grid grid-cols-3">
+      <div className="grid max-w-xl grid-cols-3">
         <div>
-          <div className="font-serif font-bold text-lg text-slate-950">
+          <div className="font-serif text-lg font-bold text-slate-950">
             Calorias
           </div>
           {drink?.calories}
         </div>
         <div>
-          <div className="font-serif font-bold text-lg text-slate-950">
+          <div className="font-serif text-lg font-bold text-slate-950">
             Teor alcoólico
           </div>
           <DrinkAlcoholicContent alcoholicContent={drink?.alcoholicContent} />
         </div>
         <div>
-          <div className="font-serif font-bold text-lg text-slate-950">
+          <div className="font-serif text-lg font-bold text-slate-950">
             Dificuldade
           </div>
           <DrinkDifficulty difficulty={drink?.difficulty} />
         </div>
       </div>
-      <div className="w-32 border-dashed border-t border-gray-200 mt-9 mb-9" />
+      <div className="my-9 w-32 border-t border-dashed border-gray-200" />
       <DrinkIngredients drink={drink} />
-      <div className="w-32 border-dashed border-t border-gray-200 mt-9 mb-9" />
+      <div className="my-9 w-32 border-t border-dashed border-gray-200" />
       <DrinkPreparationSteps drink={drink} />
       <DrinkDescription drink={drink} />
       <DrinkInstructions drink={drink} />
