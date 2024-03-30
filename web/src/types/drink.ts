@@ -36,7 +36,7 @@ export type Drink = {
   name: string;
   alcoholicContent: AlcoholicContent;
   calories: number;
-  categories: { name: string }[];
+  categories: string[];
   decoration?: string;
   description?: string;
   difficulty: Difficulty;

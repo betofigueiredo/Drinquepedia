@@ -90,7 +90,7 @@ class DrinkSchema(BaseModel):
     calories: int
     alcoholic_content: str
     difficulty: str
-    description: str
+    description: str | None
     decoration: str | None
     ingredients: List[IngredientSchema]
     preparation_steps: List[PreparationStepSchema]

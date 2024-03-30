@@ -8,16 +8,16 @@ const DrinkRow = ({ drink }: { drink: Drink }) => {
 
   return (
     <Link to={`/drinques/${drink.oldId}`} className="group">
-      <div className="grid grid-cols-[max-content_1fr] mb-7 text-slate-950">
-        <div className="mr-6 w-16 h-16 border-[5px] overflow-hidden ">
+      <div className="mb-7 grid grid-cols-[max-content_1fr] text-slate-950">
+        <div className="mr-6 size-16 overflow-hidden border-[5px] ">
           <img
             src={`/images/drinks/${drink?.oldId}/${drink?.oldId}p.jpg`}
-            className="group-hover:opacity-90 transition-all duration-200 group-hover:scale-110"
+            className="transition-all duration-200 group-hover:scale-110 group-hover:opacity-90"
             width="64"
           />
         </div>
         <div>
-          <h1 className="font-serif font-bold text-2xl text-amber-500 group-hover:text-amber-300 group-hover:underline">
+          <h1 className="font-serif text-2xl font-bold text-amber-500 group-hover:text-amber-300 group-hover:underline">
             {drink?.name}
           </h1>
           <div className="text-gray-500">{ingredients}</div>

@@ -32,8 +32,8 @@ const useGetDrinks = ({
         ...(alcoholicContent && { alcoholicContent }),
       };
       const response = await makeRequest.get<{ data: Response }>(
-        "/v1/drinks",
-        queryParams
+        "/v1/drinks/",
+        queryParams,
       );
       return response?.data || {};
     },

@@ -35,31 +35,27 @@ const DrinksList = ({
   const drinksList =
     category === "caipirinhas"
       ? drinks?.filter((drink) =>
-          drink?.categories?.some((category) => category.name === "caipirinhas")
+          drink?.categories?.some((category) => category === "caipirinhas"),
         )
       : drinks;
   const iceCreamCaipirinhas =
     category === "caipirinhas"
       ? drinks?.filter((drink) =>
-          drink?.categories?.some(
-            (category) => category.name === "scaipirinhas"
-          )
+          drink?.categories?.some((category) => category === "scaipirinhas"),
         )
       : [];
   const count = category === "caipirinhas" ? drinksList?.length : totalCount;
 
   return (
     <div>
-      <h1 className="font-serif font-bold text-3xl text-gray-700 mt-14 mb-0">
+      <h1 className="mb-0 mt-14 font-serif text-3xl font-bold text-gray-700">
         {getCategoryName()}
       </h1>
       <div className="mb-12 text-gray-500">{count} drinques</div>
-      {drinksList?.map((drink) => (
-        <DrinkRow key={drink.id} drink={drink} />
-      ))}
+      {drinksList?.map((drink) => <DrinkRow key={drink.id} drink={drink} />)}
       {iceCreamCaipirinhas?.length ? (
         <>
-          <h1 className="font-serif font-bold text-3xl text-gray-700 mt-24 mb-0">
+          <h1 className="mb-0 mt-24 font-serif text-3xl font-bold text-gray-700">
             Caipirinhas com sorvete
           </h1>
           <div className="mb-12 text-gray-500">

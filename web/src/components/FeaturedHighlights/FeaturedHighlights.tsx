@@ -71,20 +71,20 @@ const FeaturedHighlights = () => {
 
   return (
     <>
-      <div className="relative w-full min-h-[635px] mt-24">
+      <div className="relative mt-24 min-h-[635px] w-full">
         {stop ? (
           <></>
         ) : (
           <>
-            <h1 className="font-serif text-[120px] font-bold text-gray-200 animate-slide-in-from-left">
+            <h1 className="animate-slide-in-from-left font-serif text-[120px] font-bold text-gray-200">
               {order.toString().padStart(2, "0")}
             </h1>
-            <div className="w-28 h-1 bg-black mt-1 mb-8 animate-slide-in-from-left" />
-            <div className="relative font-serif text-6xl font-bold w-1/2 mb-10 text-gray-900 animate-slide-in-from-left">
+            <div className="mb-8 mt-1 h-1 w-28 animate-slide-in-from-left bg-black" />
+            <div className="relative mb-10 w-1/2 animate-slide-in-from-left font-serif text-6xl font-bold text-gray-900">
               <Link to={link}>{title}</Link>
-              <div className="absolute top-[36px] right-20 w-96 h-4 bg-amber-400 mt-1 mb-8 z-[-1]" />
+              <div className="absolute right-20 top-[36px] z-[-1] mb-8 mt-1 h-4 w-96 bg-amber-400" />
             </div>
-            <div className="w-2/5 text-gray-700 mb-8 animate-slide-in-from-left">
+            <div className="mb-8 w-2/5 animate-slide-in-from-left text-gray-700">
               {description}
             </div>
             <Link to={link}>
@@ -95,23 +95,23 @@ const FeaturedHighlights = () => {
             <img
               src={image}
               alt={title}
-              className="absolute top-0 right-0 z-[-2] animate-opacity-in"
+              className="absolute right-0 top-0 z-[-2] animate-opacity-in"
             />
           </>
         )}
       </div>
-      <div className="mt-4 mb-36 text-center text-gray-500">
+      <div className="mb-36 mt-4 text-center text-gray-500">
         <button
           type="button"
           onClick={goPrevious}
-          className="text-5xl mr-8 border-none outline-none hover:text-amber-500 transition-all"
+          className="mr-8 border-none text-5xl outline-none transition-all hover:text-amber-500"
         >
           ←
         </button>
         <button
           type="button"
           onClick={goNext}
-          className="text-5xl border-none outline-none hover:text-amber-500 transition-all"
+          className="border-none text-5xl outline-none transition-all hover:text-amber-500"
         >
           →
         </button>
