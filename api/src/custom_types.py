@@ -27,6 +27,10 @@ class GetDrinksResponse(TypedDict):
     metadata: ListMetadata
 
 
+class GetSimilarDrinksResponse(TypedDict):
+    drinks: List[DrinkSchema]
+
+
 class GetHighlightResponse(TypedDict):
     highlight: HighlightSchema
 

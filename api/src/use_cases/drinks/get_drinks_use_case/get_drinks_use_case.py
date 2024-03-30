@@ -7,7 +7,7 @@ from .schema import Validation
 
 
 async def get_drinks_use_case(
-    query_params: dict[str, str],
+    query_params: dict[str, str | None],
     utils: Utils,
     repository: Repository,
 ) -> GetDrinksResponse | ErrorResponse:

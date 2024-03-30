@@ -1,6 +1,10 @@
 from typing import List, Tuple
 
-from infrastructure.repositories.drinks.queries import find_all_drinks, find_drink_by_id
+from infrastructure.repositories.drinks.queries import (
+    find_all_drinks,
+    find_drink_by_id,
+    find_similar_drinks,
+)
 from models import Drink
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -32,3 +36,10 @@ class DrinksRepository:
 
     async def find_by_id(self, drink_id: int) -> Drink | None:
         return await find_drink_by_id(db_session=self.db_session, drink_id=drink_id)
+
+    async def find_similar(
+        self, categories: List[int], ingredients: List[str]
+    ) -> List[Drink]:
+        return await find_similar_drinks(
+            db_session=self.db_session, categories=categories, ingredients=ingredients
+        )
