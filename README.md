@@ -24,9 +24,8 @@
 
 ## Backend with
 
-- ✅ Flask
+- ✅ FastAPI
 - ✅ Alembic
-- ✅ Marshmallow
 - ✅ MyPy
   <br />
   <br />
