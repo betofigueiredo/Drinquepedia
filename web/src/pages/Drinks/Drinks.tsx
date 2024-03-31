@@ -8,15 +8,15 @@ import Loadings from "@/components/Loadings";
 const Drinks = ({ category }: { category?: string }) => {
   const perPage = category === "caipirinhas" ? 50 : 20;
   const [searchParams] = useSearchParams();
-  const page = Number(searchParams.get("page")) || 1;
-  const name = searchParams.get("name") ?? "";
-  const calories = searchParams.get("calories") ?? "";
-  const alcoholicContent = searchParams.get("alcoholicContent") ?? "";
+  const page = Number(searchParams.get("pagina")) || 1;
+  const search = searchParams.get("busca") ?? "";
+  const calories = searchParams.get("calorias") ?? "";
+  const alcoholicContent = searchParams.get("teor") ?? "";
   const { isPending, error, data } = useGetDrinks({
     page,
     perPage,
     category,
-    name,
+    search,
     calories,
     alcoholicContent,
   });
@@ -28,7 +28,7 @@ const Drinks = ({ category }: { category?: string }) => {
         {isPending && <Loadings.Drinks />}
         {error && <div>Erro</div>}
         {!isPending && !error && (
-          <div className="grid grid-cols md:grid-cols-[auto,300px] gap-24">
+          <div className="grid gap-24 md:grid-cols-[auto,300px]">
             <DrinksList
               drinks={data?.drinks}
               totalCount={data?.metadata?.totalCount || 0}

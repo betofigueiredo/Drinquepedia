@@ -10,13 +10,14 @@ import {
 } from "@/components/ui/select";
 
 const AlcoholicContentSelect = () => {
+  const urlKey = "teor";
   const [searchParams, setSearchParams] = useSearchParams();
-  const alcoholicContent = searchParams.get("alcoholicContent") ?? "";
+  const alcoholicContent = searchParams.get(urlKey) ?? "";
 
   const onChangeAlcoholicContent = (value: string) => {
     const params = updateSearchParams({
       searchParams,
-      key: "alcoholicContent",
+      key: urlKey,
       value: value === "-" ? "" : value,
     });
     setSearchParams(params);

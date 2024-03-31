@@ -17,9 +17,8 @@ async def get_drinks_use_case(
             "page": query_params.get("page"),
             "per_page": query_params.get("per_page"),
             "category": query_params.get("category"),
-            "name": query_params.get("name"),
+            "search": query_params.get("search"),
             "calories": query_params.get("calories"),
-            "ingredient_type": query_params.get("ingredient_type"),
             "alcoholic_content": query_params.get("alcoholic_content"),
         },
     )
@@ -37,9 +36,8 @@ async def get_drinks_use_case(
         page=fields.page,
         per_page=fields.per_page,
         category=fields.category,
-        name=fields.name,
+        search=fields.search,
         calories=fields.calories,
-        ingredient_type=fields.ingredient_type,
         alcoholic_content=fields.alcoholic_content,
     )
 

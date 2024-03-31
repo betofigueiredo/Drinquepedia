@@ -4,6 +4,7 @@ from models import Category, Drink, DrinkCategory, Ingredient, IngredientType
 from sqlalchemy import asc, func
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
+from sqlalchemy.orm import selectinload
 
 
 async def find_all_drinks(
@@ -11,13 +12,12 @@ async def find_all_drinks(
     page: int,
     per_page: int,
     category: str | None,
-    name: str | None,
+    search: str | None,
     calories: str | None,
-    ingredient_type: str | None,
     alcoholic_content: str | None,
 ) -> Tuple[List[Drink], int]:
     async with db_session as session:
-        list_query = select(Drink)
+        list_query = select(Drink).options(selectinload(Drink.ingredients))
         count_query = select(func.count(Drink.id))
 
         if category:
@@ -47,17 +47,27 @@ async def find_all_drinks(
                 )
             )
 
-        if ingredient_type:
-            list_query = list_query.join(Ingredient.ingredient_type).where(
-                IngredientType.name.like(f"%{ingredient_type}%")
+        if search:
+            list_query = list_query.where(
+                (
+                    Drink.ingredients.any(
+                        Ingredient.ingredient_type.has(
+                            IngredientType.name.like(f"%{search}%")
+                        )
+                    )
+                )
+                | (Drink.name.like(f"%{search}%"))
             )
-            count_query = count_query.join(Ingredient.ingredient_type).where(
-                IngredientType.name.like(f"%{ingredient_type}%")
+            count_query = count_query.where(
+                (
+                    Drink.ingredients.any(
+                        Ingredient.ingredient_type.has(
+                            IngredientType.name.like(f"%{search}%")
+                        )
+                    )
+                )
+                | (Drink.name.like(f"%{search}%"))
             )
-
-        if name:
-            list_query = list_query.where(Drink.name.like(f"%{name}%"))
-            count_query = count_query.where(Drink.name.like(f"%{name}%"))
 
         if calories:
             list_query = list_query.where(Drink.calories >= calories.split("-")[0])

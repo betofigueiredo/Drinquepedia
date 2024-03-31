@@ -20,7 +20,6 @@ class Validation(BaseModel):
         ]
         | None
     ) = Field(None)
-    name: str | None = Field(None)
+    search: str | None = Field(None)
     calories: Literal["0-100", "100-200", "200-300", "300-"] | None = Field(None)
-    ingredient_type: str | None = Field(None)
     alcoholic_content: Literal["LOW", "MEDIUM", "HIGH"] | None = Field(None)

@@ -9,25 +9,25 @@ const useGetDrinks = ({
   page,
   perPage,
   category,
-  name,
+  search,
   calories,
   alcoholicContent,
 }: {
   page: number;
   perPage: number;
   category?: string;
-  name: string;
+  search: string;
   calories: string;
   alcoholicContent: string;
 }): { isPending: boolean; error: AxiosError | null; data?: Response } => {
   const { isPending, error, data } = useQuery({
-    queryKey: ["drinks", page, category, name, calories, alcoholicContent],
+    queryKey: ["drinks", page, category, search, calories, alcoholicContent],
     queryFn: async () => {
       const queryParams = {
         page,
         perPage,
         ...(category && { category }),
-        ...(name && { name }),
+        ...(search && { search }),
         ...(calories && { calories }),
         ...(alcoholicContent && { alcoholicContent }),
       };

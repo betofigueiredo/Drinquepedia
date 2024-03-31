@@ -18,9 +18,8 @@ class DrinksRepository:
         page: int,
         per_page: int,
         category: str | None,
-        name: str | None,
+        search: str | None,
         calories: str | None,
-        ingredient_type: str | None,
         alcoholic_content: str | None,
     ) -> Tuple[List[Drink], int]:
         return await find_all_drinks(
@@ -28,9 +27,8 @@ class DrinksRepository:
             page=page,
             per_page=per_page,
             category=category,
-            name=name,
+            search=search,
             calories=calories,
-            ingredient_type=ingredient_type,
             alcoholic_content=alcoholic_content,
         )
 

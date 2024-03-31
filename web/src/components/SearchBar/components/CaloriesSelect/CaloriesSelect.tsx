@@ -10,13 +10,14 @@ import {
 } from "@/components/ui/select";
 
 const CaloriesSelect = () => {
+  const urlKey = "calorias";
   const [searchParams, setSearchParams] = useSearchParams();
-  const calories = searchParams.get("calories") ?? "";
+  const calories = searchParams.get(urlKey) ?? "";
 
   const onChangeCalories = (value: string) => {
     const params = updateSearchParams({
       searchParams,
-      key: "calories",
+      key: urlKey,
       value: value === "-" ? "" : value,
     });
     setSearchParams(params);

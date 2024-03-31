@@ -22,13 +22,13 @@ const Pagination = ({
   const hasPrevious = page > 1;
   const previous3Pages = [page - 3, page - 2, page - 1].filter((p) => p > 0);
   const next3Pages = [page + 1, page + 2, page + 3].filter(
-    (p) => p <= totalPages
+    (p) => p <= totalPages,
   );
   const hasNext = page < totalPages;
 
   const toUrl = (p: number) => {
     const firstUrlPart = category ? `/drinques/${category}` : `/drinques/AaZ`;
-    return p === 1 ? firstUrlPart : `${firstUrlPart}?page=${p}`;
+    return p === 1 ? firstUrlPart : `${firstUrlPart}?pagina=${p}`;
   };
 
   if (totalPages <= 1) {
