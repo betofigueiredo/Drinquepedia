@@ -1,10 +1,10 @@
 const NotFound404 = () => {
   return (
     <div className="container">
-      <h1 className="font-serif font-bold text-[128px] text-amber-300 mt-24 mb-0 leading-none">
+      <h1 className="mb-0 mt-24 font-serif text-[128px] font-bold leading-none text-amber-300">
         404
       </h1>
-      <h2 className="font-serif font-bold text-4xl text-gray-700 mb-4">
+      <h2 className="mb-4 font-serif text-4xl font-bold text-gray-700">
         Página não encontrada!
       </h2>
       <p className="text-gray-700">

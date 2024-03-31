@@ -2,7 +2,7 @@ import NavigationItem from "../NavigationItem";
 
 const Navigation = () => {
   return (
-    <ul className="relative container w-full md:w-auto m-0 ml-auto mr-auto p-0 flex list-none flex-row justify-center gap-4">
+    <ul className="container relative m-0 mx-auto flex w-full list-none flex-row justify-center gap-4 p-0 md:w-auto">
       <NavigationItem to="/drinques" label="Drinques" />
       <NavigationItem to="/destaques" label="Destaques" />
       <NavigationItem to="/tudosobrebar" label="Tudo sobre bar" />

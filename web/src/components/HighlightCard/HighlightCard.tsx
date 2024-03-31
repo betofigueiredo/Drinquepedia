@@ -8,13 +8,13 @@ const HighlightCard = ({ highlight }: { highlight: Highlight }) => {
       className="group"
     >
       <div className="mb-6 text-slate-950">
-        <div className="relative w-full pt-[130%] overflow-hidden">
+        <div className="relative w-full overflow-hidden pt-[130%]">
           <img
-            className="absolute inset-0 w-full h-full object-cover group-hover:opacity-90 transition-all duration-200 group-hover:scale-105"
+            className="absolute inset-0 size-full object-cover transition-all duration-200 group-hover:scale-105 group-hover:opacity-90"
             src={`/images/highlights/${highlight?.oldId}.jpg`}
           />
         </div>
-        <h1 className="font-serif font-bold text-2xl text-gray-900 mt-5 group-hover:text-amber-500 transition-colors duration-200">
+        <h1 className="mt-5 font-serif text-2xl font-bold text-gray-900 transition-colors duration-200 group-hover:text-amber-500">
           {highlight.title}
         </h1>
         <div className="text-gray-500">{highlight.subtitle}</div>

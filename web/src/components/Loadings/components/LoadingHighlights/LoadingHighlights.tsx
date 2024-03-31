@@ -14,7 +14,7 @@ const LoadingHighlights = () => {
   return (
     <>
       <Skeleton className="mt-14 h-5 w-[250px]" />
-      <div className="grid grid-cols-4 gap-7 mt-16">
+      <div className="mt-16 grid grid-cols-4 gap-7">
         {row}
         {row}
         {row}

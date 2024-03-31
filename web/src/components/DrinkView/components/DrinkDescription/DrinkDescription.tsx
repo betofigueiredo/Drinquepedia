@@ -7,13 +7,13 @@ const DrinkDescription = ({ drink }: { drink?: Drink }) => {
 
   return (
     <>
-      <div className="w-32 border-dashed border-t border-gray-200 mt-9 mb-9" />
+      <div className="my-9 w-32 border-t border-dashed border-gray-200" />
       <div>
-        <h5 className="font-serif font-bold text-2xl text-slate-950 mb-3">
+        <h5 className="mb-3 font-serif text-2xl font-bold text-slate-950">
           Sobre o drinque
         </h5>
-        <div className="text-slate-950 pl-8 relative whitespace-pre-line">
-          <div className="absolute top-0 left-0 font-serif font-bold text-5xl text-amber-500 mb-3">
+        <div className="relative whitespace-pre-line pl-8 text-slate-950">
+          <div className="absolute left-0 top-0 mb-3 font-serif text-5xl font-bold text-amber-500">
             “
           </div>
           {drink?.description}

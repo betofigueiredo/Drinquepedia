@@ -8,7 +8,7 @@ const NavigationItem = ({ to, label }: Props) => {
     const currentLocation =
       Object.values(params).reduce(
         (path, param) => path?.replace("/" + param, ""),
-        location.pathname
+        location.pathname,
       ) || "/";
     const urlFirstPart = currentLocation.split("/")[1];
     const options = {
@@ -27,11 +27,11 @@ const NavigationItem = ({ to, label }: Props) => {
   }
 
   return (
-    <li className="relative flex w-1/4 md:w-auto items-center align-middle h-20 ml-0 mr-0 md:ml-4 md:mr-4">
+    <li className="relative mx-0 flex h-20 w-1/4 items-center align-middle md:mx-4 md:w-auto">
       <Link to={to} className={getLabelCss()}>
         <span className=" relative z-10">{label}</span>
         {isActive() && (
-          <div className="absolute w-7 h-1 left-0 bg-amber-400 bottom-6 z-0" />
+          <div className="absolute bottom-6 left-0 z-0 h-1 w-7 bg-amber-400" />
         )}
       </Link>
     </li>

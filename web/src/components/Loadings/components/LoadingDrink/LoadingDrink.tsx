@@ -2,7 +2,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 const LoadingDrink = () => {
   return (
-    <div className="grid grid-cols-[max-content_1fr] text-gray-700 gap-4">
+    <div className="grid grid-cols-[max-content_1fr] gap-4 text-gray-700">
       <div className="pr-36 pt-14">
         <Skeleton className="h-[325px] w-[250px] rounded-xl" />
       </div>

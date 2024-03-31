@@ -19,10 +19,10 @@ const Instructions = () => {
 
   return (
     <div className="container">
-      <h1 className="font-serif font-bold text-3xl text-gray-700 mt-12">
+      <h1 className="mt-12 font-serif text-3xl font-bold text-gray-700">
         Dicas gerais
       </h1>
-      <div className="grid grid-cols-4 gap-7 mt-14">
+      <div className="mt-14 grid grid-cols-4 gap-7">
         {data?.instructions?.map((instruction) => (
           <InstructionCard key={instruction.id} instruction={instruction} />
         ))}
