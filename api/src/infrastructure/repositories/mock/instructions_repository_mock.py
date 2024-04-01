@@ -4,8 +4,8 @@ from models import Instruction
 
 
 class InstructionsRepositoryMock:
-    def find_all(self) -> Tuple[List[Instruction], int]:
+    async def find_all(self) -> Tuple[List[Instruction], int]:
         return [], 0
 
-    def find_by_id(self, instruction_id: str | None) -> Instruction | None:
+    async def find_by_id(self, instruction_id: str | None) -> Instruction | None:
         return None

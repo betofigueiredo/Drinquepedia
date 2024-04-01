@@ -1,6 +1,7 @@
-from typing import List, Tuple
+from typing import List, Tuple, cast
 
 import pytest  # noqa: F401
+from fastapi import HTTPException
 from infrastructure.repositories.mock.repository_mock import RepositoryMock
 from models import Drink
 from tests.helpers import helpers
@@ -8,83 +9,100 @@ from use_cases.drinks import get_drinks_use_case
 from utils import Utils
 
 
+@pytest.mark.asyncio
 class TestGetDrinksUseCase:
     # TEST
-    def test_invalid_page(self) -> None:
-        repository = RepositoryMock()
-        utils = Utils()
-        query_params = {"page": None, "per_page": 10}
-        result = get_drinks_use_case(
-            query_params=query_params,
-            utils=utils,
-            repository=repository,
-        )
-        assert result[0].get("code") == "INVALID_DATA"
-        assert "Input should be a valid integer" in result[0].get("message")
-        assert "page" in result[0].get("message")
+    async def test_invalid_page(self) -> None:
+        with pytest.raises(HTTPException) as err:
+            repository = RepositoryMock()
+            utils = Utils()
+            query_params = {"page": None, "per_page": 10}
+            await get_drinks_use_case(
+                query_params=query_params,
+                utils=utils,
+                repository=repository,
+            )
+        detail: dict[str, str] = cast(dict[str, str], err.value.detail)
+        assert err.value.status_code == 400
+        assert detail.get("code") == "INVALID_DATA"
+        assert "Input should be a valid integer" in detail.get("message")
+        assert "page" in detail.get("message")
 
     # TEST
-    def test_invalid_per_page(self) -> None:
-        repository = RepositoryMock()
-        utils = Utils()
-        query_params = {"page": 1, "per_page": None}
-        result = get_drinks_use_case(
-            query_params=query_params,
-            utils=utils,
-            repository=repository,
-        )
-        assert result[0].get("code") == "INVALID_DATA"
-        assert "Input should be a valid integer" in result[0].get("message")
-        assert "per_page" in result[0].get("message")
+    async def test_invalid_per_page(self) -> None:
+        with pytest.raises(HTTPException) as err:
+            repository = RepositoryMock()
+            utils = Utils()
+            query_params = {"page": 1, "per_page": None}
+            await get_drinks_use_case(
+                query_params=query_params,
+                utils=utils,
+                repository=repository,
+            )
+        detail: dict[str, str] = cast(dict[str, str], err.value.detail)
+        assert err.value.status_code == 400
+        assert detail.get("code") == "INVALID_DATA"
+        assert "Input should be a valid integer" in detail.get("message")
+        assert "per_page" in detail.get("message")
 
     # TEST
-    def test_invalid_category(self) -> None:
-        repository = RepositoryMock()
-        utils = Utils()
-        query_params = {"page": 1, "per_page": 10, "category": "invalid_value"}
-        result = get_drinks_use_case(
-            query_params=query_params,
-            utils=utils,
-            repository=repository,
-        )
-        assert result[0].get("code") == "INVALID_DATA"
-        assert "category" in result[0].get("message")
+    async def test_invalid_category(self) -> None:
+        with pytest.raises(HTTPException) as err:
+            repository = RepositoryMock()
+            utils = Utils()
+            query_params = {"page": 1, "per_page": 10, "category": "invalid_value"}
+            await get_drinks_use_case(
+                query_params=query_params,
+                utils=utils,
+                repository=repository,
+            )
+        detail: dict[str, str] = cast(dict[str, str], err.value.detail)
+        assert err.value.status_code == 400
+        assert detail.get("code") == "INVALID_DATA"
+        assert "category" in detail.get("message")
 
     # TEST
-    def test_invalid_calories(self) -> None:
-        repository = RepositoryMock()
-        utils = Utils()
-        query_params = {"page": 1, "per_page": 10, "calories": "invalid_value"}
-        result = get_drinks_use_case(
-            query_params=query_params,
-            utils=utils,
-            repository=repository,
-        )
-        assert result[0].get("code") == "INVALID_DATA"
-        assert "calories" in result[0].get("message")
+    async def test_invalid_calories(self) -> None:
+        with pytest.raises(HTTPException) as err:
+            repository = RepositoryMock()
+            utils = Utils()
+            query_params = {"page": 1, "per_page": 10, "calories": "invalid_value"}
+            await get_drinks_use_case(
+                query_params=query_params,
+                utils=utils,
+                repository=repository,
+            )
+        assert err.value.status_code == 400
+        assert err.value.detail.get("code") == "INVALID_DATA"
+        assert "calories" in err.value.detail.get("message")
 
     # TEST
-    def test_invalid_alcoholic_content(self) -> None:
-        repository = RepositoryMock()
-        utils = Utils()
-        query_params = {"page": 1, "per_page": 10, "alcoholic_content": "invalid_value"}
-        result = get_drinks_use_case(
-            query_params=query_params,
-            utils=utils,
-            repository=repository,
-        )
-        assert result[0].get("code") == "INVALID_DATA"
-        assert "alcoholic_content" in result[0].get("message")
+    async def test_invalid_alcoholic_content(self) -> None:
+        with pytest.raises(HTTPException) as err:
+            repository = RepositoryMock()
+            utils = Utils()
+            query_params = {
+                "page": 1,
+                "per_page": 10,
+                "alcoholic_content": "invalid_value",
+            }
+            await get_drinks_use_case(
+                query_params=query_params,
+                utils=utils,
+                repository=repository,
+            )
+        assert err.value.status_code == 400
+        assert err.value.detail.get("code") == "INVALID_DATA"
+        assert "alcoholic_content" in err.value.detail.get("message")
 
     # TEST
-    def test_success(self) -> None:
-        def find_all_drinks(
+    async def test_success(self) -> None:
+        async def find_all_drinks(
             page: int,
             per_page: int,
             category: str | None,
-            name: str | None,
+            search: str | None,
             calories: str | None,
-            ingredient_type: str | None,
             alcoholic_content: str | None,
         ) -> Tuple[List[Drink], int]:
             return [
@@ -101,10 +119,9 @@ class TestGetDrinksUseCase:
         repository.drinks.find_all = find_all_drinks
         utils = Utils()
         query_params = {"page": 1, "per_page": 10}
-        result = get_drinks_use_case(
+        result = await get_drinks_use_case(
             query_params=query_params,
             utils=utils,
             repository=repository,
         )
-        assert result[0].get("drinks") is not None
-        assert result[1] == 200
+        assert result.get("drinks") is not None

@@ -1,44 +1,57 @@
-import pytest  # noqa: F401
+from typing import cast
+
+import pytest
+from fastapi import HTTPException
 from infrastructure.repositories.mock.repository_mock import RepositoryMock
+from infrastructure.repositories.repository import Repository
 from models import Drink
 from tests.helpers import helpers
 from use_cases.drinks import get_drink_use_case
 from utils import Utils
 
 
+@pytest.mark.asyncio
 class TestGetDrinkUseCase:
     # TEST
-    def test_invalid_drink_id(self) -> None:
-        repository = RepositoryMock()
-        utils = Utils()
-        result = get_drink_use_case(
-            drink_id=None,
-            utils=utils,
-            repository=repository,
-        )
-        assert result[0].get("code") == "INVALID_DATA"
-        assert "Input should be a valid integer" in result[0].get("message")
-        assert "drink_id" in result[0].get("message")
+    async def test_invalid_drink_id(self) -> None:
+        with pytest.raises(HTTPException) as err:
+            repository = cast(Repository, RepositoryMock())
+            utils = Utils()
+            await get_drink_use_case(
+                drink_id=None,
+                utils=utils,
+                repository=repository,
+            )
+        detail: dict[str, str] = cast(dict[str, str], err.value.detail)
+        assert err.value.status_code == 400
+        assert detail.get("code") == "INVALID_DATA"
+        assert "Input should be a valid integer" in detail.get("message", "")
+        assert "drink_id" in detail.get("message", "")
 
     # TEST
-    def test_drink_not_found(self) -> None:
-        def find_drink_by_id(drink_id: int) -> Drink | None:
-            return None
+    async def test_drink_not_found(self) -> None:
+        with pytest.raises(HTTPException) as err:
 
-        repository = RepositoryMock()
-        repository.drinks.find_by_id = find_drink_by_id
-        utils = Utils()
-        result = get_drink_use_case(
-            drink_id=1,
-            utils=utils,
-            repository=repository,
-        )
-        assert result[0].get("code") == "DRINK_NOT_FOUND"
-        assert result[0].get("message") == "Drink not found."
+            async def find_drink_by_id(drink_id: int) -> Drink | None:
+                return None
+
+            repository = cast(Repository, RepositoryMock())
+            repository.drinks.find_by_id = find_drink_by_id
+            # setattr(repository.drinks, "find_by_id", find_drink_by_id)
+            utils = Utils()
+            await get_drink_use_case(
+                drink_id=1,
+                utils=utils,
+                repository=repository,
+            )
+        detail: dict[str, str] = cast(dict[str, str], err.value.detail)
+        assert err.value.status_code == 404
+        assert detail.get("code") == "DRINK_NOT_FOUND"
+        assert detail.get("message") == "Drink not found."
 
     # TEST
-    def test_success(self) -> None:
-        def find_drink_by_id(drink_id: int) -> Drink | None:
+    async def test_success(self) -> None:
+        async def find_drink_by_id(drink_id: int) -> Drink | None:
             return helpers.CreateDotDict(
                 {
                     "id": "f551219f-da27-4d6d-9d31-907a015a5b45",
@@ -52,17 +65,16 @@ class TestGetDrinkUseCase:
         repository = RepositoryMock()
         repository.drinks.find_by_id = find_drink_by_id
         utils = Utils()
-        result = get_drink_use_case(
+        result = await get_drink_use_case(
             drink_id=1,
             utils=utils,
             repository=repository,
         )
-        assert result[0].get("drink") is not None
-        assert result[1] == 200
+        assert result.get("drink") is not None
 
     # TEST
-    def test_ingredients_ordenation(self) -> None:
-        def find_drink_by_id(drink_id: int) -> Drink | None:
+    async def test_ingredients_ordenation(self) -> None:
+        async def find_drink_by_id(drink_id: int) -> Drink | None:
             return helpers.CreateDotDict(
                 {
                     "id": "f551219f-da27-4d6d-9d31-907a015a5b45",
@@ -91,17 +103,17 @@ class TestGetDrinkUseCase:
         repository = RepositoryMock()
         repository.drinks.find_by_id = find_drink_by_id
         utils = Utils()
-        result = get_drink_use_case(
+        result = await get_drink_use_case(
             drink_id=1,
             utils=utils,
             repository=repository,
         )
-        assert result[0].get("drink").get("ingredients")[0].get("order") == 1
-        assert result[0].get("drink").get("ingredients")[1].get("order") == 2
+        assert result.get("drink").get("ingredients")[0].get("order") == 1
+        assert result.get("drink").get("ingredients")[1].get("order") == 2
 
     # TEST
-    def test_preparation_steps_ordenation(self) -> None:
-        def find_drink_by_id(drink_id: int) -> Drink | None:
+    async def test_preparation_steps_ordenation(self) -> None:
+        async def find_drink_by_id(drink_id: int) -> Drink | None:
             return helpers.CreateDotDict(
                 {
                     "id": "f551219f-da27-4d6d-9d31-907a015a5b45",
@@ -128,10 +140,10 @@ class TestGetDrinkUseCase:
         repository = RepositoryMock()
         repository.drinks.find_by_id = find_drink_by_id
         utils = Utils()
-        result = get_drink_use_case(
+        result = await get_drink_use_case(
             drink_id=1,
             utils=utils,
             repository=repository,
         )
-        assert result[0].get("drink").get("preparation_steps")[0].get("order") == 1
-        assert result[0].get("drink").get("preparation_steps")[1].get("order") == 2
+        assert result.get("drink").get("preparation_steps")[0].get("order") == 1
+        assert result.get("drink").get("preparation_steps")[1].get("order") == 2
