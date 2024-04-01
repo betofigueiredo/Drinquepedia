@@ -29,7 +29,7 @@ const Highlights = () => {
       <h1 className="mt-12 font-serif text-3xl font-bold text-gray-700">
         Ocasiões especiais
       </h1>
-      <div className="mt-14 grid grid-cols-4 gap-7">
+      <div className="mt-14 grid grid-cols-1 gap-7 md:grid-cols-4">
         {specialOccasions?.map((specialOccasion) => (
           <HighlightCard key={specialOccasion.id} highlight={specialOccasion} />
         ))}
@@ -37,7 +37,7 @@ const Highlights = () => {
       <h1 className="mt-20 font-serif text-3xl font-bold text-gray-700">
         Dicas do barman
       </h1>
-      <div className="mt-14 grid grid-cols-4 gap-7">
+      <div className="mt-14 grid grid-cols-1 gap-7 md:grid-cols-4">
         {generalHighlights?.map((generalHighlight) => (
           <HighlightCard
             key={generalHighlight.id}

@@ -22,7 +22,7 @@ const Instructions = () => {
       <h1 className="mt-12 font-serif text-3xl font-bold text-gray-700">
         Dicas gerais
       </h1>
-      <div className="mt-14 grid grid-cols-4 gap-7">
+      <div className="mt-14 grid grid-cols-1 gap-7 md:grid-cols-4">
         {data?.instructions?.map((instruction) => (
           <InstructionCard key={instruction.id} instruction={instruction} />
         ))}
