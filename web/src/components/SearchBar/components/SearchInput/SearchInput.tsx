@@ -27,7 +27,7 @@ const SearchInput = () => {
   }, [debouncedValue, search, searchParams, setSearchParams]);
 
   return (
-    <div className="w-96">
+    <div className="w-full min-w-56 md:w-96">
       <Label htmlFor="search">Nome / Ingrediente</Label>
       <Input id="search" defaultValue={search} onChange={onChangeSearch} />
     </div>

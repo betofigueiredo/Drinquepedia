@@ -45,7 +45,7 @@ const SecondHighlights = () => {
   ];
 
   return (
-    <div className="mt-14 grid grid-cols-4 gap-7">
+    <div className="mt-14 grid grid-cols-1 gap-7 md:grid-cols-4">
       {secondSectionHighlights?.map((highlight) => (
         <HighlightCard key={highlight.id} highlight={highlight} />
       ))}

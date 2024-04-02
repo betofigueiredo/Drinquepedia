@@ -71,20 +71,20 @@ const FeaturedHighlights = () => {
 
   return (
     <>
-      <div className="relative mt-24 min-h-[635px] w-full">
+      <div className="relative mt-24 min-h-fit w-full md:min-h-[635px]">
         {stop ? (
           <></>
         ) : (
           <>
-            <h1 className="animate-slide-in-from-left font-serif text-[120px] font-bold text-gray-200">
+            <h1 className="hidden animate-slide-in-from-left font-serif text-[120px] font-bold text-gray-200 md:block">
               {order.toString().padStart(2, "0")}
             </h1>
             <div className="mb-8 mt-1 h-1 w-28 animate-slide-in-from-left bg-black" />
-            <div className="relative mb-10 w-1/2 animate-slide-in-from-left font-serif text-6xl font-bold text-gray-900">
+            <div className="relative mb-10 w-full animate-slide-in-from-left  font-serif text-4xl font-bold text-gray-900 md:w-1/2 md:text-6xl">
               <Link to={link}>{title}</Link>
               <div className="absolute right-20 top-[36px] z-[-1] mb-8 mt-1 h-4 w-96 bg-amber-400" />
             </div>
-            <div className="mb-8 w-2/5 animate-slide-in-from-left text-gray-700">
+            <div className="mb-8 w-full animate-slide-in-from-left text-gray-700 md:w-2/5">
               {description}
             </div>
             <Link to={link}>
