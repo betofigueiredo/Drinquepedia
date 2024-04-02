@@ -7,10 +7,11 @@ from tests.helpers import helpers
 from use_cases.knowledges import get_knowledges_use_case
 
 
+@pytest.mark.asyncio
 class TestGetKnowledgesUseCase:
     # TEST
-    def test_success(self) -> None:
-        def find_all_knowledges() -> List[Knowledge]:
+    async def test_success(self) -> None:
+        async def find_all_knowledges() -> List[Knowledge]:
             return [
                 helpers.CreateDotDict(
                     {
@@ -23,8 +24,7 @@ class TestGetKnowledgesUseCase:
 
         repository = RepositoryMock()
         repository.knowledges.find_all = find_all_knowledges
-        result = get_knowledges_use_case(
+        result = await get_knowledges_use_case(
             repository=repository,
         )
-        assert result[0].get("knowledges") is not None
-        assert result[1] == 200
+        assert result.get("knowledges") is not None

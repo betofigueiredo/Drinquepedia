@@ -7,10 +7,11 @@ from tests.helpers import helpers
 from use_cases.highlights import get_highlights_use_case
 
 
+@pytest.mark.asyncio
 class TestGetHighlightsUseCase:
     # TEST
-    def test_success(self) -> None:
-        def find_all_highlights() -> List[Highlight]:
+    async def test_success(self) -> None:
+        async def find_all_highlights() -> List[Highlight]:
             return [
                 helpers.CreateDotDict(
                     {
@@ -23,8 +24,5 @@ class TestGetHighlightsUseCase:
 
         repository = RepositoryMock()
         repository.highlights.find_all = find_all_highlights
-        result = get_highlights_use_case(
-            repository=repository,
-        )
-        assert result[0].get("highlights") is not None
-        assert result[1] == 200
+        result = await get_highlights_use_case(repository=repository)
+        assert result.get("highlights") is not None

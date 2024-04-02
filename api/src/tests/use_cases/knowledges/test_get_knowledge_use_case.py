@@ -1,4 +1,7 @@
+from typing import cast
+
 import pytest  # noqa: F401
+from fastapi import HTTPException
 from infrastructure.repositories.mock.repository_mock import RepositoryMock
 from models import Knowledge
 from tests.helpers import helpers
@@ -6,39 +9,47 @@ from use_cases.knowledges import get_knowledge_use_case
 from utils import Utils
 
 
+@pytest.mark.asyncio
 class TestGetKnowledgeUseCase:
     # TEST
-    def test_invalid_knowledge_id(self) -> None:
-        repository = RepositoryMock()
-        utils = Utils()
-        result = get_knowledge_use_case(
-            knowledge_slug=None,
-            utils=utils,
-            repository=repository,
-        )
-        assert result[0].get("code") == "INVALID_DATA"
-        assert "Input should be a valid string" in result[0].get("message")
-        assert "knowledge_slug" in result[0].get("message")
+    async def test_invalid_knowledge_id(self) -> None:
+        with pytest.raises(HTTPException) as err:
+            repository = RepositoryMock()
+            utils = Utils()
+            await get_knowledge_use_case(
+                knowledge_slug=None,
+                utils=utils,
+                repository=repository,
+            )
+        detail: dict[str, str] = cast(dict[str, str], err.value.detail)
+        assert err.value.status_code == 400
+        assert detail.get("code") == "INVALID_DATA"
+        assert "Input should be a valid string" in detail.get("message", "")
+        assert "knowledge_slug" in detail.get("message", "")
 
     # TEST
-    def test_knowledge_not_found(self) -> None:
-        def find_knowledge_by_id(knowledge_slug: int) -> Knowledge | None:
-            return None
+    async def test_knowledge_not_found(self) -> None:
+        with pytest.raises(HTTPException) as err:
 
-        repository = RepositoryMock()
-        repository.knowledges.find_by_id = find_knowledge_by_id
-        utils = Utils()
-        result = get_knowledge_use_case(
-            knowledge_slug="copos",
-            utils=utils,
-            repository=repository,
-        )
-        assert result[0].get("code") == "KNOWLEDGE_NOT_FOUND"
-        assert result[0].get("message") == "Knowledge not found."
+            async def find_knowledge_by_id(knowledge_slug: int) -> Knowledge | None:
+                return None
+
+            repository = RepositoryMock()
+            repository.knowledges.find_by_id = find_knowledge_by_id
+            utils = Utils()
+            await get_knowledge_use_case(
+                knowledge_slug="copos",
+                utils=utils,
+                repository=repository,
+            )
+        detail: dict[str, str] = cast(dict[str, str], err.value.detail)
+        assert err.value.status_code == 404
+        assert detail.get("code") == "KNOWLEDGE_NOT_FOUND"
+        assert detail.get("message") == "Knowledge not found."
 
     # TEST
-    def test_success(self) -> None:
-        def find_knowledge_by_id(knowledge_slug: int) -> Knowledge | None:
+    async def test_success(self) -> None:
+        async def find_knowledge_by_id(knowledge_slug: int) -> Knowledge | None:
             return helpers.CreateDotDict(
                 {
                     "id": "f551219f-da27-4d6d-9d31-907a015a5b45",
@@ -50,10 +61,9 @@ class TestGetKnowledgeUseCase:
         repository = RepositoryMock()
         repository.knowledges.find_by_id = find_knowledge_by_id
         utils = Utils()
-        result = get_knowledge_use_case(
+        result = await get_knowledge_use_case(
             knowledge_slug="copos",
             utils=utils,
             repository=repository,
         )
-        assert result[0].get("knowledge") is not None
-        assert result[1] == 200
+        assert result.get("knowledge") is not None

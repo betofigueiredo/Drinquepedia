@@ -25,8 +25,8 @@ class TestGetDrinksUseCase:
         detail: dict[str, str] = cast(dict[str, str], err.value.detail)
         assert err.value.status_code == 400
         assert detail.get("code") == "INVALID_DATA"
-        assert "Input should be a valid integer" in detail.get("message")
-        assert "page" in detail.get("message")
+        assert "Input should be a valid integer" in detail.get("message", "")
+        assert "page" in detail.get("message", "")
 
     # TEST
     async def test_invalid_per_page(self) -> None:
@@ -42,8 +42,8 @@ class TestGetDrinksUseCase:
         detail: dict[str, str] = cast(dict[str, str], err.value.detail)
         assert err.value.status_code == 400
         assert detail.get("code") == "INVALID_DATA"
-        assert "Input should be a valid integer" in detail.get("message")
-        assert "per_page" in detail.get("message")
+        assert "Input should be a valid integer" in detail.get("message", "")
+        assert "per_page" in detail.get("message", "")
 
     # TEST
     async def test_invalid_category(self) -> None:
@@ -59,7 +59,7 @@ class TestGetDrinksUseCase:
         detail: dict[str, str] = cast(dict[str, str], err.value.detail)
         assert err.value.status_code == 400
         assert detail.get("code") == "INVALID_DATA"
-        assert "category" in detail.get("message")
+        assert "category" in detail.get("message", "")
 
     # TEST
     async def test_invalid_calories(self) -> None:
@@ -72,9 +72,10 @@ class TestGetDrinksUseCase:
                 utils=utils,
                 repository=repository,
             )
+        detail: dict[str, str] = cast(dict[str, str], err.value.detail)
         assert err.value.status_code == 400
-        assert err.value.detail.get("code") == "INVALID_DATA"
-        assert "calories" in err.value.detail.get("message")
+        assert detail.get("code") == "INVALID_DATA"
+        assert "calories" in detail.get("message", "")
 
     # TEST
     async def test_invalid_alcoholic_content(self) -> None:
@@ -91,9 +92,10 @@ class TestGetDrinksUseCase:
                 utils=utils,
                 repository=repository,
             )
+        detail: dict[str, str] = cast(dict[str, str], err.value.detail)
         assert err.value.status_code == 400
-        assert err.value.detail.get("code") == "INVALID_DATA"
-        assert "alcoholic_content" in err.value.detail.get("message")
+        assert detail.get("code") == "INVALID_DATA"
+        assert "alcoholic_content" in detail.get("message", "")
 
     # TEST
     async def test_success(self) -> None:

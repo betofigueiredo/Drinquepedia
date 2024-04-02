@@ -7,10 +7,11 @@ from tests.helpers import helpers
 from use_cases.instructions import get_instructions_use_case
 
 
+@pytest.mark.asyncio
 class TestGetInstructionsUseCase:
     # TEST
-    def test_success(self) -> None:
-        def find_all_instructions() -> List[Instruction]:
+    async def test_success(self) -> None:
+        async def find_all_instructions() -> List[Instruction]:
             return [
                 helpers.CreateDotDict(
                     {
@@ -23,8 +24,7 @@ class TestGetInstructionsUseCase:
 
         repository = RepositoryMock()
         repository.instructions.find_all = find_all_instructions
-        result = get_instructions_use_case(
+        result = await get_instructions_use_case(
             repository=repository,
         )
-        assert result[0].get("instructions") is not None
-        assert result[1] == 200
+        assert result.get("instructions") is not None

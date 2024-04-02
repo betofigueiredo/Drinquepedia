@@ -1,4 +1,7 @@
+from typing import cast
+
 import pytest  # noqa: F401
+from fastapi import HTTPException
 from infrastructure.repositories.mock.repository_mock import RepositoryMock
 from models import Instruction
 from tests.helpers import helpers
@@ -6,39 +9,47 @@ from use_cases.instructions import get_instruction_use_case
 from utils import Utils
 
 
+@pytest.mark.asyncio
 class TestGetInstructionUseCase:
     # TEST
-    def test_invalid_instruction_id(self) -> None:
-        repository = RepositoryMock()
-        utils = Utils()
-        result = get_instruction_use_case(
-            instruction_id=None,
-            utils=utils,
-            repository=repository,
-        )
-        assert result[0].get("code") == "INVALID_DATA"
-        assert "Input should be a valid integer" in result[0].get("message")
-        assert "instruction_id" in result[0].get("message")
+    async def test_invalid_instruction_id(self) -> None:
+        with pytest.raises(HTTPException) as err:
+            repository = RepositoryMock()
+            utils = Utils()
+            await get_instruction_use_case(
+                instruction_id=None,
+                utils=utils,
+                repository=repository,
+            )
+        detail: dict[str, str] = cast(dict[str, str], err.value.detail)
+        assert err.value.status_code == 400
+        assert detail.get("code") == "INVALID_DATA"
+        assert "Input should be a valid integer" in detail.get("message", "")
+        assert "instruction_id" in detail.get("message", "")
 
     # TEST
-    def test_instruction_not_found(self) -> None:
-        def find_instruction_by_id(instruction_id: int) -> Instruction | None:
-            return None
+    async def test_instruction_not_found(self) -> None:
+        with pytest.raises(HTTPException) as err:
 
-        repository = RepositoryMock()
-        repository.instructions.find_by_id = find_instruction_by_id
-        utils = Utils()
-        result = get_instruction_use_case(
-            instruction_id=1,
-            utils=utils,
-            repository=repository,
-        )
-        assert result[0].get("code") == "INSTRUCTION_NOT_FOUND"
-        assert result[0].get("message") == "Instruction not found."
+            async def find_instruction_by_id(instruction_id: int) -> Instruction | None:
+                return None
+
+            repository = RepositoryMock()
+            repository.instructions.find_by_id = find_instruction_by_id
+            utils = Utils()
+            await get_instruction_use_case(
+                instruction_id=1,
+                utils=utils,
+                repository=repository,
+            )
+        detail: dict[str, str] = cast(dict[str, str], err.value.detail)
+        assert err.value.status_code == 404
+        assert detail.get("code") == "INSTRUCTION_NOT_FOUND"
+        assert detail.get("message") == "Instruction not found."
 
     # TEST
-    def test_success(self) -> None:
-        def find_instruction_by_id(instruction_id: int) -> Instruction | None:
+    async def test_success(self) -> None:
+        async def find_instruction_by_id(instruction_id: int) -> Instruction | None:
             return helpers.CreateDotDict(
                 {
                     "id": "f551219f-da27-4d6d-9d31-907a015a5b45",
@@ -50,10 +61,9 @@ class TestGetInstructionUseCase:
         repository = RepositoryMock()
         repository.instructions.find_by_id = find_instruction_by_id
         utils = Utils()
-        result = get_instruction_use_case(
+        result = await get_instruction_use_case(
             instruction_id=1,
             utils=utils,
             repository=repository,
         )
-        assert result[0].get("instruction") is not None
-        assert result[1] == 200
+        assert result.get("instruction") is not None
