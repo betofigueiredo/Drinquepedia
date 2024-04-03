@@ -16,7 +16,7 @@ const useGetHighlights = (): {
     queryKey: ["highlights"],
     queryFn: async () => {
       const response = await makeRequest.get<{ data: Response }>(
-        "/v1/highlights"
+        "/v1/highlights/",
       );
       return response?.data || {};
     },

@@ -16,7 +16,7 @@ const useGetInstructions = (): {
     queryKey: ["instructions"],
     queryFn: async () => {
       const response = await makeRequest.get<{ data: Response }>(
-        "/v1/instructions"
+        "/v1/instructions/",
       );
       return response?.data || {};
     },
