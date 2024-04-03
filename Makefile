@@ -2,7 +2,7 @@ ARGS = $(filter-out $@,$(MAKECMDGOALS))
 MAKEFLAGS += --silent
 
 ifndef APPLICATION_ENV
-	include api/.env
+	include .env
 endif
 
 build:
@@ -11,18 +11,23 @@ build:
 rebuild:
 	docker compose build --no-cache
 
-rb_web:
+rb-web:
 	docker compose build drinquepedia_web --no-cache
 
-rb_api:
+rb-api:
 	docker compose build drinquepedia_api --no-cache
 
 up:
 	docker compose up
 
-up_d:
+up-d:
 	docker compose up -d
 
 down:
 	docker compose down
 
+deploy-web:
+	cd web; npm run build; rsync -azP --delete dist/ $(SSH_WEB_USER)@$(SSH_WEB_HOST):$(SSH_WEB_FOLDER)
+
+deploy-api:
+	rsync -azP --delete api/ $(SSH_API_USER)@$(SSH_API_HOST):$(SSH_API_FOLDER)
