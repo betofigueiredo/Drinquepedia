@@ -10,7 +10,7 @@ import DrinkDescription from "./components/DrinkDescription";
 const DrinkView = ({ drink }: { drink?: Drink }) => (
   <div className="grid gap-4 text-gray-700 md:grid-cols-[max-content_1fr]">
     <div className="pt-10 md:pr-36">
-      <img src={`/images/drinks/${drink?.oldId}/${drink?.oldId}g.jpg`} />
+      <img src={`/images/drinks/${drink?.oldId}g.jpg`} />
     </div>
     <div>
       <Breadcrumbs />

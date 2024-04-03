@@ -11,7 +11,7 @@ const DrinkRow = ({ drink }: { drink: Drink }) => {
       <div className="mb-7 grid grid-cols-[max-content_1fr] text-slate-950">
         <div className="mr-6 size-16 overflow-hidden border-[5px] ">
           <img
-            src={`/images/drinks/${drink?.oldId}/${drink?.oldId}p.jpg`}
+            src={`/images/drinks/${drink?.oldId}p.jpg`}
             className="transition-all duration-200 group-hover:scale-110 group-hover:opacity-90"
             width="64"
           />

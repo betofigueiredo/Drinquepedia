@@ -36,9 +36,7 @@ const Highlight = () => {
         >
           <div className="pr-20 pt-4">
             <Link to={`/drinques/${drink.oldId}`}>
-              <img
-                src={`/images/drinks/${drink?.oldId}/${drink?.oldId}g.jpg`}
-              />
+              <img src={`/images/drinks/${drink?.oldId}g.jpg`} />
             </Link>
           </div>
           <div className="mt-4">
