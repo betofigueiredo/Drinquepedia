@@ -33,8 +33,6 @@ const Knowledge = () => {
       />
     </div>
   );
-
-  return <div className="container">Knowledge</div>;
 };
 
 export default Knowledge;

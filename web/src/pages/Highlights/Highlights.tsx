@@ -8,7 +8,7 @@ const Highlights = () => {
   if (isPending) {
     return (
       <div className="container">
-        <Loadings.Highlights />;
+        <Loadings.Highlights />
       </div>
     );
   }

@@ -8,7 +8,7 @@ const Knowledges = () => {
   if (isPending) {
     return (
       <div className="container">
-        <Loadings.Instructions />;
+        <Loadings.Instructions />
       </div>
     );
   }

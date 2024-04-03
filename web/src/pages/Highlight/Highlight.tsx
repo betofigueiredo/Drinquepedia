@@ -11,7 +11,7 @@ const Highlight = () => {
   if (isPending) {
     return (
       <div className="container">
-        <Loadings.Highlight />;
+        <Loadings.Highlight />
       </div>
     );
   }
