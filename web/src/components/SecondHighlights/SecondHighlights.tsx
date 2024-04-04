@@ -2,7 +2,7 @@ import { Highlight } from "@/types/highlight";
 import HighlightCard from "@/components/HighlightCard";
 
 const SecondHighlights = () => {
-  const secondSectionHighlights: Highlight[] = [
+  const highlights: Highlight[] = [
     {
       id: "6",
       oldId: 6,
@@ -18,7 +18,7 @@ const SecondHighlights = () => {
       type: "GENERAL",
       title: "DRINQUES FROZEN",
       subtitle:
-        "O calor chegou e nada melhor do que um bom drinque frozen para se refrescar durante esse verão. Confira aqui nossas receitas",
+        "O calor chegou e nada melhor do que um bom drinque frozen para se refrescar durante esse verão. Confira aqui nossas receitas.",
       description: "",
       customUrl: "/drinques/frozen",
     },
@@ -46,7 +46,7 @@ const SecondHighlights = () => {
 
   return (
     <div className="mt-14 grid grid-cols-1 gap-7 md:grid-cols-4">
-      {secondSectionHighlights?.map((highlight) => (
+      {highlights?.map((highlight) => (
         <HighlightCard key={highlight.id} highlight={highlight} />
       ))}
     </div>
