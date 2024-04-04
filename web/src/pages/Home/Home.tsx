@@ -21,10 +21,8 @@ const Home = () => (
             aprenda técnicas de decoração simples, como fazer coquetéis em
             camadas e muito mais.
           </p>
-          <Link to="/drinques/caipirinhas">
-            <Button className="animate-slide-in-from-left">
-              Veja mais dicas
-            </Button>
+          <Link to="/dicas">
+            <Button>Veja mais dicas</Button>
           </Link>
         </div>
         <div>
@@ -36,10 +34,8 @@ const Home = () => (
             medidas utilizadas, conheça os diferentes tipos de copos e desvende
             outros segredos essenciais da mixologia.
           </p>
-          <Link to="/drinques/caipirinhas">
-            <Button className="animate-slide-in-from-left">
-              Veja mais detalhes
-            </Button>
+          <Link to="/tudosobrebar">
+            <Button>Veja mais detalhes</Button>
           </Link>
         </div>
       </div>
