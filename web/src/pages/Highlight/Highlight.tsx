@@ -1,4 +1,5 @@
 import { Link, useParams } from "react-router-dom";
+import { useDocumentTitle } from "usehooks-ts";
 import useGetHighlight from "@/api/useGetHighlight";
 import Errors from "@/components/Errors";
 import Loadings from "@/components/Loadings";
@@ -8,6 +9,11 @@ import { Button } from "@/components/ui/button";
 const Highlight = () => {
   const { highlightId } = useParams();
   const { isPending, error, data } = useGetHighlight({ highlightId });
+  const highlight = data?.highlight;
+
+  useDocumentTitle(
+    highlight ? `${highlight.title} - Drinquepedia` : "Drinquepedia",
+  );
 
   if (isPending) {
     return (
@@ -20,8 +26,6 @@ const Highlight = () => {
   if (error) {
     return <Errors />;
   }
-
-  const highlight = data?.highlight;
 
   return (
     <div className="container mt-2">

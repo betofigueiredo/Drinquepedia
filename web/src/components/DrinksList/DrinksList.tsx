@@ -1,6 +1,7 @@
 import { Drink } from "@/types/drink";
 import Pagination from "@/components/Pagination";
 import DrinkRow from "@/components/DrinkRow";
+import getCategoryName from "@/utils/getCategoryName";
 
 const DrinksList = ({
   drinks,
@@ -15,23 +16,6 @@ const DrinksList = ({
   page: number;
   perPage: number;
 }) => {
-  const getCategoryName = (): string => {
-    const categories: { [key: string]: string } = {
-      martinis: "Martinis",
-      tropicais: "Tropicais",
-      frozen: "Frozen",
-      quentes: "Quentes",
-      shot: "Shots",
-      classicos: "Clássicos",
-      semalcool: "Sem Álcool",
-      caipirinhas: "Caipirinhas clássicas",
-      smoothies: "Smoothies",
-    };
-    return (
-      categories[category as keyof typeof categories] || "Todos os drinques"
-    );
-  };
-
   const drinksList =
     category === "caipirinhas"
       ? drinks?.filter((drink) =>
@@ -49,7 +33,7 @@ const DrinksList = ({
   return (
     <div>
       <h1 className="mb-0 mt-14 font-serif text-3xl font-bold text-gray-700">
-        {getCategoryName()}
+        {getCategoryName(category)}
       </h1>
       <div className="mb-12 text-gray-500">{count} drinques</div>
       {drinksList?.map((drink) => <DrinkRow key={drink.id} drink={drink} />)}

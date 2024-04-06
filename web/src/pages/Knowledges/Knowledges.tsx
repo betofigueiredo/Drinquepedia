@@ -1,10 +1,13 @@
 import useGetKnowledges from "@/api/useGetKnowledges";
+import { useDocumentTitle } from "usehooks-ts";
 import Errors from "@/components/Errors";
 import Loadings from "@/components/Loadings";
 import KnowledgeCard from "@/components/KnowledgeCard";
 
 const Knowledges = () => {
   const { isPending, error, data } = useGetKnowledges();
+
+  useDocumentTitle("Tudo sobre bar - Drinquepedia");
 
   if (isPending) {
     return (

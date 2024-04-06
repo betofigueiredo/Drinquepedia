@@ -1,4 +1,5 @@
 import { useParams } from "react-router-dom";
+import { useDocumentTitle } from "usehooks-ts";
 import useGetInstruction from "@/api/useGetInstruction";
 import Errors from "@/components/Errors";
 import Loadings from "@/components/Loadings";
@@ -7,6 +8,11 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 const Instruction = () => {
   const { instructionId } = useParams();
   const { isPending, error, data } = useGetInstruction({ instructionId });
+  const instruction = data?.instruction;
+
+  useDocumentTitle(
+    instruction ? `${instruction.title} - Drinquepedia` : "Drinquepedia",
+  );
 
   if (isPending) {
     return (
@@ -19,8 +25,6 @@ const Instruction = () => {
   if (error) {
     return <Errors />;
   }
-
-  const instruction = data?.instruction;
 
   return (
     <div className="container mt-2">

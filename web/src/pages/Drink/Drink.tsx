@@ -1,4 +1,5 @@
 import { useParams } from "react-router-dom";
+import { useDocumentTitle } from "usehooks-ts";
 import useGetDrink from "@/api/useGetDrink";
 import Errors from "@/components/Errors";
 import Loadings from "@/components/Loadings";
@@ -8,6 +9,8 @@ import SimilarDrinks from "@/components/SimilarDrinks";
 const Drink = () => {
   const { drinkId } = useParams();
   const { isPending, error, data: drink } = useGetDrink(drinkId);
+
+  useDocumentTitle(drink ? `${drink?.name} - Drinquepedia` : "Drinquepedia");
 
   if (isPending) {
     return (

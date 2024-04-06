@@ -1,10 +1,12 @@
 import { useSearchParams } from "react-router-dom";
+import { useDocumentTitle } from "usehooks-ts";
 import useGetDrinks from "@/api/useGetDrinks";
 import SearchBar from "@/components/SearchBar";
 import DrinksList from "@/components/DrinksList";
 import DrinksListHighlights from "@/components/DrinksListHighlights";
 import Loadings from "@/components/Loadings";
 import Errors from "@/components/Errors";
+import getCategoryName from "@/utils/getCategoryName";
 
 const Drinks = ({ category }: { category?: string }) => {
   const perPage = category === "caipirinhas" ? 50 : 20;
@@ -21,6 +23,8 @@ const Drinks = ({ category }: { category?: string }) => {
     calories,
     alcoholicContent,
   });
+
+  useDocumentTitle(`${getCategoryName(category)} - Drinquepedia`);
 
   return (
     <>

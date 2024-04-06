@@ -1,3 +1,4 @@
+import { useDocumentTitle } from "usehooks-ts";
 import useGetInstructions from "@/api/useGetInstructions";
 import Errors from "@/components/Errors";
 import Loadings from "@/components/Loadings";
@@ -5,6 +6,8 @@ import InstructionCard from "@/components/InstructionCard";
 
 const Instructions = () => {
   const { isPending, error, data } = useGetInstructions();
+
+  useDocumentTitle("Dicas - Drinquepedia");
 
   if (isPending) {
     return (

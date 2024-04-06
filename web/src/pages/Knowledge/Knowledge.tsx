@@ -1,12 +1,18 @@
+import { useParams } from "react-router-dom";
+import { useDocumentTitle } from "usehooks-ts";
 import useGetKnowledge from "@/api/useGetKnowledge";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Errors from "@/components/Errors";
 import Loadings from "@/components/Loadings";
-import { useParams } from "react-router-dom";
 
 const Knowledge = () => {
   const { knowledgeSlug } = useParams();
   const { isPending, error, data } = useGetKnowledge({ knowledgeSlug });
+  const knowledge = data?.knowledge;
+
+  useDocumentTitle(
+    knowledge ? `${knowledge.title} - Drinquepedia` : "Drinquepedia",
+  );
 
   if (isPending) {
     return (
@@ -19,8 +25,6 @@ const Knowledge = () => {
   if (error) {
     return <Errors />;
   }
-
-  const knowledge = data?.knowledge;
 
   return (
     <div className="container mt-2">

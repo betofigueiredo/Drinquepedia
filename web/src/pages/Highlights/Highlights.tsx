@@ -1,3 +1,4 @@
+import { useDocumentTitle } from "usehooks-ts";
 import useGetHighlights from "@/api/useGetHighlights";
 import Errors from "@/components/Errors";
 import Loadings from "@/components/Loadings";
@@ -5,6 +6,8 @@ import HighlightCard from "@/components/HighlightCard";
 
 const Highlights = () => {
   const { isPending, error, data } = useGetHighlights();
+
+  useDocumentTitle("Destaques - Drinquepedia");
 
   if (isPending) {
     return (
