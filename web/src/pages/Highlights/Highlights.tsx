@@ -1,6 +1,7 @@
 import useGetHighlights from "@/api/useGetHighlights";
-import HighlightCard from "@/components/HighlightCard";
+import Errors from "@/components/Errors";
 import Loadings from "@/components/Loadings";
+import HighlightCard from "@/components/HighlightCard";
 
 const Highlights = () => {
   const { isPending, error, data } = useGetHighlights();
@@ -14,7 +15,7 @@ const Highlights = () => {
   }
 
   if (error) {
-    return <div>Error: {error.message}</div>;
+    return <Errors />;
   }
 
   const specialOccasions = data?.highlights.filter(

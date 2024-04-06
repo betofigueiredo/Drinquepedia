@@ -1,7 +1,8 @@
 import { useParams } from "react-router-dom";
 import useGetDrink from "@/api/useGetDrink";
-import DrinkView from "@/components/DrinkView";
+import Errors from "@/components/Errors";
 import Loadings from "@/components/Loadings";
+import DrinkView from "@/components/DrinkView";
 import SimilarDrinks from "@/components/SimilarDrinks";
 
 const Drink = () => {
@@ -17,7 +18,7 @@ const Drink = () => {
   }
 
   if (error) {
-    return <div>Error: {error.message}</div>;
+    return <Errors />;
   }
 
   return (

@@ -1,5 +1,6 @@
 import useGetKnowledge from "@/api/useGetKnowledge";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import Errors from "@/components/Errors";
 import Loadings from "@/components/Loadings";
 import { useParams } from "react-router-dom";
 
@@ -16,7 +17,7 @@ const Knowledge = () => {
   }
 
   if (error) {
-    return <div>Error: {error.message}</div>;
+    return <Errors />;
   }
 
   const knowledge = data?.knowledge;

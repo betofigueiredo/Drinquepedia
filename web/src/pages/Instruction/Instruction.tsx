@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import useGetInstruction from "@/api/useGetInstruction";
+import Errors from "@/components/Errors";
 import Loadings from "@/components/Loadings";
 import Breadcrumbs from "@/components/Breadcrumbs";
 
@@ -16,7 +17,7 @@ const Instruction = () => {
   }
 
   if (error) {
-    return <div>Error: {error.message}</div>;
+    return <Errors />;
   }
 
   const instruction = data?.instruction;

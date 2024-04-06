@@ -4,6 +4,7 @@ import SearchBar from "@/components/SearchBar";
 import DrinksList from "@/components/DrinksList";
 import DrinksListHighlights from "@/components/DrinksListHighlights";
 import Loadings from "@/components/Loadings";
+import Errors from "@/components/Errors";
 
 const Drinks = ({ category }: { category?: string }) => {
   const perPage = category === "caipirinhas" ? 50 : 20;
@@ -26,7 +27,7 @@ const Drinks = ({ category }: { category?: string }) => {
       {!category && <SearchBar />}
       <div className="container">
         {isPending && <Loadings.Drinks />}
-        {error && <div>Erro</div>}
+        {error && <Errors />}
         {!isPending && !error && (
           <div className="grid gap-24 md:grid-cols-[auto,300px]">
             <DrinksList

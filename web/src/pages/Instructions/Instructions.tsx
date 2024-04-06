@@ -1,6 +1,7 @@
 import useGetInstructions from "@/api/useGetInstructions";
-import InstructionCard from "@/components/InstructionCard";
+import Errors from "@/components/Errors";
 import Loadings from "@/components/Loadings";
+import InstructionCard from "@/components/InstructionCard";
 
 const Instructions = () => {
   const { isPending, error, data } = useGetInstructions();
@@ -14,7 +15,7 @@ const Instructions = () => {
   }
 
   if (error) {
-    return <div>Error: {error.message}</div>;
+    return <Errors />;
   }
 
   return (

@@ -1,6 +1,7 @@
 import useGetKnowledges from "@/api/useGetKnowledges";
-import KnowledgeCard from "@/components/KnowledgeCard";
+import Errors from "@/components/Errors";
 import Loadings from "@/components/Loadings";
+import KnowledgeCard from "@/components/KnowledgeCard";
 
 const Knowledges = () => {
   const { isPending, error, data } = useGetKnowledges();
@@ -14,7 +15,7 @@ const Knowledges = () => {
   }
 
   if (error) {
-    return <div>Error: {error.message}</div>;
+    return <Errors />;
   }
 
   return (

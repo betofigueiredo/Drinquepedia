@@ -1,5 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import useGetHighlight from "@/api/useGetHighlight";
+import Errors from "@/components/Errors";
 import Loadings from "@/components/Loadings";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { Button } from "@/components/ui/button";
@@ -17,7 +18,7 @@ const Highlight = () => {
   }
 
   if (error) {
-    return <div>Error: {error.message}</div>;
+    return <Errors />;
   }
 
   const highlight = data?.highlight;
