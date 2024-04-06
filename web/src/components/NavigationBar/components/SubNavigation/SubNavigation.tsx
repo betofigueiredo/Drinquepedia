@@ -3,7 +3,7 @@ import SubNavigationDivision from "../SubNavigationDivision";
 
 const SubNavigation = () => (
   <div className="hidden h-14 w-full border-y border-slate-200 bg-gray-100 text-center md:block">
-    <ul className="container flex">
+    <ul className="container flex whitespace-nowrap">
       <SubNavigationItem label="De A a Z" url="/drinques/AaZ" />
       <SubNavigationDivision />
       <SubNavigationItem label="Martinis" url="/drinques/martinis" />

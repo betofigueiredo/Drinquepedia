@@ -1,5 +1,6 @@
 import Logo from "./components/Logo";
 import Navigation from "./components/Navigation";
+import Search from "./components/Search";
 import SubNavigation from "./components/SubNavigation";
 import SubNavigationMobile from "./components/SubNavigationMobile";
 
@@ -10,11 +11,12 @@ const NavigationBar = () => (
     </div>
     <SubNavigationMobile />
     <div className="fixed bottom-0 z-10 w-full border-t border-slate-200 bg-white text-center md:relative md:bottom-auto md:border-none">
-      <div className="container h-20">
+      <div className="container relative h-20">
         <div className="hidden md:inline">
           <Logo />
         </div>
         <Navigation />
+        <Search />
       </div>
       <SubNavigation />
     </div>
