@@ -50,6 +50,9 @@ const DrinksList = ({
       {iceCreamCaipirinhas?.map((drink) => (
         <DrinkRow key={drink.id} drink={drink} />
       ))}
+      {drinksList?.length === 0 && (
+        <div className="text-gray-500">Nenhum drinque encontrado.</div>
+      )}
       <Pagination
         category={category}
         page={page}
