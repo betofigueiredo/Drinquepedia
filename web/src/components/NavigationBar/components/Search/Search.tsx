@@ -22,7 +22,7 @@ const Search = () => {
         id="search"
         value={value}
         onChange={onChangeSearch}
-        placeholder="busca..."
+        placeholder="Busca"
       />
       <Button onClick={handleSearch}>
         <svg

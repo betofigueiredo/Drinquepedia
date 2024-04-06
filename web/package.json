@@ -29,6 +29,7 @@
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7",
     "usehooks-ts": "^3.0.1",
+    "vite-plugin-radar": "^0.9.4",
     "zustand": "^4.5.2"
   },
   "devDependencies": {
