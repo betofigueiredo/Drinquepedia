@@ -71,7 +71,7 @@ const FeaturedHighlights = () => {
 
   return (
     <>
-      <div className="relative mt-24 min-h-fit w-full md:min-h-[635px]">
+      <div className="relative mt-12 min-h-[560px] w-full md:mt-24 md:min-h-[635px]">
         {stop ? (
           <></>
         ) : (
@@ -79,10 +79,15 @@ const FeaturedHighlights = () => {
             <h1 className="hidden animate-slide-in-from-left font-serif text-[120px] font-bold text-gray-200 md:block">
               {order.toString().padStart(2, "0")}
             </h1>
-            <div className="mb-8 mt-1 h-1 w-28 animate-slide-in-from-left bg-black" />
-            <div className="relative mb-10 w-full animate-slide-in-from-left  font-serif text-4xl font-bold text-gray-900 md:w-1/2 md:text-6xl">
+            <img
+              src={image}
+              alt={title}
+              className="relative right-0 top-0 z-[-2] block animate-opacity-in md:hidden"
+            />
+            <div className="mb-8 mt-1 hidden h-1 w-28 animate-slide-in-from-left bg-black md:block" />
+            <div className="relative mb-10 mt-5 w-full animate-slide-in-from-left font-serif  text-4xl font-bold text-gray-900 md:mt-0 md:w-1/2 md:text-6xl">
               <Link to={link}>{title}</Link>
-              <div className="absolute right-20 top-[36px] z-[-1] mb-8 mt-1 h-4 w-96 bg-amber-400" />
+              <div className="absolute right-20 top-[36px] z-[-1] mb-8 mt-1 hidden h-4 w-96 bg-amber-400 md:block" />
             </div>
             <div className="mb-8 w-full animate-slide-in-from-left text-gray-700 md:w-2/5">
               {description}
@@ -95,7 +100,7 @@ const FeaturedHighlights = () => {
             <img
               src={image}
               alt={title}
-              className="absolute right-0 top-0 z-[-2] animate-opacity-in"
+              className="absolute right-0 top-0 z-[-2] hidden animate-opacity-in md:block"
             />
           </>
         )}

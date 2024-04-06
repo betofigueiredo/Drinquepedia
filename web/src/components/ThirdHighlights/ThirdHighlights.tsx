@@ -1,55 +1,35 @@
-import { Highlight } from "@/types/highlight";
-import HighlightCard from "@/components/HighlightCard";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
-const ThirdHighlights = () => {
-  const highlights: Highlight[] = [
-    {
-      id: "11",
-      oldId: 11,
-      type: "GENERAL",
-      title: "FÁCEIS E RÁPIDOS",
-      subtitle:
-        "Separamos 10 drinques deliciosos e muito fáceis de preparar para você fazer em casa, sem nenhum trabalho. Confira!",
-      description: "",
-    },
-    {
-      id: "1",
-      oldId: 1,
-      type: "GENERAL",
-      title: "HALLOWEEN",
-      subtitle:
-        "O Halloween chegou? Então surpreenda seus amigos com este terríveis e assustadores drinques que separamos para esse feriado.",
-      description: "",
-    },
-    {
-      id: "112",
-      oldId: 112,
-      type: "GENERAL",
-      title: "MOJITO",
-      subtitle:
-        "O Mojito é um coquetel refrescante conhecido mundialmente. Este clássico é um dos poucos feitos com hortelã fresca, o que o torna único.",
-      description: "",
-      customUrl: "/drinques/24",
-    },
-    {
-      id: "113",
-      oldId: 113,
-      type: "GENERAL",
-      title: "MANGO DAIQUIRI",
-      subtitle:
-        "O Mango Daiquiri é delicioso e muito refrescante, perfeito para os dias quentes.",
-      description: "",
-      customUrl: "/drinques/432",
-    },
-  ];
-
-  return (
-    <div className="mt-14 grid grid-cols-1 gap-7 md:grid-cols-4">
-      {highlights?.map((highlight) => (
-        <HighlightCard key={highlight.id} highlight={highlight} />
-      ))}
+const ThirdHighlights = () => (
+  <div className="container grid grid-cols-1 gap-10 pb-4 pt-24 md:grid-cols-2">
+    <div className="pb-20">
+      <h1 className="mb-3 font-serif text-3xl font-bold text-gray-900">
+        Dicas Gerais
+      </h1>
+      <p className="pb-8 pr-0 text-gray-500 md:pr-24">
+        Descubra como criar os mixes essenciais para seus drinks favoritos,
+        aprenda técnicas de decoração simples, como fazer coquetéis em camadas e
+        muito mais.
+      </p>
+      <Link to="/dicas">
+        <Button>Veja mais dicas</Button>
+      </Link>
     </div>
-  );
-};
+    <div className="pb-20">
+      <h1 className="mb-3 font-serif text-3xl font-bold text-gray-900">
+        Tudo sobre bar
+      </h1>
+      <p className="pb-8 pr-0 text-gray-500 md:pr-9">
+        Explore a classificação dos coquetéis, descubra as principais medidas
+        utilizadas, conheça os diferentes tipos de copos e desvende outros
+        segredos essenciais da mixologia.
+      </p>
+      <Link to="/tudosobrebar">
+        <Button>Veja mais detalhes</Button>
+      </Link>
+    </div>
+  </div>
+);
 
 export default ThirdHighlights;
