@@ -118,7 +118,7 @@ class Instruction(settings.DB_BASE_MODEL):
     subtitle = Column(String(256), nullable=False)
     description = Column(TEXT)
     drinks = relationship(
-        "DrinkInstruction", back_populates="instruction", lazy="select"
+        "DrinkInstruction", back_populates="instruction", lazy="subquery"
     )
 
 

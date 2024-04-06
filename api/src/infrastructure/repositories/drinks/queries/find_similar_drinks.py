@@ -18,6 +18,7 @@ async def find_similar_drinks(
             select(Drink)
             .options(selectinload(Drink.categories))
             .options(selectinload(Drink.ingredients))
+            .options(selectinload(Drink.instructions))
             .where(
                 (
                     Drink.categories.any(
