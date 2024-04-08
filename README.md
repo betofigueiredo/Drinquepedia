@@ -12,26 +12,17 @@
 
 <br />
 
-## Frontend with
 
-- ✅ React
-- ✅ Typescript
-- ✅ Tailwind
-- ✅ shadcn/ui
-- ✅ Vite
-  <br />
-  <br />
+## About
 
-## Backend with
+This is an old project I created around 2009, in PHP, and decided is was time to redesign it. Just waited 15 years.
+<br />
+<br />
 
-- ✅ FastAPI
-- ✅ Alembic
-- ✅ MyPy
-  <br />
-  <br />
+## Technologies
 
-## Database
+**Frontend:**
+- React / Typescript / Tailwind / shadcn/ui / Vite
 
-- ✅ MySQL
-  <br />
-  <br />
+**Backend:**
+- FastAPI / Alembic / MyPy / MySQL
