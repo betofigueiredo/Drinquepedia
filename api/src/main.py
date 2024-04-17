@@ -1,11 +1,8 @@
 import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from infrastructure.core.exception_handlers import unhandled_exception_handler
 from infrastructure.core.settings import settings
-
-# from infrastructure.middlewares.exception_handlers import (
-#     unhandled_exception_handler,
-# )
 from infrastructure.routes.v1 import router_v1
 
 app = FastAPI(title="Drinquepedia")
@@ -20,7 +17,7 @@ app.add_middleware(
 
 app.include_router(router_v1, prefix=settings.API_V1_PREFIX)
 
-# app.add_exception_handler(Exception, unhandled_exception_handler)
+app.add_exception_handler(Exception, unhandled_exception_handler)
 
 if __name__ == "__main__":
     uvicorn.run(
