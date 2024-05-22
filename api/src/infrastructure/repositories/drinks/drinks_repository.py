@@ -10,8 +10,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 
 class DrinksRepository:
-    def __init__(self, db_session: AsyncSession):
-        self.db_session = db_session
+    def __init__(self, session: AsyncSession):
+        self.session = session
 
     async def find_all(
         self,
@@ -23,7 +23,7 @@ class DrinksRepository:
         alcoholic_content: str | None,
     ) -> Tuple[List[Drink], int]:
         return await find_all_drinks(
-            db_session=self.db_session,
+            session=self.session,
             page=page,
             per_page=per_page,
             category=category,
@@ -33,13 +33,13 @@ class DrinksRepository:
         )
 
     async def find_by_id(self, drink_id: int) -> Drink | None:
-        return await find_drink_by_id(db_session=self.db_session, drink_id=drink_id)
+        return await find_drink_by_id(session=self.session, drink_id=drink_id)
 
     async def find_similar(
         self, drink_id: int, categories: List[int], ingredients: List[str]
     ) -> List[Drink]:
         return await find_similar_drinks(
-            db_session=self.db_session,
+            session=self.session,
             drink_id=drink_id,
             categories=categories,
             ingredients=ingredients,

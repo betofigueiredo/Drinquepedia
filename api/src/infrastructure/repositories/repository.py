@@ -7,8 +7,8 @@ from .knowledges.knowledges_repository import KnowledgesRepository
 
 
 class Repository:
-    def __init__(self, db_session: AsyncSession):
-        self.drinks = DrinksRepository(db_session)
-        self.highlights = HighlightsRepository(db_session)
-        self.instructions = InstructionsRepository(db_session)
-        self.knowledges = KnowledgesRepository(db_session)
+    def __init__(self, session: AsyncSession):
+        self.drinks = DrinksRepository(session)
+        self.highlights = HighlightsRepository(session)
+        self.instructions = InstructionsRepository(session)
+        self.knowledges = KnowledgesRepository(session)

@@ -9,13 +9,13 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 
 class InstructionsRepository:
-    def __init__(self, db_session: AsyncSession):
-        self.db_session = db_session
+    def __init__(self, session: AsyncSession):
+        self.session = session
 
     async def find_all(self) -> List[Instruction]:
-        return await find_all_instructions(db_session=self.db_session)
+        return await find_all_instructions(session=self.session)
 
     async def find_by_id(self, instruction_id: int) -> Instruction | None:
         return await find_instruction_by_id(
-            db_session=self.db_session, instruction_id=instruction_id
+            session=self.session, instruction_id=instruction_id
         )

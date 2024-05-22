@@ -8,7 +8,7 @@ from sqlalchemy.ext.asyncio import (
     create_async_engine,
 )
 
-engine: AsyncEngine = create_async_engine(settings.DB_URL)
+engine: AsyncEngine = create_async_engine(settings.DB_URL, pool_recycle=3600)
 
 
 Session = async_sessionmaker(
@@ -20,9 +20,6 @@ Session = async_sessionmaker(
 )
 
 
-async def get_db_session() -> AsyncGenerator[Any, Any]:
-    session = Session()
-    try:
+async def get_session() -> AsyncGenerator[Any, Any]:
+    async with Session() as session:
         yield session
-    finally:
-        await session.close()

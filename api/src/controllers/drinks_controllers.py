@@ -7,7 +7,7 @@ from custom_types import (
     GetSimilarDrinksResponse,
 )
 from fastapi import APIRouter, Depends
-from infrastructure.core.database import get_db_session
+from infrastructure.core.database import get_session
 from infrastructure.repositories.repository import Repository
 from sqlalchemy.ext.asyncio import AsyncSession
 from use_cases.drinks import (
@@ -28,7 +28,7 @@ async def get_drinks(
     search: Optional[str] = None,
     calories: Optional[str] = None,
     alcoholic_content: Optional[str] = None,
-    db_session: AsyncSession = Depends(get_db_session),
+    session: AsyncSession = Depends(get_session),
 ) -> GetDrinksResponse | ErrorResponse:
     return await get_drinks_use_case(
         query_params={
@@ -40,29 +40,29 @@ async def get_drinks(
             "alcoholic_content": alcoholic_content,
         },
         utils=Utils(),
-        repository=Repository(db_session),
+        repository=Repository(session),
     )
 
 
 @router.get("/{drink_id}", response_model=GetDrinkResponse)
 async def get_drink(
     drink_id: str,
-    db_session: AsyncSession = Depends(get_db_session),
+    session: AsyncSession = Depends(get_session),
 ) -> GetDrinkResponse | ErrorResponse:
     return await get_drink_use_case(
         drink_id=drink_id,
         utils=Utils(),
-        repository=Repository(db_session),
+        repository=Repository(session),
     )
 
 
 @router.get("/{drink_id}/similar", response_model=GetSimilarDrinksResponse)
 async def get_similar_drinks(
     drink_id: str,
-    db_session: AsyncSession = Depends(get_db_session),
+    session: AsyncSession = Depends(get_session),
 ) -> GetSimilarDrinksResponse | ErrorResponse:
     return await get_similar_drinks_use_case(
         drink_id=drink_id,
         utils=Utils(),
-        repository=Repository(db_session),
+        repository=Repository(session),
     )
