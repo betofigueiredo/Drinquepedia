@@ -4,3 +4,8 @@ from use_cases.instructions.get_instruction_use_case.get_instruction_use_case im
 from use_cases.instructions.get_instructions_use_case.get_instructions_use_case import (
     get_instructions_use_case,
 )
+
+__all__ = [
+    "get_instruction_use_case",
+    "get_instructions_use_case",
+]

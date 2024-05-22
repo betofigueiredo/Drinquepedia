@@ -4,3 +4,8 @@ from use_cases.knowledges.get_knowledge_use_case.get_knowledge_use_case import (
 from use_cases.knowledges.get_knowledges_use_case.get_knowledges_use_case import (
     get_knowledges_use_case,
 )
+
+__all__ = [
+    "get_knowledge_use_case",
+    "get_knowledges_use_case",
+]
