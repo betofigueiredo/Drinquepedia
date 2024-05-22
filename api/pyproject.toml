@@ -11,7 +11,7 @@ pydantic = { extras = ["email"], version = "^2.6.4" }
 alembic = "^1.13.1"
 python-dotenv = "^1.0.1"
 mysqlclient = "^2.2.4"
-pymysql = "^1.1.0"
+pymysql = "^1.1.1"
 pendulum = "^3.0.0"
 fastapi = "^0.110.0"
 sqlalchemy = "^2.0.29"
