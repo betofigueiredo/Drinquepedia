@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { useNavigate } from '@tanstack/react-router';
+import { useLocation, useNavigate } from '@tanstack/react-router';
 import type { ChangeEvent } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 
 const Search = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [value, setValue] = useState('');
 
   const onChangeSearch = (event: ChangeEvent<HTMLInputElement>) => {
@@ -14,18 +15,22 @@ const Search = () => {
 
   const handleSearch = () => {
     setValue('');
-    navigate({ to: `/drinques/AaZ?busca=${value}` });
+    navigate({ to: `/drinques/AaZ?pagina=1&busca=${value}` });
   };
 
+  if (location.pathname === '/drinques/AaZ') {
+    return null;
+  }
+
   return (
-    <div className="absolute right-9 top-5 hidden w-64 max-w-sm items-center space-x-1 lg:flex">
+    <div className="absolute right-4 top-5 hidden w-64 max-w-sm items-center space-x-1 lg:flex">
       <Input
         id="search"
         value={value}
         onChange={onChangeSearch}
         placeholder="Busca"
       />
-      <Button onClick={handleSearch}>
+      <Button onClick={handleSearch} className="has-[>svg]:px-4">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 512 512"
