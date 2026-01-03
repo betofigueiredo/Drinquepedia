@@ -1,6 +1,6 @@
 export type Knowledge = {
   id: string;
-  slug: number;
+  slug: string;
   title: string;
   subtitle: string;
   description: string;

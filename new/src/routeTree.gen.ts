@@ -14,13 +14,14 @@ import { Route as TudosobrebarIndexRouteImport } from './routes/tudosobrebar/ind
 import { Route as DrinquesIndexRouteImport } from './routes/drinques/index'
 import { Route as DicasIndexRouteImport } from './routes/dicas/index'
 import { Route as DestaquesIndexRouteImport } from './routes/destaques/index'
+import { Route as TudosobrebarKnowledgeSlugRouteImport } from './routes/tudosobrebar/$knowledgeSlug'
 import { Route as DrinquesTropicaisRouteImport } from './routes/drinques/tropicais'
 import { Route as DrinquesMartinisRouteImport } from './routes/drinques/martinis'
 import { Route as DrinquesCaipirinhasRouteImport } from './routes/drinques/caipirinhas'
 import { Route as DrinquesAaZRouteImport } from './routes/drinques/AaZ'
 import { Route as DrinquesDrinkIdRouteImport } from './routes/drinques/$drinkId'
 import { Route as DicasInstructionIdRouteImport } from './routes/dicas/$instructionId'
-import { Route as DestaquesHightlightIdRouteImport } from './routes/destaques/$hightlightId'
+import { Route as DestaquesHighlightIdRouteImport } from './routes/destaques/$highlightId'
 import { Route as DemoStartServerFuncsRouteImport } from './routes/demo/start.server-funcs'
 import { Route as DemoStartApiRequestRouteImport } from './routes/demo/start.api-request'
 import { Route as DemoApiNamesRouteImport } from './routes/demo/api.names'
@@ -54,6 +55,12 @@ const DestaquesIndexRoute = DestaquesIndexRouteImport.update({
   path: '/destaques/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TudosobrebarKnowledgeSlugRoute =
+  TudosobrebarKnowledgeSlugRouteImport.update({
+    id: '/tudosobrebar/$knowledgeSlug',
+    path: '/tudosobrebar/$knowledgeSlug',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const DrinquesTropicaisRoute = DrinquesTropicaisRouteImport.update({
   id: '/drinques/tropicais',
   path: '/drinques/tropicais',
@@ -84,9 +91,9 @@ const DicasInstructionIdRoute = DicasInstructionIdRouteImport.update({
   path: '/dicas/$instructionId',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DestaquesHightlightIdRoute = DestaquesHightlightIdRouteImport.update({
-  id: '/destaques/$hightlightId',
-  path: '/destaques/$hightlightId',
+const DestaquesHighlightIdRoute = DestaquesHighlightIdRouteImport.update({
+  id: '/destaques/$highlightId',
+  path: '/destaques/$highlightId',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DemoStartServerFuncsRoute = DemoStartServerFuncsRouteImport.update({
@@ -127,13 +134,14 @@ const DemoStartSsrDataOnlyRoute = DemoStartSsrDataOnlyRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/destaques/$hightlightId': typeof DestaquesHightlightIdRoute
+  '/destaques/$highlightId': typeof DestaquesHighlightIdRoute
   '/dicas/$instructionId': typeof DicasInstructionIdRoute
   '/drinques/$drinkId': typeof DrinquesDrinkIdRoute
   '/drinques/AaZ': typeof DrinquesAaZRoute
   '/drinques/caipirinhas': typeof DrinquesCaipirinhasRoute
   '/drinques/martinis': typeof DrinquesMartinisRoute
   '/drinques/tropicais': typeof DrinquesTropicaisRoute
+  '/tudosobrebar/$knowledgeSlug': typeof TudosobrebarKnowledgeSlugRoute
   '/destaques': typeof DestaquesIndexRoute
   '/dicas': typeof DicasIndexRoute
   '/drinques': typeof DrinquesIndexRoute
@@ -148,13 +156,14 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/destaques/$hightlightId': typeof DestaquesHightlightIdRoute
+  '/destaques/$highlightId': typeof DestaquesHighlightIdRoute
   '/dicas/$instructionId': typeof DicasInstructionIdRoute
   '/drinques/$drinkId': typeof DrinquesDrinkIdRoute
   '/drinques/AaZ': typeof DrinquesAaZRoute
   '/drinques/caipirinhas': typeof DrinquesCaipirinhasRoute
   '/drinques/martinis': typeof DrinquesMartinisRoute
   '/drinques/tropicais': typeof DrinquesTropicaisRoute
+  '/tudosobrebar/$knowledgeSlug': typeof TudosobrebarKnowledgeSlugRoute
   '/destaques': typeof DestaquesIndexRoute
   '/dicas': typeof DicasIndexRoute
   '/drinques': typeof DrinquesIndexRoute
@@ -170,13 +179,14 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/destaques/$hightlightId': typeof DestaquesHightlightIdRoute
+  '/destaques/$highlightId': typeof DestaquesHighlightIdRoute
   '/dicas/$instructionId': typeof DicasInstructionIdRoute
   '/drinques/$drinkId': typeof DrinquesDrinkIdRoute
   '/drinques/AaZ': typeof DrinquesAaZRoute
   '/drinques/caipirinhas': typeof DrinquesCaipirinhasRoute
   '/drinques/martinis': typeof DrinquesMartinisRoute
   '/drinques/tropicais': typeof DrinquesTropicaisRoute
+  '/tudosobrebar/$knowledgeSlug': typeof TudosobrebarKnowledgeSlugRoute
   '/destaques/': typeof DestaquesIndexRoute
   '/dicas/': typeof DicasIndexRoute
   '/drinques/': typeof DrinquesIndexRoute
@@ -193,13 +203,14 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/destaques/$hightlightId'
+    | '/destaques/$highlightId'
     | '/dicas/$instructionId'
     | '/drinques/$drinkId'
     | '/drinques/AaZ'
     | '/drinques/caipirinhas'
     | '/drinques/martinis'
     | '/drinques/tropicais'
+    | '/tudosobrebar/$knowledgeSlug'
     | '/destaques'
     | '/dicas'
     | '/drinques'
@@ -214,13 +225,14 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/destaques/$hightlightId'
+    | '/destaques/$highlightId'
     | '/dicas/$instructionId'
     | '/drinques/$drinkId'
     | '/drinques/AaZ'
     | '/drinques/caipirinhas'
     | '/drinques/martinis'
     | '/drinques/tropicais'
+    | '/tudosobrebar/$knowledgeSlug'
     | '/destaques'
     | '/dicas'
     | '/drinques'
@@ -235,13 +247,14 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
-    | '/destaques/$hightlightId'
+    | '/destaques/$highlightId'
     | '/dicas/$instructionId'
     | '/drinques/$drinkId'
     | '/drinques/AaZ'
     | '/drinques/caipirinhas'
     | '/drinques/martinis'
     | '/drinques/tropicais'
+    | '/tudosobrebar/$knowledgeSlug'
     | '/destaques/'
     | '/dicas/'
     | '/drinques/'
@@ -257,13 +270,14 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  DestaquesHightlightIdRoute: typeof DestaquesHightlightIdRoute
+  DestaquesHighlightIdRoute: typeof DestaquesHighlightIdRoute
   DicasInstructionIdRoute: typeof DicasInstructionIdRoute
   DrinquesDrinkIdRoute: typeof DrinquesDrinkIdRoute
   DrinquesAaZRoute: typeof DrinquesAaZRoute
   DrinquesCaipirinhasRoute: typeof DrinquesCaipirinhasRoute
   DrinquesMartinisRoute: typeof DrinquesMartinisRoute
   DrinquesTropicaisRoute: typeof DrinquesTropicaisRoute
+  TudosobrebarKnowledgeSlugRoute: typeof TudosobrebarKnowledgeSlugRoute
   DestaquesIndexRoute: typeof DestaquesIndexRoute
   DicasIndexRoute: typeof DicasIndexRoute
   DrinquesIndexRoute: typeof DrinquesIndexRoute
@@ -314,6 +328,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DestaquesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/tudosobrebar/$knowledgeSlug': {
+      id: '/tudosobrebar/$knowledgeSlug'
+      path: '/tudosobrebar/$knowledgeSlug'
+      fullPath: '/tudosobrebar/$knowledgeSlug'
+      preLoaderRoute: typeof TudosobrebarKnowledgeSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/drinques/tropicais': {
       id: '/drinques/tropicais'
       path: '/drinques/tropicais'
@@ -356,11 +377,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DicasInstructionIdRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/destaques/$hightlightId': {
-      id: '/destaques/$hightlightId'
-      path: '/destaques/$hightlightId'
-      fullPath: '/destaques/$hightlightId'
-      preLoaderRoute: typeof DestaquesHightlightIdRouteImport
+    '/destaques/$highlightId': {
+      id: '/destaques/$highlightId'
+      path: '/destaques/$highlightId'
+      fullPath: '/destaques/$highlightId'
+      preLoaderRoute: typeof DestaquesHighlightIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/demo/start/server-funcs': {
@@ -417,13 +438,14 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  DestaquesHightlightIdRoute: DestaquesHightlightIdRoute,
+  DestaquesHighlightIdRoute: DestaquesHighlightIdRoute,
   DicasInstructionIdRoute: DicasInstructionIdRoute,
   DrinquesDrinkIdRoute: DrinquesDrinkIdRoute,
   DrinquesAaZRoute: DrinquesAaZRoute,
   DrinquesCaipirinhasRoute: DrinquesCaipirinhasRoute,
   DrinquesMartinisRoute: DrinquesMartinisRoute,
   DrinquesTropicaisRoute: DrinquesTropicaisRoute,
+  TudosobrebarKnowledgeSlugRoute: TudosobrebarKnowledgeSlugRoute,
   DestaquesIndexRoute: DestaquesIndexRoute,
   DicasIndexRoute: DicasIndexRoute,
   DrinquesIndexRoute: DrinquesIndexRoute,
