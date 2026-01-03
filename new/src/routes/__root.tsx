@@ -12,25 +12,50 @@ import NavigationBar from '@/components/NavigationBar';
 export const Route = createRootRoute({
   head: () => ({
     meta: [
+      { charSet: 'utf-8' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { url: 'https://drinquepedia.com' },
+      { title: 'Drinquepedia | Things go better with a cocktail!' },
       {
-        charSet: 'utf-8',
+        name: 'description',
+        content:
+          'Tudo o que você procura sobre bar e coquetéis. Fotos, dicas para preparo, videos e muito mais. Acesse já!',
+      },
+      // Open Graph
+      {
+        property: 'og:title',
+        content: 'Drinquepedia | Things go better with a cocktail!',
       },
       {
-        name: 'viewport',
-        content: 'width=device-width, initial-scale=1',
+        property: 'og:description',
+        content:
+          'Tudo o que você procura sobre bar e coquetéis. Fotos, dicas para preparo, videos e muito mais. Acesse já!',
       },
       {
-        title: 'Drinquepedia | Things go better with a cocktail!',
+        property: 'og:image',
+        content: 'https://drinquepedia.com/images/logo.jpg',
+      },
+      {
+        property: 'og:url',
+        content: 'https://drinquepedia.com',
+      },
+      // Twitter Card
+      {
+        name: 'twitter:title',
+        content: 'Drinquepedia | Things go better with a cocktail!',
+      },
+      {
+        name: 'twitter:description',
+        content:
+          'Tudo o que você procura sobre bar e coquetéis. Fotos, dicas para preparo, videos e muito mais. Acesse já!',
+      },
+      {
+        name: 'twitter:image',
+        content: 'https://drinquepedia.com/images/logo.jpg',
       },
     ],
-    links: [
-      {
-        rel: 'stylesheet',
-        href: appCss,
-      },
-    ],
+    links: [{ rel: 'stylesheet', href: appCss }],
   }),
-
   shellComponent: RootDocument,
 });
 
