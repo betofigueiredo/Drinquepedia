@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as DicadobarmanRouteImport } from './routes/dicadobarman'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as TudosobrebarIndexRouteImport } from './routes/tudosobrebar/index'
 import { Route as DrinquesIndexRouteImport } from './routes/drinques/index'
@@ -22,12 +23,15 @@ import { Route as DrinquesSemalcoolRouteImport } from './routes/drinques/semalco
 import { Route as DrinquesQuentesRouteImport } from './routes/drinques/quentes'
 import { Route as DrinquesMartinisRouteImport } from './routes/drinques/martinis'
 import { Route as DrinquesFrozenRouteImport } from './routes/drinques/frozen'
+import { Route as DrinquesFestasRouteImport } from './routes/drinques/festas'
 import { Route as DrinquesClassicosRouteImport } from './routes/drinques/classicos'
 import { Route as DrinquesCaipirinhasRouteImport } from './routes/drinques/caipirinhas'
 import { Route as DrinquesAaZRouteImport } from './routes/drinques/AaZ'
 import { Route as DrinquesDrinkIdRouteImport } from './routes/drinques/$drinkId'
 import { Route as DicasInstructionIdRouteImport } from './routes/dicas/$instructionId'
 import { Route as DestaquesHighlightIdRouteImport } from './routes/destaques/$highlightId'
+import { Route as DrinquesCaipirinhasSorveteRouteImport } from './routes/drinques/caipirinhas.sorvete'
+import { Route as DrinquesCaipirinhasClassicasRouteImport } from './routes/drinques/caipirinhas.classicas'
 import { Route as DemoStartServerFuncsRouteImport } from './routes/demo/start.server-funcs'
 import { Route as DemoStartApiRequestRouteImport } from './routes/demo/start.api-request'
 import { Route as DemoApiNamesRouteImport } from './routes/demo/api.names'
@@ -36,6 +40,11 @@ import { Route as DemoStartSsrSpaModeRouteImport } from './routes/demo/start.ssr
 import { Route as DemoStartSsrFullSsrRouteImport } from './routes/demo/start.ssr.full-ssr'
 import { Route as DemoStartSsrDataOnlyRouteImport } from './routes/demo/start.ssr.data-only'
 
+const DicadobarmanRoute = DicadobarmanRouteImport.update({
+  id: '/dicadobarman',
+  path: '/dicadobarman',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -102,6 +111,11 @@ const DrinquesFrozenRoute = DrinquesFrozenRouteImport.update({
   path: '/drinques/frozen',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DrinquesFestasRoute = DrinquesFestasRouteImport.update({
+  id: '/drinques/festas',
+  path: '/drinques/festas',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DrinquesClassicosRoute = DrinquesClassicosRouteImport.update({
   id: '/drinques/classicos',
   path: '/drinques/classicos',
@@ -132,6 +146,18 @@ const DestaquesHighlightIdRoute = DestaquesHighlightIdRouteImport.update({
   path: '/destaques/$highlightId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DrinquesCaipirinhasSorveteRoute =
+  DrinquesCaipirinhasSorveteRouteImport.update({
+    id: '/sorvete',
+    path: '/sorvete',
+    getParentRoute: () => DrinquesCaipirinhasRoute,
+  } as any)
+const DrinquesCaipirinhasClassicasRoute =
+  DrinquesCaipirinhasClassicasRouteImport.update({
+    id: '/classicas',
+    path: '/classicas',
+    getParentRoute: () => DrinquesCaipirinhasRoute,
+  } as any)
 const DemoStartServerFuncsRoute = DemoStartServerFuncsRouteImport.update({
   id: '/demo/start/server-funcs',
   path: '/demo/start/server-funcs',
@@ -170,12 +196,14 @@ const DemoStartSsrDataOnlyRoute = DemoStartSsrDataOnlyRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/dicadobarman': typeof DicadobarmanRoute
   '/destaques/$highlightId': typeof DestaquesHighlightIdRoute
   '/dicas/$instructionId': typeof DicasInstructionIdRoute
   '/drinques/$drinkId': typeof DrinquesDrinkIdRoute
   '/drinques/AaZ': typeof DrinquesAaZRoute
-  '/drinques/caipirinhas': typeof DrinquesCaipirinhasRoute
+  '/drinques/caipirinhas': typeof DrinquesCaipirinhasRouteWithChildren
   '/drinques/classicos': typeof DrinquesClassicosRoute
+  '/drinques/festas': typeof DrinquesFestasRoute
   '/drinques/frozen': typeof DrinquesFrozenRoute
   '/drinques/martinis': typeof DrinquesMartinisRoute
   '/drinques/quentes': typeof DrinquesQuentesRoute
@@ -191,6 +219,8 @@ export interface FileRoutesByFullPath {
   '/demo/api/names': typeof DemoApiNamesRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
+  '/drinques/caipirinhas/classicas': typeof DrinquesCaipirinhasClassicasRoute
+  '/drinques/caipirinhas/sorvete': typeof DrinquesCaipirinhasSorveteRoute
   '/demo/start/ssr/data-only': typeof DemoStartSsrDataOnlyRoute
   '/demo/start/ssr/full-ssr': typeof DemoStartSsrFullSsrRoute
   '/demo/start/ssr/spa-mode': typeof DemoStartSsrSpaModeRoute
@@ -198,12 +228,14 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/dicadobarman': typeof DicadobarmanRoute
   '/destaques/$highlightId': typeof DestaquesHighlightIdRoute
   '/dicas/$instructionId': typeof DicasInstructionIdRoute
   '/drinques/$drinkId': typeof DrinquesDrinkIdRoute
   '/drinques/AaZ': typeof DrinquesAaZRoute
-  '/drinques/caipirinhas': typeof DrinquesCaipirinhasRoute
+  '/drinques/caipirinhas': typeof DrinquesCaipirinhasRouteWithChildren
   '/drinques/classicos': typeof DrinquesClassicosRoute
+  '/drinques/festas': typeof DrinquesFestasRoute
   '/drinques/frozen': typeof DrinquesFrozenRoute
   '/drinques/martinis': typeof DrinquesMartinisRoute
   '/drinques/quentes': typeof DrinquesQuentesRoute
@@ -219,6 +251,8 @@ export interface FileRoutesByTo {
   '/demo/api/names': typeof DemoApiNamesRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
+  '/drinques/caipirinhas/classicas': typeof DrinquesCaipirinhasClassicasRoute
+  '/drinques/caipirinhas/sorvete': typeof DrinquesCaipirinhasSorveteRoute
   '/demo/start/ssr/data-only': typeof DemoStartSsrDataOnlyRoute
   '/demo/start/ssr/full-ssr': typeof DemoStartSsrFullSsrRoute
   '/demo/start/ssr/spa-mode': typeof DemoStartSsrSpaModeRoute
@@ -227,12 +261,14 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/dicadobarman': typeof DicadobarmanRoute
   '/destaques/$highlightId': typeof DestaquesHighlightIdRoute
   '/dicas/$instructionId': typeof DicasInstructionIdRoute
   '/drinques/$drinkId': typeof DrinquesDrinkIdRoute
   '/drinques/AaZ': typeof DrinquesAaZRoute
-  '/drinques/caipirinhas': typeof DrinquesCaipirinhasRoute
+  '/drinques/caipirinhas': typeof DrinquesCaipirinhasRouteWithChildren
   '/drinques/classicos': typeof DrinquesClassicosRoute
+  '/drinques/festas': typeof DrinquesFestasRoute
   '/drinques/frozen': typeof DrinquesFrozenRoute
   '/drinques/martinis': typeof DrinquesMartinisRoute
   '/drinques/quentes': typeof DrinquesQuentesRoute
@@ -248,6 +284,8 @@ export interface FileRoutesById {
   '/demo/api/names': typeof DemoApiNamesRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
+  '/drinques/caipirinhas/classicas': typeof DrinquesCaipirinhasClassicasRoute
+  '/drinques/caipirinhas/sorvete': typeof DrinquesCaipirinhasSorveteRoute
   '/demo/start/ssr/data-only': typeof DemoStartSsrDataOnlyRoute
   '/demo/start/ssr/full-ssr': typeof DemoStartSsrFullSsrRoute
   '/demo/start/ssr/spa-mode': typeof DemoStartSsrSpaModeRoute
@@ -257,12 +295,14 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/dicadobarman'
     | '/destaques/$highlightId'
     | '/dicas/$instructionId'
     | '/drinques/$drinkId'
     | '/drinques/AaZ'
     | '/drinques/caipirinhas'
     | '/drinques/classicos'
+    | '/drinques/festas'
     | '/drinques/frozen'
     | '/drinques/martinis'
     | '/drinques/quentes'
@@ -278,6 +318,8 @@ export interface FileRouteTypes {
     | '/demo/api/names'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
+    | '/drinques/caipirinhas/classicas'
+    | '/drinques/caipirinhas/sorvete'
     | '/demo/start/ssr/data-only'
     | '/demo/start/ssr/full-ssr'
     | '/demo/start/ssr/spa-mode'
@@ -285,12 +327,14 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/dicadobarman'
     | '/destaques/$highlightId'
     | '/dicas/$instructionId'
     | '/drinques/$drinkId'
     | '/drinques/AaZ'
     | '/drinques/caipirinhas'
     | '/drinques/classicos'
+    | '/drinques/festas'
     | '/drinques/frozen'
     | '/drinques/martinis'
     | '/drinques/quentes'
@@ -306,6 +350,8 @@ export interface FileRouteTypes {
     | '/demo/api/names'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
+    | '/drinques/caipirinhas/classicas'
+    | '/drinques/caipirinhas/sorvete'
     | '/demo/start/ssr/data-only'
     | '/demo/start/ssr/full-ssr'
     | '/demo/start/ssr/spa-mode'
@@ -313,12 +359,14 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/dicadobarman'
     | '/destaques/$highlightId'
     | '/dicas/$instructionId'
     | '/drinques/$drinkId'
     | '/drinques/AaZ'
     | '/drinques/caipirinhas'
     | '/drinques/classicos'
+    | '/drinques/festas'
     | '/drinques/frozen'
     | '/drinques/martinis'
     | '/drinques/quentes'
@@ -334,6 +382,8 @@ export interface FileRouteTypes {
     | '/demo/api/names'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
+    | '/drinques/caipirinhas/classicas'
+    | '/drinques/caipirinhas/sorvete'
     | '/demo/start/ssr/data-only'
     | '/demo/start/ssr/full-ssr'
     | '/demo/start/ssr/spa-mode'
@@ -342,12 +392,14 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DicadobarmanRoute: typeof DicadobarmanRoute
   DestaquesHighlightIdRoute: typeof DestaquesHighlightIdRoute
   DicasInstructionIdRoute: typeof DicasInstructionIdRoute
   DrinquesDrinkIdRoute: typeof DrinquesDrinkIdRoute
   DrinquesAaZRoute: typeof DrinquesAaZRoute
-  DrinquesCaipirinhasRoute: typeof DrinquesCaipirinhasRoute
+  DrinquesCaipirinhasRoute: typeof DrinquesCaipirinhasRouteWithChildren
   DrinquesClassicosRoute: typeof DrinquesClassicosRoute
+  DrinquesFestasRoute: typeof DrinquesFestasRoute
   DrinquesFrozenRoute: typeof DrinquesFrozenRoute
   DrinquesMartinisRoute: typeof DrinquesMartinisRoute
   DrinquesQuentesRoute: typeof DrinquesQuentesRoute
@@ -371,6 +423,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/dicadobarman': {
+      id: '/dicadobarman'
+      path: '/dicadobarman'
+      fullPath: '/dicadobarman'
+      preLoaderRoute: typeof DicadobarmanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -462,6 +521,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DrinquesFrozenRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/drinques/festas': {
+      id: '/drinques/festas'
+      path: '/drinques/festas'
+      fullPath: '/drinques/festas'
+      preLoaderRoute: typeof DrinquesFestasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/drinques/classicos': {
       id: '/drinques/classicos'
       path: '/drinques/classicos'
@@ -503,6 +569,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/destaques/$highlightId'
       preLoaderRoute: typeof DestaquesHighlightIdRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/drinques/caipirinhas/sorvete': {
+      id: '/drinques/caipirinhas/sorvete'
+      path: '/sorvete'
+      fullPath: '/drinques/caipirinhas/sorvete'
+      preLoaderRoute: typeof DrinquesCaipirinhasSorveteRouteImport
+      parentRoute: typeof DrinquesCaipirinhasRoute
+    }
+    '/drinques/caipirinhas/classicas': {
+      id: '/drinques/caipirinhas/classicas'
+      path: '/classicas'
+      fullPath: '/drinques/caipirinhas/classicas'
+      preLoaderRoute: typeof DrinquesCaipirinhasClassicasRouteImport
+      parentRoute: typeof DrinquesCaipirinhasRoute
     }
     '/demo/start/server-funcs': {
       id: '/demo/start/server-funcs'
@@ -556,14 +636,29 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface DrinquesCaipirinhasRouteChildren {
+  DrinquesCaipirinhasClassicasRoute: typeof DrinquesCaipirinhasClassicasRoute
+  DrinquesCaipirinhasSorveteRoute: typeof DrinquesCaipirinhasSorveteRoute
+}
+
+const DrinquesCaipirinhasRouteChildren: DrinquesCaipirinhasRouteChildren = {
+  DrinquesCaipirinhasClassicasRoute: DrinquesCaipirinhasClassicasRoute,
+  DrinquesCaipirinhasSorveteRoute: DrinquesCaipirinhasSorveteRoute,
+}
+
+const DrinquesCaipirinhasRouteWithChildren =
+  DrinquesCaipirinhasRoute._addFileChildren(DrinquesCaipirinhasRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DicadobarmanRoute: DicadobarmanRoute,
   DestaquesHighlightIdRoute: DestaquesHighlightIdRoute,
   DicasInstructionIdRoute: DicasInstructionIdRoute,
   DrinquesDrinkIdRoute: DrinquesDrinkIdRoute,
   DrinquesAaZRoute: DrinquesAaZRoute,
-  DrinquesCaipirinhasRoute: DrinquesCaipirinhasRoute,
+  DrinquesCaipirinhasRoute: DrinquesCaipirinhasRouteWithChildren,
   DrinquesClassicosRoute: DrinquesClassicosRoute,
+  DrinquesFestasRoute: DrinquesFestasRoute,
   DrinquesFrozenRoute: DrinquesFrozenRoute,
   DrinquesMartinisRoute: DrinquesMartinisRoute,
   DrinquesQuentesRoute: DrinquesQuentesRoute,
