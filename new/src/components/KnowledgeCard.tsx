@@ -2,7 +2,11 @@ import { Link } from '@tanstack/react-router';
 import type { Knowledge } from '@/types/knowledge';
 
 const KnowledgeCard = ({ knowledge }: { knowledge: Knowledge }) => (
-  <Link to={`/tudosobrebar/${knowledge.slug}`} className="group">
+  <Link
+    to="/tudosobrebar/$knowledgeSlug"
+    params={{ knowledgeSlug: knowledge.slug }}
+    className="group"
+  >
     <div className="mb-14 text-slate-950">
       <div className="relative w-full overflow-hidden pt-[130%]">
         <img
