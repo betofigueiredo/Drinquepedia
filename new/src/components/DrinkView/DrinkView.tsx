@@ -9,8 +9,8 @@ import Breadcrumbs from '@/components/Breadcrumbs';
 
 const DrinkView = ({ drink }: { drink: Drink }) => (
   <div className="grid gap-4 text-gray-700 md:grid-cols-[max-content_1fr]">
-    <div className="min-w-53.75 pt-10 md:pr-36">
-      <img src={`/images/drinks/${drink.oldId}g.jpg`} />
+    <div className="pt-10 md:pr-36">
+      <img src={`/images/drinks/${drink.oldId}g.jpg`} className="min-w-53.75" />
     </div>
     <div>
       <Breadcrumbs origin="drinques" />

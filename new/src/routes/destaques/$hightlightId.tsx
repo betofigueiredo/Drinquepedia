@@ -1,0 +1,87 @@
+import { Link, createFileRoute } from '@tanstack/react-router';
+import { getHighlight } from '@/data/getHighlight';
+import { Button } from '@/components/ui/button';
+import Errors from '@/components/Errors';
+import Breadcrumbs from '@/components/Breadcrumbs';
+
+export const Route = createFileRoute('/destaques/$hightlightId')({
+  component: Highlight,
+  loader: async ({ params: { hightlightId } }) =>
+    await getHighlight({ data: { hightlightId: Number(hightlightId) } }),
+  head: ({ loaderData }) => ({
+    meta: [{ title: `${loaderData?.highlight?.title} - Drinquepedia` }],
+  }),
+});
+
+function Highlight() {
+  const data = Route.useLoaderData();
+  const highlight = data.highlight;
+
+  if (!highlight) {
+    return <Errors />;
+  }
+
+  return (
+    <div className="container mx-auto px-3 mt-2">
+      <Breadcrumbs origin="destaques" />
+      <h1 className="mt-6 font-serif text-3xl font-bold text-gray-700">
+        {highlight?.title}
+      </h1>
+      <p className="mb-6 mt-4 text-gray-600">{highlight?.description}</p>
+      {highlight?.drinks?.map((drink) => (
+        <div
+          key={drink.oldId}
+          className="mb-14 grid grid-cols-[max-content_1fr] gap-4 text-gray-700"
+        >
+          <div className="pr-20 pt-4">
+            <Link
+              to="/drinques/$drinkId"
+              params={{ drinkId: String(drink.oldId) }}
+            >
+              <img
+                src={`/images/drinks/${drink?.oldId}g.jpg`}
+                className="min-w-53.75"
+              />
+            </Link>
+          </div>
+          <div className="mt-4">
+            <Link
+              to="/drinques/$drinkId"
+              params={{ drinkId: String(drink.oldId) }}
+            >
+              <h2 className="mb-7 mt-6 font-serif text-3xl font-bold text-amber-500">
+                {drink?.name}
+              </h2>
+            </Link>
+            <h5 className="mb-3 font-serif text-xl font-bold text-slate-950">
+              Ingredientes
+            </h5>
+            <ul>
+              {drink?.ingredients.map((ingredient) => (
+                <li key={ingredient.order} className="relative pl-7">
+                  <div className="absolute left-0 top-2 size-2 rounded-full border border-gray-300" />
+                  {ingredient.quantity || ''}{' '}
+                  {ingredient.unitOfMeasurement || ''}
+                  {ingredient.unitOfMeasurement ? ' de ' : ' '}
+                  {ingredient.ingredientType}
+                </li>
+              ))}
+              {drink?.decoration && (
+                <li className="relative pl-7">
+                  <div className="absolute left-0 top-2 size-2 rounded-full border border-gray-300" />
+                  {drink?.decoration}
+                </li>
+              )}
+            </ul>
+            <Link
+              to="/drinques/$drinkId"
+              params={{ drinkId: String(drink.oldId) }}
+            >
+              <Button className="mt-6">Veja a receita completa</Button>
+            </Link>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}

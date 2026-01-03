@@ -20,6 +20,7 @@ import { Route as DrinquesCaipirinhasRouteImport } from './routes/drinques/caipi
 import { Route as DrinquesAaZRouteImport } from './routes/drinques/AaZ'
 import { Route as DrinquesDrinkIdRouteImport } from './routes/drinques/$drinkId'
 import { Route as DicasInstructionIdRouteImport } from './routes/dicas/$instructionId'
+import { Route as DestaquesHightlightIdRouteImport } from './routes/destaques/$hightlightId'
 import { Route as DemoStartServerFuncsRouteImport } from './routes/demo/start.server-funcs'
 import { Route as DemoStartApiRequestRouteImport } from './routes/demo/start.api-request'
 import { Route as DemoApiNamesRouteImport } from './routes/demo/api.names'
@@ -83,6 +84,11 @@ const DicasInstructionIdRoute = DicasInstructionIdRouteImport.update({
   path: '/dicas/$instructionId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DestaquesHightlightIdRoute = DestaquesHightlightIdRouteImport.update({
+  id: '/destaques/$hightlightId',
+  path: '/destaques/$hightlightId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DemoStartServerFuncsRoute = DemoStartServerFuncsRouteImport.update({
   id: '/demo/start/server-funcs',
   path: '/demo/start/server-funcs',
@@ -121,6 +127,7 @@ const DemoStartSsrDataOnlyRoute = DemoStartSsrDataOnlyRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/destaques/$hightlightId': typeof DestaquesHightlightIdRoute
   '/dicas/$instructionId': typeof DicasInstructionIdRoute
   '/drinques/$drinkId': typeof DrinquesDrinkIdRoute
   '/drinques/AaZ': typeof DrinquesAaZRoute
@@ -141,6 +148,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/destaques/$hightlightId': typeof DestaquesHightlightIdRoute
   '/dicas/$instructionId': typeof DicasInstructionIdRoute
   '/drinques/$drinkId': typeof DrinquesDrinkIdRoute
   '/drinques/AaZ': typeof DrinquesAaZRoute
@@ -162,6 +170,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/destaques/$hightlightId': typeof DestaquesHightlightIdRoute
   '/dicas/$instructionId': typeof DicasInstructionIdRoute
   '/drinques/$drinkId': typeof DrinquesDrinkIdRoute
   '/drinques/AaZ': typeof DrinquesAaZRoute
@@ -184,6 +193,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/destaques/$hightlightId'
     | '/dicas/$instructionId'
     | '/drinques/$drinkId'
     | '/drinques/AaZ'
@@ -204,6 +214,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/destaques/$hightlightId'
     | '/dicas/$instructionId'
     | '/drinques/$drinkId'
     | '/drinques/AaZ'
@@ -224,6 +235,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/destaques/$hightlightId'
     | '/dicas/$instructionId'
     | '/drinques/$drinkId'
     | '/drinques/AaZ'
@@ -245,6 +257,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DestaquesHightlightIdRoute: typeof DestaquesHightlightIdRoute
   DicasInstructionIdRoute: typeof DicasInstructionIdRoute
   DrinquesDrinkIdRoute: typeof DrinquesDrinkIdRoute
   DrinquesAaZRoute: typeof DrinquesAaZRoute
@@ -343,6 +356,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DicasInstructionIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/destaques/$hightlightId': {
+      id: '/destaques/$hightlightId'
+      path: '/destaques/$hightlightId'
+      fullPath: '/destaques/$hightlightId'
+      preLoaderRoute: typeof DestaquesHightlightIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/demo/start/server-funcs': {
       id: '/demo/start/server-funcs'
       path: '/demo/start/server-funcs'
@@ -397,6 +417,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DestaquesHightlightIdRoute: DestaquesHightlightIdRoute,
   DicasInstructionIdRoute: DicasInstructionIdRoute,
   DrinquesDrinkIdRoute: DrinquesDrinkIdRoute,
   DrinquesAaZRoute: DrinquesAaZRoute,

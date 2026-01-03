@@ -32,7 +32,7 @@ const Breadcrumbs = ({ origin }: Props) => {
               ) : (
                 <Link
                   to={`/${origin}`}
-                  className="text-slate-800 underline transition-all hover:text-amber-500"
+                  className="text-slate-500 transition-all"
                 >
                   Voltar
                 </Link>

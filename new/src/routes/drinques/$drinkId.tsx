@@ -14,7 +14,6 @@ export const Route = createFileRoute('/drinques/$drinkId')({
 });
 
 function Drink() {
-  // const { drinkId } = Route.useParams();
   const data = Route.useLoaderData();
   const drink = data.drink;
   const similarDrinks = data.similarDrinks;
