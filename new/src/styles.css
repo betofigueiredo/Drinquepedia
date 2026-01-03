@@ -165,8 +165,8 @@ code {
   --color-slate-950: oklch(0.314 0.0128 272.98);
   --color-amber-400: oklch(0.8959 0.1239 87.92);
   --color-amber-500: oklch(0.829 0.1409 86.45);
-  --animate-slide-in-from-left: 'slide-in-from-left 0.5s ease-out';
-  --animate-opacity-in: 'opacity-in 0.5s ease-out';
+  --animate-slide-in-from-left: slide-in-from-left 0.5s ease-out;
+  --animate-opacity-in: opacity-in 0.5s ease-out;
 
   @keyframes slide-in-from-left {
     0% {
