@@ -8,8 +8,8 @@ const DrinkRow = ({ drink }: { drink: Drink }) => {
 
   return (
     <Link
-      to="/drinques/$drinqueId"
-      params={{ drinqueId: String(drink.oldId) }}
+      to="/drinques/$drinkId"
+      params={{ drinkId: String(drink.oldId) }}
       className="group"
     >
       <div className="mb-7 grid grid-cols-[max-content_1fr] text-slate-950">

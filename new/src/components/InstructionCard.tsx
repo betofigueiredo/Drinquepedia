@@ -4,8 +4,8 @@ import type { Instruction } from '@/types/instruction';
 const InstructionCard = ({ instruction }: { instruction: Instruction }) => {
   return (
     <Link
-      to="/dicas/$dicaId"
-      params={{ dicaId: instruction.oldId }}
+      to="/dicas/$instructionId"
+      params={{ instructionId: String(instruction.oldId) }}
       className="group"
     >
       <div className="mb-14 text-slate-950">
