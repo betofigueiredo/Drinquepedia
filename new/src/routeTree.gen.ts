@@ -16,7 +16,13 @@ import { Route as DicasIndexRouteImport } from './routes/dicas/index'
 import { Route as DestaquesIndexRouteImport } from './routes/destaques/index'
 import { Route as TudosobrebarKnowledgeSlugRouteImport } from './routes/tudosobrebar/$knowledgeSlug'
 import { Route as DrinquesTropicaisRouteImport } from './routes/drinques/tropicais'
+import { Route as DrinquesSmoothiesRouteImport } from './routes/drinques/smoothies'
+import { Route as DrinquesShotRouteImport } from './routes/drinques/shot'
+import { Route as DrinquesSemalcoolRouteImport } from './routes/drinques/semalcool'
+import { Route as DrinquesQuentesRouteImport } from './routes/drinques/quentes'
 import { Route as DrinquesMartinisRouteImport } from './routes/drinques/martinis'
+import { Route as DrinquesFrozenRouteImport } from './routes/drinques/frozen'
+import { Route as DrinquesClassicosRouteImport } from './routes/drinques/classicos'
 import { Route as DrinquesCaipirinhasRouteImport } from './routes/drinques/caipirinhas'
 import { Route as DrinquesAaZRouteImport } from './routes/drinques/AaZ'
 import { Route as DrinquesDrinkIdRouteImport } from './routes/drinques/$drinkId'
@@ -66,9 +72,39 @@ const DrinquesTropicaisRoute = DrinquesTropicaisRouteImport.update({
   path: '/drinques/tropicais',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DrinquesSmoothiesRoute = DrinquesSmoothiesRouteImport.update({
+  id: '/drinques/smoothies',
+  path: '/drinques/smoothies',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DrinquesShotRoute = DrinquesShotRouteImport.update({
+  id: '/drinques/shot',
+  path: '/drinques/shot',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DrinquesSemalcoolRoute = DrinquesSemalcoolRouteImport.update({
+  id: '/drinques/semalcool',
+  path: '/drinques/semalcool',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DrinquesQuentesRoute = DrinquesQuentesRouteImport.update({
+  id: '/drinques/quentes',
+  path: '/drinques/quentes',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DrinquesMartinisRoute = DrinquesMartinisRouteImport.update({
   id: '/drinques/martinis',
   path: '/drinques/martinis',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DrinquesFrozenRoute = DrinquesFrozenRouteImport.update({
+  id: '/drinques/frozen',
+  path: '/drinques/frozen',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DrinquesClassicosRoute = DrinquesClassicosRouteImport.update({
+  id: '/drinques/classicos',
+  path: '/drinques/classicos',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DrinquesCaipirinhasRoute = DrinquesCaipirinhasRouteImport.update({
@@ -139,7 +175,13 @@ export interface FileRoutesByFullPath {
   '/drinques/$drinkId': typeof DrinquesDrinkIdRoute
   '/drinques/AaZ': typeof DrinquesAaZRoute
   '/drinques/caipirinhas': typeof DrinquesCaipirinhasRoute
+  '/drinques/classicos': typeof DrinquesClassicosRoute
+  '/drinques/frozen': typeof DrinquesFrozenRoute
   '/drinques/martinis': typeof DrinquesMartinisRoute
+  '/drinques/quentes': typeof DrinquesQuentesRoute
+  '/drinques/semalcool': typeof DrinquesSemalcoolRoute
+  '/drinques/shot': typeof DrinquesShotRoute
+  '/drinques/smoothies': typeof DrinquesSmoothiesRoute
   '/drinques/tropicais': typeof DrinquesTropicaisRoute
   '/tudosobrebar/$knowledgeSlug': typeof TudosobrebarKnowledgeSlugRoute
   '/destaques': typeof DestaquesIndexRoute
@@ -161,7 +203,13 @@ export interface FileRoutesByTo {
   '/drinques/$drinkId': typeof DrinquesDrinkIdRoute
   '/drinques/AaZ': typeof DrinquesAaZRoute
   '/drinques/caipirinhas': typeof DrinquesCaipirinhasRoute
+  '/drinques/classicos': typeof DrinquesClassicosRoute
+  '/drinques/frozen': typeof DrinquesFrozenRoute
   '/drinques/martinis': typeof DrinquesMartinisRoute
+  '/drinques/quentes': typeof DrinquesQuentesRoute
+  '/drinques/semalcool': typeof DrinquesSemalcoolRoute
+  '/drinques/shot': typeof DrinquesShotRoute
+  '/drinques/smoothies': typeof DrinquesSmoothiesRoute
   '/drinques/tropicais': typeof DrinquesTropicaisRoute
   '/tudosobrebar/$knowledgeSlug': typeof TudosobrebarKnowledgeSlugRoute
   '/destaques': typeof DestaquesIndexRoute
@@ -184,7 +232,13 @@ export interface FileRoutesById {
   '/drinques/$drinkId': typeof DrinquesDrinkIdRoute
   '/drinques/AaZ': typeof DrinquesAaZRoute
   '/drinques/caipirinhas': typeof DrinquesCaipirinhasRoute
+  '/drinques/classicos': typeof DrinquesClassicosRoute
+  '/drinques/frozen': typeof DrinquesFrozenRoute
   '/drinques/martinis': typeof DrinquesMartinisRoute
+  '/drinques/quentes': typeof DrinquesQuentesRoute
+  '/drinques/semalcool': typeof DrinquesSemalcoolRoute
+  '/drinques/shot': typeof DrinquesShotRoute
+  '/drinques/smoothies': typeof DrinquesSmoothiesRoute
   '/drinques/tropicais': typeof DrinquesTropicaisRoute
   '/tudosobrebar/$knowledgeSlug': typeof TudosobrebarKnowledgeSlugRoute
   '/destaques/': typeof DestaquesIndexRoute
@@ -208,7 +262,13 @@ export interface FileRouteTypes {
     | '/drinques/$drinkId'
     | '/drinques/AaZ'
     | '/drinques/caipirinhas'
+    | '/drinques/classicos'
+    | '/drinques/frozen'
     | '/drinques/martinis'
+    | '/drinques/quentes'
+    | '/drinques/semalcool'
+    | '/drinques/shot'
+    | '/drinques/smoothies'
     | '/drinques/tropicais'
     | '/tudosobrebar/$knowledgeSlug'
     | '/destaques'
@@ -230,7 +290,13 @@ export interface FileRouteTypes {
     | '/drinques/$drinkId'
     | '/drinques/AaZ'
     | '/drinques/caipirinhas'
+    | '/drinques/classicos'
+    | '/drinques/frozen'
     | '/drinques/martinis'
+    | '/drinques/quentes'
+    | '/drinques/semalcool'
+    | '/drinques/shot'
+    | '/drinques/smoothies'
     | '/drinques/tropicais'
     | '/tudosobrebar/$knowledgeSlug'
     | '/destaques'
@@ -252,7 +318,13 @@ export interface FileRouteTypes {
     | '/drinques/$drinkId'
     | '/drinques/AaZ'
     | '/drinques/caipirinhas'
+    | '/drinques/classicos'
+    | '/drinques/frozen'
     | '/drinques/martinis'
+    | '/drinques/quentes'
+    | '/drinques/semalcool'
+    | '/drinques/shot'
+    | '/drinques/smoothies'
     | '/drinques/tropicais'
     | '/tudosobrebar/$knowledgeSlug'
     | '/destaques/'
@@ -275,7 +347,13 @@ export interface RootRouteChildren {
   DrinquesDrinkIdRoute: typeof DrinquesDrinkIdRoute
   DrinquesAaZRoute: typeof DrinquesAaZRoute
   DrinquesCaipirinhasRoute: typeof DrinquesCaipirinhasRoute
+  DrinquesClassicosRoute: typeof DrinquesClassicosRoute
+  DrinquesFrozenRoute: typeof DrinquesFrozenRoute
   DrinquesMartinisRoute: typeof DrinquesMartinisRoute
+  DrinquesQuentesRoute: typeof DrinquesQuentesRoute
+  DrinquesSemalcoolRoute: typeof DrinquesSemalcoolRoute
+  DrinquesShotRoute: typeof DrinquesShotRoute
+  DrinquesSmoothiesRoute: typeof DrinquesSmoothiesRoute
   DrinquesTropicaisRoute: typeof DrinquesTropicaisRoute
   TudosobrebarKnowledgeSlugRoute: typeof TudosobrebarKnowledgeSlugRoute
   DestaquesIndexRoute: typeof DestaquesIndexRoute
@@ -342,11 +420,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DrinquesTropicaisRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/drinques/smoothies': {
+      id: '/drinques/smoothies'
+      path: '/drinques/smoothies'
+      fullPath: '/drinques/smoothies'
+      preLoaderRoute: typeof DrinquesSmoothiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/drinques/shot': {
+      id: '/drinques/shot'
+      path: '/drinques/shot'
+      fullPath: '/drinques/shot'
+      preLoaderRoute: typeof DrinquesShotRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/drinques/semalcool': {
+      id: '/drinques/semalcool'
+      path: '/drinques/semalcool'
+      fullPath: '/drinques/semalcool'
+      preLoaderRoute: typeof DrinquesSemalcoolRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/drinques/quentes': {
+      id: '/drinques/quentes'
+      path: '/drinques/quentes'
+      fullPath: '/drinques/quentes'
+      preLoaderRoute: typeof DrinquesQuentesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/drinques/martinis': {
       id: '/drinques/martinis'
       path: '/drinques/martinis'
       fullPath: '/drinques/martinis'
       preLoaderRoute: typeof DrinquesMartinisRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/drinques/frozen': {
+      id: '/drinques/frozen'
+      path: '/drinques/frozen'
+      fullPath: '/drinques/frozen'
+      preLoaderRoute: typeof DrinquesFrozenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/drinques/classicos': {
+      id: '/drinques/classicos'
+      path: '/drinques/classicos'
+      fullPath: '/drinques/classicos'
+      preLoaderRoute: typeof DrinquesClassicosRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/drinques/caipirinhas': {
@@ -443,7 +563,13 @@ const rootRouteChildren: RootRouteChildren = {
   DrinquesDrinkIdRoute: DrinquesDrinkIdRoute,
   DrinquesAaZRoute: DrinquesAaZRoute,
   DrinquesCaipirinhasRoute: DrinquesCaipirinhasRoute,
+  DrinquesClassicosRoute: DrinquesClassicosRoute,
+  DrinquesFrozenRoute: DrinquesFrozenRoute,
   DrinquesMartinisRoute: DrinquesMartinisRoute,
+  DrinquesQuentesRoute: DrinquesQuentesRoute,
+  DrinquesSemalcoolRoute: DrinquesSemalcoolRoute,
+  DrinquesShotRoute: DrinquesShotRoute,
+  DrinquesSmoothiesRoute: DrinquesSmoothiesRoute,
   DrinquesTropicaisRoute: DrinquesTropicaisRoute,
   TudosobrebarKnowledgeSlugRoute: TudosobrebarKnowledgeSlugRoute,
   DestaquesIndexRoute: DestaquesIndexRoute,
