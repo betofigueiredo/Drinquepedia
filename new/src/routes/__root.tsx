@@ -7,7 +7,9 @@ import '@fontsource/source-serif-pro';
 import '@fontsource/source-serif-pro/700.css';
 import appCss from '../styles.css?url';
 
+// Components
 import NavigationBar from '@/components/NavigationBar';
+import NotFound404 from '@/components/NotFound404';
 
 export const Route = createRootRoute({
   head: () => ({
@@ -57,6 +59,7 @@ export const Route = createRootRoute({
     links: [{ rel: 'stylesheet', href: appCss }],
   }),
   shellComponent: RootDocument,
+  notFoundComponent: () => <NotFound404 />,
 });
 
 function RootDocument({ children }: { children: React.ReactNode }) {

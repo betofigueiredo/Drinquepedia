@@ -1,6 +1,6 @@
 const NotFound404 = () => {
   return (
-    <div className="container px-3">
+    <div className="container mx-auto px-3">
       <h1 className="mb-0 mt-24 font-serif text-[128px] font-bold leading-none text-amber-300">
         404
       </h1>
