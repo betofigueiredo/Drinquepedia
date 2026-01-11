@@ -57,6 +57,17 @@ export const Route = createRootRoute({
       },
     ],
     links: [{ rel: 'stylesheet', href: appCss }],
+    scripts: [
+      {
+        src: 'https://www.googletagmanager.com/gtag/js?id=G-6SKGBZQZYE',
+        async: true,
+      },
+      {
+        src: '/google-analytics.js',
+        type: 'text/javascript',
+        async: true,
+      },
+    ],
   }),
   shellComponent: RootDocument,
   notFoundComponent: () => <NotFound404 />,
