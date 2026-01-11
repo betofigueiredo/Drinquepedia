@@ -1,3 +1,4 @@
+import { useSearch } from '@tanstack/react-router';
 import {
   PaginationContent,
   PaginationItem,
@@ -6,6 +7,7 @@ import {
   PaginationPrevious,
   Pagination as PaginationWrapper,
 } from '@/components/ui/pagination';
+import updateSearchParams from '@/utils/updateSearchParams';
 
 const Pagination = ({
   category,
@@ -16,6 +18,7 @@ const Pagination = ({
   page: number;
   totalCount: number;
 }) => {
+  const search = category ? {} : useSearch({ from: '/drinques/AaZ' });
   const perPage = category === 'caipirinhas' ? 50 : 20;
   const totalPages = Math.ceil(totalCount / perPage);
   const hasPrevious = page > 1;
@@ -26,8 +29,13 @@ const Pagination = ({
   const hasNext = page < totalPages;
 
   const toUrl = (p: number) => {
+    const searchParams = updateSearchParams({
+      search,
+      key: 'pagina',
+      value: String(p),
+    });
     const firstUrlPart = category ? `/drinques/${category}` : `/drinques/AaZ`;
-    return p === 1 ? firstUrlPart : `${firstUrlPart}?pagina=${p}`;
+    return `${firstUrlPart}${searchParams}`;
   };
 
   if (totalPages <= 1) {

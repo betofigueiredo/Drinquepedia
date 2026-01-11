@@ -20,8 +20,10 @@ const updateSearchParams = ({ search, key, value }: Props): string => {
     delete params[key];
   }
 
-  // Reset page to 1 if key is not 'page'
-  params.pagina = 1;
+  // Reset page to 1 if key is not 'pagina'
+  if (key !== 'pagina') {
+    params.pagina = 1;
+  }
 
   // Build the query string
   let result = '?';
