@@ -10,6 +10,7 @@ export const Route = createFileRoute('/drinques/smoothies')({
   loaderDeps: ({ search }) => ({ page: search.pagina }),
   loader: async ({ deps }) =>
     await getDrinks({ data: { category: 'smoothies', page: deps.page } }),
+  head: () => ({ meta: [{ title: 'Smoothies - Drinquepedia' }] }),
 });
 
 function Smoothies() {

@@ -10,6 +10,7 @@ export const Route = createFileRoute('/drinques/semalcool')({
   loaderDeps: ({ search }) => ({ page: search.pagina }),
   loader: async ({ deps }) =>
     await getDrinks({ data: { category: 'semalcool', page: deps.page } }),
+  head: () => ({ meta: [{ title: 'Sem Álcool - Drinquepedia' }] }),
 });
 
 function SemAlcool() {

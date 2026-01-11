@@ -10,6 +10,7 @@ export const Route = createFileRoute('/drinques/classicos')({
   loaderDeps: ({ search }) => ({ page: search.pagina }),
   loader: async ({ deps }) =>
     await getDrinks({ data: { category: 'classicos', page: deps.page } }),
+  head: () => ({ meta: [{ title: 'Clássicos - Drinquepedia' }] }),
 });
 
 function Classicos() {

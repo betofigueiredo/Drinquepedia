@@ -10,6 +10,7 @@ export const Route = createFileRoute('/drinques/tropicais')({
   loaderDeps: ({ search }) => ({ page: search.pagina }),
   loader: async ({ deps }) =>
     await getDrinks({ data: { category: 'tropicais', page: deps.page } }),
+  head: () => ({ meta: [{ title: 'Tropicais - Drinquepedia' }] }),
 });
 
 function Tropicais() {

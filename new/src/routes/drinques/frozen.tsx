@@ -10,6 +10,7 @@ export const Route = createFileRoute('/drinques/frozen')({
   loaderDeps: ({ search }) => ({ page: search.pagina }),
   loader: async ({ deps }) =>
     await getDrinks({ data: { category: 'frozen', page: deps.page } }),
+  head: () => ({ meta: [{ title: 'Frozen - Drinquepedia' }] }),
 });
 
 function Frozen() {

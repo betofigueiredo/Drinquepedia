@@ -20,6 +20,7 @@ export const Route = createFileRoute('/drinques/AaZ')({
     alcoholicContent: search.teor,
   }),
   loader: async ({ deps }) => await getDrinks({ data: deps }),
+  head: () => ({ meta: [{ title: 'Drinques de A a Z - Drinquepedia' }] }),
 });
 
 function AaZ() {

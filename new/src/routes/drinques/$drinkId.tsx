@@ -9,7 +9,23 @@ export const Route = createFileRoute('/drinques/$drinkId')({
   loader: async ({ params: { drinkId } }) =>
     await getDrink({ data: { drinkId: Number(drinkId) } }),
   head: ({ loaderData }) => ({
-    meta: [{ title: `${loaderData?.drink?.name} - Drinquepedia` }],
+    meta: [
+      { title: `${loaderData?.drink?.name} - Drinquepedia` },
+      { name: 'description', content: loaderData?.drink?.description || '' },
+      // Open Graph
+      {
+        property: 'og:title',
+        content: `${loaderData?.drink?.name} - Drinquepedia`,
+      },
+      {
+        property: 'og:description',
+        content: loaderData?.drink?.description || '',
+      },
+      {
+        property: 'og:image',
+        content: `/images/drinks/${loaderData?.drink?.oldId}g.jpg`,
+      },
+    ],
   }),
 });
 

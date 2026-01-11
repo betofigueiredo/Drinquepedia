@@ -10,6 +10,7 @@ export const Route = createFileRoute('/drinques/caipirinhas')({
   loaderDeps: ({ search }) => ({ page: search.pagina }),
   loader: async ({ deps }) =>
     await getDrinks({ data: { category: 'caipirinhas', page: deps.page } }),
+  head: () => ({ meta: [{ title: 'Caipirinhas - Drinquepedia' }] }),
 });
 
 function Caipirinhas() {

@@ -10,6 +10,7 @@ export const Route = createFileRoute('/drinques/quentes')({
   loaderDeps: ({ search }) => ({ page: search.pagina }),
   loader: async ({ deps }) =>
     await getDrinks({ data: { category: 'quentes', page: deps.page } }),
+  head: () => ({ meta: [{ title: 'Quentes - Drinquepedia' }] }),
 });
 
 function Quentes() {
