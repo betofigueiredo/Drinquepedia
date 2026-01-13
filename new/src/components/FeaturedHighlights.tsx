@@ -62,7 +62,7 @@ const FeaturedHighlights = () => {
       title: 'Drinques quentes para o inverno',
       description:
         'O frio chegou! Por isso separamos nossos melhores coquetéis para esquentar vocês nos dias mais frios. Aproveitem!',
-      link: '/dicas/10',
+      link: '/destaques/10',
     },
   ];
 
